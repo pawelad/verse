@@ -1,0 +1,9 @@
+Django>=1.10.6,<1.11
+djangorestframework>=3.6.2
+
+dj-database-url>=0.4.2
+gunicorn>=19.7.0
+markdown>=2.6.8
+psycopg2>=2.7.1
+python-decouple>=3.0
+whitenoise>=3.3.0

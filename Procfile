@@ -1,0 +1,1 @@
+web: gunicorn --pythonpath verse verse.wsgi
