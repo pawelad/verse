@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'verse',
+    'checkers',
 
     'rest_framework',
 ]
