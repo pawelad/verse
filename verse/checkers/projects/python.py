@@ -1,12 +1,12 @@
 """
-checkers for Python related projects
+Checkers for Python related projects
 """
-from checkers.base import BaseProject
+from checkers.base import BaseVersionChecker
 
 
-class PythonProject(BaseProject):
+class PythonVersionChecker(BaseVersionChecker):
     """
-    Python checker project
+    Python project checker
     """
     name = 'python'
     homepage = 'https://www.python.org/'
@@ -19,9 +19,9 @@ class PythonProject(BaseProject):
         return self._get_github_tags()
 
 
-class DjangoProject(BaseProject):
+class DjangoVersionChecker(BaseVersionChecker):
     """
-    Django checker project
+    Django project checker
     """
     name = 'django'
     homepage = 'https://www.djangoproject.com/'
@@ -34,9 +34,9 @@ class DjangoProject(BaseProject):
         return self._get_github_tags()
 
 
-class FlaskProject(BaseProject):
+class FlaskVersionChecker(BaseVersionChecker):
     """
-    Flask checker project
+    Flask project checker
     """
     name = 'flask'
     homepage = 'http://flask.pocoo.org/'

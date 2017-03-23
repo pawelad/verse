@@ -1,5 +1,5 @@
 """
-checker module utils
+Checker module misc utilities
 """
 from decouple import config
 from github3 import GitHub
@@ -18,6 +18,7 @@ def remove_prefix(text, prefix, silent=True):
     :returns: passed text with removed prefix
     :rtype: str
     :raises ValueError: if the string doesn't start with the passed prefix
+                        and `silent` is set to False
     """
     if text.startswith(prefix):
         return text[len(prefix):]

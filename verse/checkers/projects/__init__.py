@@ -1,8 +1,14 @@
+"""
+verse.checkers.projects
+
+Home of implemented projects checkers, loosely grouped into files
+"""
+from checkers.base import BaseVersionChecker
 from checkers.projects.python import (
-    PythonProject, DjangoProject, FlaskProject,
+    PythonVersionChecker, DjangoVersionChecker, FlaskVersionChecker,
 )
 
 
-AVAILABLE_PROJECTS = [
-    PythonProject, DjangoProject, FlaskProject,
-]
+AVAILABLE_CHECKERS = {
+    checker.name: checker for checker in BaseVersionChecker.__subclasses__()
+}

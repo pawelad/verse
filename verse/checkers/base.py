@@ -1,5 +1,5 @@
 """
-checker module base classes
+Checkers module base classes
 """
 from abc import ABCMeta, abstractmethod
 
@@ -8,9 +8,9 @@ from packaging.version import parse as parse_version
 from checkers.utils import remove_prefix, github_client
 
 
-class BaseProject(metaclass=ABCMeta):
+class BaseVersionChecker(metaclass=ABCMeta):
     """
-    Base project abstract class that all projects should inherit from
+    Base checker abstract class that all checkers should inherit from
     """
     name = None  # has to be unique
     homepage = None
@@ -18,12 +18,13 @@ class BaseProject(metaclass=ABCMeta):
 
     def _get_github_tags(self, github_url=None):
         """
-        Returns GitHub tags, normalized to `SimpleVersion` format
+        Yields GitHub tag names, serialized to `Version` object
 
         :param github_url: project GitHub repository URL
         :type github_url: str
         :returns: generator of project versions
-        :rtype: generator of str
+        :rtype: generator of packaging.version.Version
+        :raises ValueError: when passed URL is not a GitHub repository
         """
         if not github_url:
             github_url = self.repository
@@ -37,7 +38,7 @@ class BaseProject(metaclass=ABCMeta):
         owner, repo = remove_prefix(github_url, github_prefix).split('/')
         tags = github_client.repository(owner, repo).iter_tags()
         for tag in tags:
-            yield tag.name
+            yield parse_version(tag.name)
 
     @abstractmethod
     def get_versions(self):
@@ -57,13 +58,11 @@ class BaseProject(metaclass=ABCMeta):
         Returns latest project version
 
         :returns: latest version
-        :rtype: str
+        :rtype: packaging.version.Version
         """
         for version in self.get_versions():
-            parsed_version = parse_version(version)
-            if (not parsed_version.is_postrelease and
-                    not parsed_version.is_prerelease):
-                return version
+            if not version.is_postrelease and not version.is_prerelease:
+                return str(version)
 
     def get_latest_major_versions(self):
         """
@@ -81,16 +80,14 @@ class BaseProject(metaclass=ABCMeta):
         lookup = None
 
         for version in self.get_versions():
-            parsed_version = parse_version(version)
-            major = parsed_version._version.release[0]
+            major = version._version.release[0]
 
-            if (not parsed_version.is_postrelease and
-                    not parsed_version.is_prerelease):
+            if not version.is_postrelease and not version.is_prerelease:
                 if lookup is None:
                     lookup = major
 
                 if lookup == major:
-                    major_versions[str(major)] = version
+                    major_versions[str(major)] = str(version)
 
                     # We went through all major versions
                     if lookup == 0:
@@ -118,11 +115,9 @@ class BaseProject(metaclass=ABCMeta):
         lookup = None
 
         for version in self.get_versions():
-            parsed_version = parse_version(version)
-            major, minor = parsed_version._version.release[:2]
+            major, minor = version._version.release[:2]
 
-            if (not parsed_version.is_postrelease and
-                    not parsed_version.is_prerelease):
+            if not version.is_postrelease and not version.is_prerelease:
                 # First run overall or first on new major version,
                 # when we don't know the highest minor version is (3.0 -> 2.7)
                 if lookup is None or lookup == (major, None):
@@ -130,14 +125,16 @@ class BaseProject(metaclass=ABCMeta):
 
                 if lookup == (major, minor):
                     minor_ver = '{}.{}'.format(major, minor)
-                    minor_versions[minor_ver] = version
+                    minor_versions[minor_ver] = str(version)
 
                     # We went through all major versions
                     if lookup == (0, 0):
                         break
 
+                    # Jump from X.0 to X-1.?
                     if minor == 0:
                         lookup = (lookup[0] - 1, None)
+                    # Jump from X.N to X.N-1
                     else:
                         lookup = (lookup[0], lookup[1] - 1)
 

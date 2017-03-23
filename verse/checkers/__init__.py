@@ -1,3 +1,5 @@
 """
-verse.checkers - checks what's the latest verse
+verse.checkers
+
+Checks what's the latest verse
 """
