@@ -1,8 +1,8 @@
 from checkers.projects.python import (
-    PythonProject, DjangoProject,
+    PythonProject, DjangoProject, FlaskProject,
 )
 
 
 AVAILABLE_PROJECTS = [
-    PythonProject, DjangoProject,
+    PythonProject, DjangoProject, FlaskProject,
 ]

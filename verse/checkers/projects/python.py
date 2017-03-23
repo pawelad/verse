@@ -32,3 +32,18 @@ class DjangoProject(BaseProject):
         Get the versions from GitHub tags
         """
         return self._get_github_tags()
+
+
+class FlaskProject(BaseProject):
+    """
+    Flask checker project
+    """
+    name = 'flask'
+    homepage = 'http://flask.pocoo.org/'
+    repository = 'https://github.com/pallets/flask'
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        return self._get_github_tags()
