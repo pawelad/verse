@@ -12,7 +12,7 @@ class BaseProject(metaclass=ABCMeta):
     """
     Base project abstract class that all projects should inherit from
     """
-    name = None
+    name = None  # has to be unique
     homepage = None
     repository = None
 
@@ -57,10 +57,88 @@ class BaseProject(metaclass=ABCMeta):
         Returns latest project version
 
         :returns: latest version
-        :rtype: packaging.version.Version
+        :rtype: str
         """
         for version in self.get_versions():
             parsed_version = parse_version(version)
             if (not parsed_version.is_postrelease and
                     not parsed_version.is_prerelease):
-                return parsed_version
+                return version
+
+    def get_latest_major_versions(self):
+        """
+        Returns a dictionary of latest major versions
+        Example:
+            {
+                '2': '2.2.2',
+                '1': '1.5.9',
+            }
+
+        :returns: dictionary of latest major versions
+        :rtype: dict
+        """
+        major_versions = dict()
+        lookup = None
+
+        for version in self.get_versions():
+            parsed_version = parse_version(version)
+            major = parsed_version._version.release[0]
+
+            if (not parsed_version.is_postrelease and
+                    not parsed_version.is_prerelease):
+                if lookup is None:
+                    lookup = major
+
+                if lookup == major:
+                    major_versions[str(major)] = version
+
+                    # We went through all major versions
+                    if lookup == 0:
+                        break
+                    lookup -= 1
+
+        return major_versions
+
+    def get_latest_minor_versions(self):
+        """
+        Returns a dictionary of latest minor versions
+        Example:
+            {
+                '2.2': '2.2.2',
+                '2.1': '2.1.13',
+                '2.0': '2.0.1',
+                '1.1': '1.1.3',
+                '1.0': '1.0.9',
+            }
+
+        :returns: dictionary of latest minor versions
+        :rtype: dict
+        """
+        minor_versions = dict()
+        lookup = None
+
+        for version in self.get_versions():
+            parsed_version = parse_version(version)
+            major, minor = parsed_version._version.release[:2]
+
+            if (not parsed_version.is_postrelease and
+                    not parsed_version.is_prerelease):
+                # First run overall or first on new major version,
+                # when we don't know the highest minor version is (3.0 -> 2.7)
+                if lookup is None or lookup == (major, None):
+                    lookup = (major, minor)
+
+                if lookup == (major, minor):
+                    minor_ver = '{}.{}'.format(major, minor)
+                    minor_versions[minor_ver] = version
+
+                    # We went through all major versions
+                    if lookup == (0, 0):
+                        break
+
+                    if minor == 0:
+                        lookup = (lookup[0] - 1, None)
+                    else:
+                        lookup = (lookup[0], lookup[1] - 1)
+
+        return minor_versions
