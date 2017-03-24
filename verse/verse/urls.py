@@ -8,8 +8,10 @@ from django.contrib import admin
 
 
 urlpatterns = [
-    # Django REST Framework
-    url(r'^api-auth/', include('rest_framework.urls')),
+    # API
+    url(r'^api/v1/', include([
+        url(r'^', include('versions.urls', namespace='versions')),
+    ], namespace='api')),
 
     # Django Admin
     url(r'^django_admin/', admin.site.urls),
