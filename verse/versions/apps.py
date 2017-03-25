@@ -12,7 +12,7 @@ class VersionsAppConfig(AppConfig):
     Django AppConfig integration for `versions` module
     """
     name = 'versions'
-    verbose_name = "versions"
+    verbose_name = 'Project versions'
 
     def ready(self):
         # Delete cached projects list
