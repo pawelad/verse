@@ -6,21 +6,29 @@ from rest_framework.reverse import reverse
 from checkers.projects import AVAILABLE_CHECKERS
 
 
-def get_projects():
+def get_projects(request):
     """
     Helper method for generating a list available projects with links to
-    their endpoints. It can only change with code addition of new projects so
-    it makes sense to cache it on app restart.
+    their endpoints. It can only change with code addition and app restart so
+    it makes sense to cache it on first request after restart.
 
+    :param request: Django REST Framework request
+    :type request: rest_framework.request.Request
     :returns: available projects
     :rtype: dict
     """
     projects = dict()
     for project_class in AVAILABLE_CHECKERS.values():
         project = project_class()
-        latest_url = reverse('versions-detail', args=[project.name])
-        major_versions_url = reverse('versions-major', args=[project.name])
-        minor_versions_url = reverse('versions-minor', args=[project.name])
+        latest_url = reverse(
+            'versions-detail', args=[project.name], request=request,
+        )
+        major_versions_url = reverse(
+            'versions-major', args=[project.name], request=request,
+        )
+        minor_versions_url = reverse(
+            'versions-minor', args=[project.name], request=request,
+        )
 
         projects[project.name] = {
             'homepage': project.homepage,

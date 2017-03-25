@@ -15,9 +15,5 @@ class VersionsAppConfig(AppConfig):
     verbose_name = "versions"
 
     def ready(self):
-        # Update available projects cache
-        cache.set(
-            key=utils.AVAILABLE_PROJECTS_KEY,
-            value=utils.get_projects(),
-            timeout=None,  # This will be invalidated in app restart
-        )
+        # Delete cached projects list
+        cache.delete(key=utils.AVAILABLE_PROJECTS_KEY)
