@@ -19,7 +19,7 @@ class ProjectsVersionsViewSet(viewsets.ReadOnlyModelViewSet):
     """
     A viewset for listing and viewing project versions
     """
-    lookup_url_kwarg = 'name'
+    lookup_field = 'name'
 
     def get_object(self):
         """
@@ -69,7 +69,7 @@ class ProjectsVersionsViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(latest_versions)
 
     @detail_route(methods=['get'])
-    def minor(self, request, name, format=None):
+    def minor(self, request,  *args, **kwargs):
         """
         Returns project latest minor versions
         """
