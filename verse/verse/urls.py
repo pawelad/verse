@@ -6,12 +6,20 @@ from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
 
+from rest_framework.routers import SimpleRouter
+
+from versions import views
+
+
+router = SimpleRouter()
+router.register(r'', views.ProjectsVersionsViewSet, base_name='versions')
+
 
 urlpatterns = [
     # API
     url(r'^api/v1/', include([
-        url(r'^', include('versions.urls', namespace='versions')),
-    ], namespace='api')),
+        url(r'^', include(router.urls)),
+    ])),
 
     # Django Admin
     url(r'^django_admin/', admin.site.urls),
