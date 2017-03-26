@@ -35,7 +35,7 @@ class BaseVersionChecker(metaclass=ABCMeta):
                 "Passed URL is not a GitHub repository: {}".format(github_url)
             )
 
-        owner, repo = remove_prefix(github_url, github_prefix).split('/')
+        owner, repo = remove_prefix(github_url, github_prefix).split('/')[:2]
         tags = github_client.repository(owner, repo).iter_tags()
         for tag in tags:
             yield parse_version(tag.name)
