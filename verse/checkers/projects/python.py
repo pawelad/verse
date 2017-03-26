@@ -34,6 +34,21 @@ class DjangoVersionChecker(BaseVersionChecker):
         return self._get_github_tags()
 
 
+class DjangoRESTFrameworkVersionChecker(BaseVersionChecker):
+    """
+    Django REST Framework project checker
+    """
+    name = 'django-rest-framework'
+    homepage = 'http://www.django-rest-framework.org/'
+    repository = 'https://github.com/tomchristie/django-rest-framework'
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        return self._get_github_tags()
+
+
 class FlaskVersionChecker(BaseVersionChecker):
     """
     Flask project checker

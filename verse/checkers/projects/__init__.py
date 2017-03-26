@@ -5,7 +5,8 @@ Home of implemented projects checkers, loosely grouped into files
 """
 from checkers.base import BaseVersionChecker
 from checkers.projects.python import (
-    PythonVersionChecker, DjangoVersionChecker, FlaskVersionChecker,
+    PythonVersionChecker, DjangoVersionChecker,
+    DjangoRESTFrameworkVersionChecker, FlaskVersionChecker,
 )
 
 
