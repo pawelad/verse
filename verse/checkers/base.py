@@ -3,7 +3,7 @@ Checkers module base classes
 """
 from abc import ABCMeta, abstractmethod
 
-from packaging.version import parse as parse_version
+from packaging.version import Version, InvalidVersion
 
 from checkers.utils import remove_prefix, github_client
 
@@ -38,7 +38,12 @@ class BaseVersionChecker(metaclass=ABCMeta):
         owner, repo = remove_prefix(github_url, github_prefix).split('/')[:2]
         tags = github_client.repository(owner, repo).iter_tags()
         for tag in tags:
-            yield parse_version(tag.name)
+            try:
+                version = Version(tag.name)
+            except InvalidVersion:
+                continue
+
+            yield version
 
     @abstractmethod
     def get_versions(self):

@@ -7,7 +7,7 @@ from unittest.mock import MagicMock
 import pytest
 from github3.repos import Repository
 from github3.repos.tag import RepoTag
-from packaging.version import parse as parse_version
+from packaging.version import Version
 
 from checkers.base import BaseVersionChecker
 
@@ -39,7 +39,8 @@ class TestBaseVersionChecker:
 
         mocked_repo = MagicMock(autospec=Repository)
         mocked_tags = list()
-        for version in self.versions:
+        versions = ['foobar'] + self.versions
+        for version in versions:
             mocked_tag = MagicMock(autospec=RepoTag)
             mocked_tag.name = version
             mocked_tags.append(mocked_tag)
@@ -52,7 +53,7 @@ class TestBaseVersionChecker:
         assert inspect.isgenerator(result)
 
         result = list(result)
-        assert result == [parse_version(v) for v in self.versions]
+        assert result == [Version(v) for v in self.versions]
 
         mocked_github_client.repository.assert_called_once_with(
             'pawelad', 'verse',
@@ -68,7 +69,7 @@ class TestBaseVersionChecker:
         """Test `BaseVersionChecker.get_latest_version()` method"""
         mocker.patch.object(
             instance, 'get_versions',
-            return_value=[parse_version(v) for v in self.versions],
+            return_value=[Version(v) for v in self.versions],
         )
 
         assert instance.get_latest_version() == '2.1.1'
@@ -77,7 +78,7 @@ class TestBaseVersionChecker:
         """Test `BaseVersionChecker.get_latest_major_versions()` method"""
         mocker.patch.object(
             instance, 'get_versions',
-            return_value=[parse_version(v) for v in self.versions],
+            return_value=[Version(v) for v in self.versions],
         )
 
         assert instance.get_latest_major_versions() == {
@@ -89,7 +90,7 @@ class TestBaseVersionChecker:
         """Test `BaseVersionChecker.get_latest_minor_versions()` method"""
         mocker.patch.object(
             instance, 'get_versions',
-            return_value=[parse_version(v) for v in self.versions],
+            return_value=[Version(v) for v in self.versions],
         )
 
         assert instance.get_latest_minor_versions() == {
