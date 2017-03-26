@@ -77,3 +77,18 @@ class FlaskVersionChecker(BaseVersionChecker):
         Get the versions from GitHub tags
         """
         return self._get_github_tags()
+
+
+class ScrapyVersionChecker(BaseVersionChecker):
+    """
+    Scrapy project checker
+    """
+    name = 'scrapy'
+    homepage = 'https://scrapy.org/'
+    repository = 'https://github.com/scrapy/scrapy'
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        return self._get_github_tags()
