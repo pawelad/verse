@@ -7,7 +7,7 @@ from checkers.base import BaseVersionChecker
 from checkers.projects.python import (
     PythonVersionChecker, CeleryVersionChecker, DjangoVersionChecker,
     DjangoRESTFrameworkVersionChecker, FlaskVersionChecker,
-    ScrapyVersionChecker,
+    RequestsVersionChecker, ScrapyVersionChecker,
 )
 
 

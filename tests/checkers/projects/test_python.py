@@ -77,6 +77,20 @@ def test_flask_version_checker(mocker):
     mocked_get_github_tags.assert_called_once_with()
 
 
+def test_requests_version_checker(mocker):
+    """Test `python.RequestsVersionChecker` class"""
+    instance = python.RequestsVersionChecker()
+
+    assert instance.name == 'requests'
+    assert instance.homepage == 'http://docs.python-requests.org/'
+    assert instance.repository == 'https://github.com/kennethreitz/requests'
+
+    mocked_get_github_tags = mocker.patch.object(instance, '_get_github_tags')
+    instance.get_latest_version()
+
+    mocked_get_github_tags.assert_called_once_with()
+
+
 def test_scrapy_version_checker(mocker):
     """Test `python.ScrapyVersionChecker` class"""
     instance = python.ScrapyVersionChecker()

@@ -79,6 +79,21 @@ class FlaskVersionChecker(BaseVersionChecker):
         return self._get_github_tags()
 
 
+class RequestsVersionChecker(BaseVersionChecker):
+    """
+    Requests project checker
+    """
+    name = 'requests'
+    homepage = 'http://docs.python-requests.org/'
+    repository = 'https://github.com/kennethreitz/requests'
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        return self._get_github_tags()
+
+
 class ScrapyVersionChecker(BaseVersionChecker):
     """
     Scrapy project checker
