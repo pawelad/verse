@@ -1,6 +1,8 @@
 """
 Test `versions.views` file
 """
+from unittest.mock import MagicMock
+
 from django.http import Http404
 from django.utils.crypto import get_random_string
 
@@ -10,11 +12,11 @@ from rest_framework.test import APIClient
 
 import pytest
 
-from checkers.projects import PythonVersionChecker
+from checkers.base import BaseVersionChecker
 from versions.views import ProjectsVersionsViewSet
 
 
-available_projects = {'python': PythonVersionChecker}
+available_projects = {'python': MagicMock(spec=BaseVersionChecker)}
 
 
 class TestProjectsVersionsViewSet:
@@ -52,7 +54,7 @@ class TestProjectsVersionsViewSet:
         instance = self.view()
 
         instance.kwargs = {'name': 'python'}
-        assert isinstance(instance.get_object(), PythonVersionChecker)
+        assert isinstance(instance.get_object(), MagicMock)
 
         instance.kwargs = {'name': get_random_string()}
         with pytest.raises(Http404):
