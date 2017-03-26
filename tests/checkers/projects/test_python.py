@@ -77,6 +77,20 @@ def test_flask_version_checker(mocker):
     mocked_get_github_tags.assert_called_once_with()
 
 
+def test_gunicorn_version_checker(mocker):
+    """Test `python.GunicornVersionChecker` class"""
+    instance = python.GunicornVersionChecker()
+
+    assert instance.name == 'gunicorn'
+    assert instance.homepage == 'http://gunicorn.org/'
+    assert instance.repository == 'https://github.com/benoitc/gunicorn'
+
+    mocked_get_github_tags = mocker.patch.object(instance, '_get_github_tags')
+    instance.get_latest_version()
+
+    mocked_get_github_tags.assert_called_once_with()
+
+
 def test_requests_version_checker(mocker):
     """Test `python.RequestsVersionChecker` class"""
     instance = python.RequestsVersionChecker()

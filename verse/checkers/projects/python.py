@@ -79,6 +79,21 @@ class FlaskVersionChecker(BaseVersionChecker):
         return self._get_github_tags()
 
 
+class GunicornVersionChecker(BaseVersionChecker):
+    """
+    Gunicorn project checker
+    """
+    name = 'gunicorn'
+    homepage = 'http://gunicorn.org/'
+    repository = 'https://github.com/benoitc/gunicorn'
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        return self._get_github_tags()
+
+
 class RequestsVersionChecker(BaseVersionChecker):
     """
     Requests project checker
