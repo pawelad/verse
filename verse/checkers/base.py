@@ -16,12 +16,14 @@ class BaseVersionChecker(metaclass=ABCMeta):
     homepage = None
     repository = None
 
-    def _get_github_tags(self, github_url=None):
+    def _get_github_tags(self, github_url=None, normalize_func=None):
         """
         Yields GitHub tag names, serialized to `Version` object
 
         :param github_url: project GitHub repository URL
         :type github_url: str
+        :param normalize_func: function that normalizes tag name
+        :type normalize_func: callable
         :returns: generator of project versions
         :rtype: generator of packaging.version.Version
         :raises ValueError: when passed URL is not a GitHub repository
@@ -38,8 +40,17 @@ class BaseVersionChecker(metaclass=ABCMeta):
         owner, repo = remove_prefix(github_url, github_prefix).split('/')[:2]
         tags = github_client.repository(owner, repo).iter_tags()
         for tag in tags:
+            if normalize_func:
+                name = normalize_func(tag.name)
+            else:
+                name = tag.name
+
+            # Add a minor version if it's not there, i.e. v1 -> v1.0
+            if len(name.split('.')) == 1:
+                name += '.0'
+
             try:
-                version = Version(tag.name)
+                version = Version(name)
             except InvalidVersion:
                 continue
 
