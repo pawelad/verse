@@ -19,6 +19,21 @@ class PythonVersionChecker(BaseVersionChecker):
         return self._get_github_tags()
 
 
+class CeleryVersionChecker(BaseVersionChecker):
+    """
+    Celery project checker
+    """
+    name = 'celery'
+    homepage = 'http://www.celeryproject.org/'
+    repository = 'https://github.com/celery/celery'
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        return self._get_github_tags()
+
+
 class DjangoVersionChecker(BaseVersionChecker):
     """
     Django project checker

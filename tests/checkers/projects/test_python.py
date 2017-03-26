@@ -18,6 +18,20 @@ def test_python_version_checker(mocker):
     mocked_get_github_tags.assert_called_once_with()
 
 
+def test_celery_version_checker(mocker):
+    """Test `python.CeleryVersionChecker` class"""
+    instance = python.CeleryVersionChecker()
+
+    assert instance.name == 'celery'
+    assert instance.homepage == 'http://www.celeryproject.org/'
+    assert instance.repository == 'https://github.com/celery/celery'
+
+    mocked_get_github_tags = mocker.patch.object(instance, '_get_github_tags')
+    instance.get_latest_version()
+
+    mocked_get_github_tags.assert_called_once_with()
+
+
 def test_django_version_checker(mocker):
     """Test `python.DjangoVersionChecker` class"""
     instance = python.DjangoVersionChecker()
@@ -25,6 +39,23 @@ def test_django_version_checker(mocker):
     assert instance.name == 'django'
     assert instance.homepage == 'https://www.djangoproject.com/'
     assert instance.repository == 'https://github.com/django/django'
+
+    mocked_get_github_tags = mocker.patch.object(instance, '_get_github_tags')
+    instance.get_latest_version()
+
+    mocked_get_github_tags.assert_called_once_with()
+
+
+def test_django_rest_framework_version_checker(mocker):
+    """Test `python.DjangoRESTFrameworkVersionChecker` class"""
+    instance = python.DjangoRESTFrameworkVersionChecker()
+
+    assert instance.name == 'django-rest-framework'
+    assert instance.homepage == 'http://www.django-rest-framework.org/'
+    assert (
+        instance.repository ==
+        'https://github.com/tomchristie/django-rest-framework'
+    )
 
     mocked_get_github_tags = mocker.patch.object(instance, '_get_github_tags')
     instance.get_latest_version()
