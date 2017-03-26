@@ -129,12 +129,15 @@ class BaseVersionChecker(metaclass=ABCMeta):
             if not version.is_postrelease and not version.is_prerelease:
                 # First run overall or first on new major version,
                 # when we don't know the highest minor version is (3.0 -> 2.7)
-                if lookup is None or lookup == (major, None):
+                if lookup is None or lookup[1] is None:
                     lookup = (major, minor)
 
-                # When a version is skipped, i.e. 0.9 -> 2.0
+                # When a major version is skipped, i.e. 0.9.4 -> 2.0
                 if lookup[0] - major >= 1:
                     lookup = (lookup[0] - 1, minor)
+                # When a minor version is skipped, i.e. 0.4.3 -> 0.6.0
+                elif lookup[1] - minor >= 1:
+                    lookup = (lookup[0], lookup[1] - 1)
 
                 if lookup == (major, minor):
                     minor_ver = '{}.{}'.format(major, minor)
