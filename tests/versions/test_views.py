@@ -33,7 +33,7 @@ class TestProjectsVersionsViewSet:
         """Test view lookup field"""
         assert self.view.lookup_field == 'name'
 
-    @pytest.mark.parametrize('suffix,expected', [
+    @pytest.mark.parametrize('suffix, expected', [
         ('List', 'Projects list'),
         ('Instance', 'Latest project version'),
         ('Major', 'Latest major versions'),
@@ -60,20 +60,17 @@ class TestProjectsVersionsViewSet:
 
     def test_view_list_method(self, mocker):
         """Test view `list()` method"""
-        mocker.patch('versions.utils.AVAILABLE_CHECKERS', available_projects)
+        projects = {get_random_string(): get_random_string()}
+        mocked_get_or_set = mocker.patch('versions.views.cache.get_or_set')
+        mocked_get_or_set.return_value = projects
 
         url = reverse('{0.base_name}-list'.format(self))
         response = self.client.get(url)
 
         assert response.status_code == status.HTTP_200_OK
-        assert response.data == {
-            'python': {
-                'homepage': 'https://www.python.org/',
-                'latest': 'http://testserver/api/v1/python/',
-                'latest_major': 'http://testserver/api/v1/python/major/',
-                'latest_minor': 'http://testserver/api/v1/python/minor/'
-            },
-        }
+        assert response.data == projects
+
+        assert mocked_get_or_set.call_count == 1
 
     def test_view_retrieve_method(self, mocker):
         """Test view `retrieve()` method"""
