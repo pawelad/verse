@@ -19,7 +19,7 @@ class ProjectsVersionsViewSet(viewsets.ReadOnlyModelViewSet):
     """
     This API endpoint returns latest stable versions of available projects.
     It's readonly and has four simple methods:
-    
+
     - `/` returns a list of all available projects by name, with links to
       project specific endpoints
     - `/:project/` returns project latest stable version

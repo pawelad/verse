@@ -25,7 +25,8 @@ urlpatterns = [
         url(r'^', include(router.urls)),
     ])),
 
-    url(r'^docs/',
+    url(
+        r'^docs/',
         include_docs_urls(
             title="Verse API",
             description="Latest project versions, simplified and centralized",

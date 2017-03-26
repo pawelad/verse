@@ -1,6 +1,8 @@
 """
 Test `checkers.utils` file
 """
+from unittest.mock import Mock
+
 import pytest
 
 from checkers import utils
@@ -22,9 +24,9 @@ def test_remove_prefix_function():
 def test_get_github_api_client_function(mocker):
     """Test `utils.get_github_api_client()` function"""
     mocked_config = mocker.patch('checkers.utils.config', return_value='TOKEN')
-    mocked_github = mocker.patch('checkers.utils.GitHub', return_value='github')
+    mocked_github = mocker.patch('checkers.utils.GitHub')
 
-    assert utils.get_github_api_client() == 'github'
+    assert isinstance(utils.get_github_api_client(), Mock)
 
     mocked_config.assert_called_once_with('GITHUB_TOKEN')
     mocked_github.assert_called_once_with(token='TOKEN')

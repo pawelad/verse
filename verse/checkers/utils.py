@@ -41,4 +41,5 @@ def get_github_api_client():
     token = config('GITHUB_TOKEN')
     return GitHub(token=token)
 
+
 github_client = get_github_api_client()
