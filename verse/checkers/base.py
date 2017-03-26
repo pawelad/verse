@@ -86,6 +86,10 @@ class BaseVersionChecker(metaclass=ABCMeta):
                 if lookup is None:
                     lookup = major
 
+                # When a version is skipped, i.e. 0.9 -> 2.0
+                if lookup - major >= 1:
+                    lookup -= 1
+
                 if lookup == major:
                     major_versions[str(major)] = str(version)
 
@@ -122,6 +126,10 @@ class BaseVersionChecker(metaclass=ABCMeta):
                 # when we don't know the highest minor version is (3.0 -> 2.7)
                 if lookup is None or lookup == (major, None):
                     lookup = (major, minor)
+
+                # When a version is skipped, i.e. 0.9 -> 2.0
+                if lookup[0] - major >= 1:
+                    lookup = (lookup[0] - 1, minor)
 
                 if lookup == (major, minor):
                     minor_ver = '{}.{}'.format(major, minor)

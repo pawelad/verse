@@ -16,7 +16,7 @@ class TestBaseVersionChecker:
     """Test `BaseVersionChecker` class"""
     klass = BaseVersionChecker
     versions = [
-        'v1.1.2rc1', 'v1.1.1', 'v1.1', 'v1.0', 'v0.7.3', 'v0.7.2', 'v0.7.1',
+        'v2.1.2rc1', 'v2.1.1', 'v2.1', 'v2.0', 'v0.7.3', 'v0.7.2', 'v0.7.1',
         '0.7', '0.6.1', '0.6', '0.5', '0.4', '0.3.1', '0.3', '0.2', '0.1',
     ]
 
@@ -71,7 +71,7 @@ class TestBaseVersionChecker:
             return_value=[parse_version(v) for v in self.versions],
         )
 
-        assert instance.get_latest_version() == '1.1.1'
+        assert instance.get_latest_version() == '2.1.1'
 
     def test_class_get_latest_major_versions_method(self, mocker, instance):
         """Test `BaseVersionChecker.get_latest_major_versions()` method"""
@@ -81,7 +81,7 @@ class TestBaseVersionChecker:
         )
 
         assert instance.get_latest_major_versions() == {
-            '1': '1.1.1',
+            '2': '2.1.1',
             '0': '0.7.3',
         }
 
@@ -93,8 +93,8 @@ class TestBaseVersionChecker:
         )
 
         assert instance.get_latest_minor_versions() == {
-            '1.1': '1.1.1',
-            '1.0': '1.0',
+            '2.1': '2.1.1',
+            '2.0': '2.0',
             '0.7': '0.7.3',
             '0.6': '0.6.1',
             '0.5': '0.5',
