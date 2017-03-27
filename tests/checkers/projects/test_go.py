@@ -78,4 +78,4 @@ class TestKubernetesVersionChecker:
         )
         self.instance.get_latest_version()
 
-        mocked_get_github_tags.assert_called_once_with( )
+        mocked_get_github_tags.assert_called_once_with()

@@ -20,7 +20,7 @@ from checkers.projects.python import (  # noqa
     FlaskVersionChecker, GunicornVersionChecker, RequestsVersionChecker,
     ScrapyVersionChecker,
 )
-from checkers.projects.webservers import (
+from checkers.projects.webservers import (  # noqa
     ApacheVersionChecker, NginxVersionChecker,
 )
 
