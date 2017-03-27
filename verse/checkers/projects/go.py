@@ -67,3 +67,18 @@ class DockerVersionChecker(BaseVersionChecker):
         Get the versions from GitHub tags
         """
         return self._get_github_tags(normalize_func=self._normalize_tag_name)
+
+
+class KubernetesVersionChecker(BaseVersionChecker):
+    """
+    Kubernetes project checker
+    """
+    name = 'kubernetes'
+    homepage = 'https://kubernetes.io/'
+    repository = 'https://github.com/kubernetes/kubernetes'
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        return self._get_github_tags()
