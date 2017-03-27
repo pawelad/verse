@@ -1,5 +1,5 @@
 """
-Verse application main urls config
+Verse main urls config
 """
 from django.conf import settings
 from django.conf.urls import url, include

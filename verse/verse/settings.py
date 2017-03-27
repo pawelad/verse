@@ -1,5 +1,5 @@
 """
-Verse application Django settings file
+Verse Django settings file
 
 It uses `python-decouple` and `dj-database-url` libraries to get instance
 specific config from '.env' file and environment variables
@@ -118,3 +118,10 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 #############################
 # Third-party apps settings #
 #############################
+
+# celery
+CELERY_BROKER_URL = config(
+    'CELERY_BROKER_URL',
+    default='redis://127.0.0.1:6379/1',
+)
+CELERY_TASK_IGNORE_RESULT = True
