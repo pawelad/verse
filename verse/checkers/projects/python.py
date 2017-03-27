@@ -19,6 +19,21 @@ class PythonVersionChecker(BaseVersionChecker):
         return self._get_github_tags()
 
 
+class AnsibleVersionChecker(BaseVersionChecker):
+    """
+    Ansible project checker
+    """
+    name = 'ansible'
+    homepage = 'https://www.ansible.com/'
+    repository = 'https://github.com/ansible/ansible'
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        return self._get_github_tags()
+
+
 class CeleryVersionChecker(BaseVersionChecker):
     """
     Celery project checker

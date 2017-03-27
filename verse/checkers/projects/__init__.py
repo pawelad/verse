@@ -12,9 +12,10 @@ from checkers.projects.go import (  # noqa
     GoVersionChecker, DockerVersionChecker, KubernetesVersionChecker,
 )
 from checkers.projects.python import (  # noqa
-    PythonVersionChecker, CeleryVersionChecker, DjangoVersionChecker,
-    DjangoRESTFrameworkVersionChecker, FlaskVersionChecker,
-    GunicornVersionChecker, RequestsVersionChecker, ScrapyVersionChecker,
+    PythonVersionChecker, AnsibleVersionChecker, CeleryVersionChecker,
+    DjangoVersionChecker, DjangoRESTFrameworkVersionChecker,
+    FlaskVersionChecker, GunicornVersionChecker, RequestsVersionChecker,
+    ScrapyVersionChecker,
 )
 from checkers.projects.webservers import (
     ApacheVersionChecker, NginxVersionChecker,
