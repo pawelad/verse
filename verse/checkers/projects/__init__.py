@@ -13,7 +13,7 @@ from checkers.projects.python import (  # noqa
     GunicornVersionChecker, RequestsVersionChecker, ScrapyVersionChecker,
 )
 from checkers.projects.webservers import (
-    NginxVersionChecker,
+    ApacheVersionChecker, NginxVersionChecker,
 )
 
 

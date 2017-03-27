@@ -5,6 +5,21 @@ from checkers.base import BaseVersionChecker
 from checkers.utils import remove_prefix
 
 
+class ApacheVersionChecker(BaseVersionChecker):
+    """
+    Apache httpd project checker
+    """
+    name = 'apache-httpd'
+    homepage = 'http://httpd.apache.org/'
+    repository = 'https://github.com/apache/httpd'
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        return self._get_github_tags()
+
+
 class NginxVersionChecker(BaseVersionChecker):
     """
     Nginx project checker
