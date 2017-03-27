@@ -12,6 +12,9 @@ from checkers.projects.python import (  # noqa
     DjangoRESTFrameworkVersionChecker, FlaskVersionChecker,
     GunicornVersionChecker, RequestsVersionChecker, ScrapyVersionChecker,
 )
+from checkers.projects.webservers import (
+    NginxVersionChecker,
+)
 
 
 AVAILABLE_CHECKERS = {

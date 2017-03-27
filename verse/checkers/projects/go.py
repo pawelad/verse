@@ -2,7 +2,6 @@
 Checkers for Go related projects
 """
 from checkers.base import BaseVersionChecker
-
 from checkers.utils import remove_prefix
 
 
