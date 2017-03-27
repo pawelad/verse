@@ -17,3 +17,18 @@ class BootstrapVersionChecker(BaseVersionChecker):
         Get the versions from GitHub tags
         """
         return self._get_github_tags()
+
+
+class MDLVersionChecker(BaseVersionChecker):
+    """
+    Material Design Lite project checker
+    """
+    name = 'mdl'
+    homepage = 'https://getmdl.io/'
+    repository = 'https://github.com/google/material-design-lite'
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        return self._get_github_tags()
