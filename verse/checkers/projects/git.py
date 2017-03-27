@@ -17,3 +17,18 @@ class GitVersionChecker(BaseVersionChecker):
         Get the versions from GitHub tags
         """
         return self._get_github_tags()
+
+
+class GitLabVersionChecker(BaseVersionChecker):
+    """
+    GitLab project checker
+    """
+    name = 'gitlab'
+    homepage = 'https://gitlab.com'
+    repository = 'https://github.com/gitlabhq/gitlabhq'
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        return self._get_github_tags()
