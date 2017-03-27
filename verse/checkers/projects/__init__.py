@@ -5,7 +5,7 @@ Home of implemented projects checkers, loosely grouped into files
 """
 from checkers.base import BaseVersionChecker
 from checkers.projects.go import (  # noqa
-    GoVersionChecker
+    GoVersionChecker, DockerVersionChecker,
 )
 from checkers.projects.python import (  # noqa
     PythonVersionChecker, CeleryVersionChecker, DjangoVersionChecker,
