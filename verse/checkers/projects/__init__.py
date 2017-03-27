@@ -9,7 +9,7 @@ from checkers.projects.frontend_frameworks import (  # noqa
     BootstrapVersionChecker, FontAwesomeVersionChecker, MDLVersionChecker,
 )
 from checkers.projects.git import (  # noqa
-    GitVersionChecker, GitLabVersionChecker,
+    GitVersionChecker, GitLabVersionChecker, GogsVersionChecker,
 )
 from checkers.projects.go import (  # noqa
     GoVersionChecker, DockerVersionChecker, KubernetesVersionChecker,
