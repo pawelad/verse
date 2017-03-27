@@ -91,28 +91,24 @@ class BaseVersionChecker(metaclass=ABCMeta):
 
         :returns: dictionary of latest major versions
         :rtype: dict
+        :raises ValueError: when result of 'get_versions()' isn't sorted
         """
         major_versions = dict()
-        lookup = None
+        last = None
 
         for version in self.get_versions():
-            major = version._version.release[0]
-
             if not version.is_postrelease and not version.is_prerelease:
-                if lookup is None:
-                    lookup = major
+                major = version._version.release[0]
 
-                # When a version is skipped, i.e. 0.9 -> 2.0
-                if lookup - major >= 1:
-                    lookup -= 1
+                if last != major:
+                    # If it's already added then the versions aren't sorted
+                    if str(major) in major_versions:
+                        raise ValueError(
+                            "Result of 'get_versions()' isn't sorted"
+                        )
 
-                if lookup == major:
                     major_versions[str(major)] = str(version)
-
-                    # We went through all major versions
-                    if lookup == 0:
-                        break
-                    lookup -= 1
+                    last = major
 
         return major_versions
 
@@ -130,39 +126,26 @@ class BaseVersionChecker(metaclass=ABCMeta):
 
         :returns: dictionary of latest minor versions
         :rtype: dict
+        :raises ValueError: when result of 'get_versions()' isn't sorted
         """
         minor_versions = dict()
-        lookup = None
+        last = None
 
         for version in self.get_versions():
-            major, minor = version._version.release[:2]
-
             if not version.is_postrelease and not version.is_prerelease:
-                # First run overall or first on new major version,
-                # when we don't know the highest minor version is (3.0 -> 2.7)
-                if lookup is None or lookup[1] is None:
-                    lookup = (major, minor)
+                major, minor = version._version.release[:2]
 
-                # When a major version is skipped, i.e. 0.9.4 -> 2.0
-                if lookup[0] - major >= 1:
-                    lookup = (lookup[0] - 1, minor)
-                # When a minor version is skipped, i.e. 0.4.3 -> 0.6.0
-                elif lookup[1] - minor >= 1:
-                    lookup = (lookup[0], lookup[1] - 1)
+                if last != (major, minor):
+                    minor_version = '{}.{}'.format(major, minor)
 
-                if lookup == (major, minor):
-                    minor_ver = '{}.{}'.format(major, minor)
-                    minor_versions[minor_ver] = str(version)
+                    # If it's already added then the versions aren't sorted
+                    if minor_version in minor_versions:
+                        raise ValueError(
+                            "Result of 'get_versions()' isn't sorted"
+                        )
 
-                    # We went through all major versions
-                    if lookup == (0, 0):
-                        break
+                    minor_versions[minor_version] = str(version)
 
-                    # Jump from X.0 to X-1.?
-                    if minor == 0:
-                        lookup = (lookup[0] - 1, None)
-                    # Jump from X.N to X.N-1
-                    else:
-                        lookup = (lookup[0], lookup[1] - 1)
+                    last = (major, minor)
 
         return minor_versions
