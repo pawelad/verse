@@ -7,6 +7,36 @@ from checkers.base import BaseVersionChecker
 from checkers.utils import remove_prefix
 
 
+class CassandraVersionChecker(BaseVersionChecker):
+    """
+    Cassandra project checker
+    """
+    name = 'cassandra'
+    homepage = 'http://cassandra.apache.org/'
+    repository = 'https://github.com/apache/cassandra'
+
+    @staticmethod
+    def _normalize_tag_name(name):
+        """
+        Normalizes GitHub tag name to be a PEP 404 compliant version name,
+        which in this case means removing 'cassandra-' prefix
+        Example:
+           cassandra-3.0.12 -> 3.0.12
+
+        :param name: tag name
+        :type name: str
+        :returns: normalized version name
+        :rtype: str
+        """
+        return remove_prefix(name, 'cassandra-')
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        return self._get_github_tags(normalize_func=self._normalize_tag_name)
+
+
 class MongoDBVersionChecker(BaseVersionChecker):
     """
     MongoDB project checker
