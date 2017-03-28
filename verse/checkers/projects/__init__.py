@@ -32,6 +32,9 @@ from checkers.projects.python import (  # noqa
     FlaskVersionChecker, GunicornVersionChecker, RequestsVersionChecker,
     ScrapyVersionChecker,
 )
+from checkers.projects.ruby import (  # noqa
+    RubyVersionChecker,
+)
 from checkers.projects.webservers import (  # noqa
     ApacheVersionChecker, NginxVersionChecker,
 )
