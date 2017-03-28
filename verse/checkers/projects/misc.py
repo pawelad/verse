@@ -53,3 +53,18 @@ class RabbitMQVersionChecker(BaseVersionChecker):
         Get the versions from GitHub tags
         """
         return self._get_github_tags(normalize_func=self._normalize_tag_name)
+
+
+class SupervisorVersionChecker(BaseVersionChecker):
+    """
+    Supervisor project checker
+    """
+    name = 'supervisor'
+    homepage = 'http://supervisord.org/'
+    repository = 'https://github.com/Supervisor/supervisor'
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        return self._get_github_tags()

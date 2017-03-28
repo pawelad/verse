@@ -52,3 +52,26 @@ class TestRabbitMQVersionChecker:
         mocked_get_github_tags.assert_called_once_with(
             normalize_func=self.instance._normalize_tag_name,
         )
+
+
+class TestSupervisorVersionChecker:
+    """Test `misc.SupervisorVersionChecker` class"""
+    instance = misc.SupervisorVersionChecker()
+
+    def test_class_properties(self):
+        """Test class properties"""
+        assert self.instance.name == 'supervisor'
+        assert self.instance.homepage == 'http://supervisord.org/'
+        assert (
+            self.instance.repository ==
+            'https://github.com/Supervisor/supervisor'
+        )
+
+    def test_class_get_latest_version_method(self, mocker):
+        """Test class `get_latest_version()` method"""
+        mocked_get_github_tags = mocker.patch.object(
+            self.instance, '_get_github_tags',
+        )
+        self.instance.get_latest_version()
+
+        mocked_get_github_tags.assert_called_once_with()
