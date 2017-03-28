@@ -37,6 +37,21 @@ class CassandraVersionChecker(BaseVersionChecker):
         return self._get_github_tags(normalize_func=self._normalize_tag_name)
 
 
+class ElasticsearchVersionChecker(BaseVersionChecker):
+    """
+    Elasticsearch project checker
+    """
+    name = 'elasticsearch'
+    homepage = 'https://www.elastic.co/products/elasticsearch'
+    repository = 'https://github.com/elastic/elasticsearch'
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        return self._get_github_tags()
+
+
 class MongoDBVersionChecker(BaseVersionChecker):
     """
     MongoDB project checker

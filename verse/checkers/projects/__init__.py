@@ -19,7 +19,8 @@ from checkers.projects.go import (  # noqa
     GoVersionChecker, DockerVersionChecker, KubernetesVersionChecker,
 )
 from checkers.projects.nosql import (  # noqa
-    CassandraVersionChecker, MongoDBVersionChecker, RedisVersionChecker,
+    CassandraVersionChecker, ElasticsearchVersionChecker,
+    MongoDBVersionChecker, RedisVersionChecker,
 )
 from checkers.projects.python import (  # noqa
     PythonVersionChecker, AnsibleVersionChecker, CeleryVersionChecker,
