@@ -6,7 +6,7 @@ Home of implemented projects checkers, loosely grouped into files
 from checkers.base import BaseVersionChecker
 
 from checkers.projects.databases import (  # noqa
-    PostgreSQLVersionChecker,
+    MySQLVersionChecker, PostgreSQLVersionChecker,
 )
 from checkers.projects.frontend_frameworks import (  # noqa
     BootstrapVersionChecker, FontAwesomeVersionChecker, MDLVersionChecker,

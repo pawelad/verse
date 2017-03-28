@@ -46,7 +46,7 @@ class BaseVersionChecker(metaclass=ABCMeta):
                 name = tag.name
 
             # Add a minor version if it's not there, i.e. v1 -> v1.0
-            if len(name.split('.')) == 1:
+            if name and len(name.split('.')) == 1:
                 name += '.0'
 
             try:
