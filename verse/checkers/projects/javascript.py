@@ -6,6 +6,21 @@ import operator
 from checkers.base import BaseVersionChecker
 
 
+class AngularVersionChecker(BaseVersionChecker):
+    """
+    Angular project checker
+    """
+    name = 'angular'
+    homepage = 'https://angular.io/'
+    repository = 'https://github.com/angular/angular'
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        return self._get_github_tags()
+
+
 class BackboneVersionChecker(BaseVersionChecker):
     """
     Backbone project checker

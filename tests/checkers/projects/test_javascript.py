@@ -8,6 +8,26 @@ from packaging.version import Version
 from checkers.projects import javascript
 
 
+class TestAngularVersionChecker:
+    """Test `javascript.AngularVersionChecker` class"""
+    instance = javascript.AngularVersionChecker()
+
+    def test_class_properties(self):
+        """Test class properties"""
+        assert self.instance.name == 'angular'
+        assert self.instance.homepage == 'https://angular.io/'
+        assert self.instance.repository == 'https://github.com/angular/angular'
+
+    def test_class_get_latest_version_method(self, mocker):
+        """Test class `get_latest_version()` method"""
+        mocked_get_github_tags = mocker.patch.object(
+            self.instance, '_get_github_tags',
+        )
+        self.instance.get_latest_version()
+
+        mocked_get_github_tags.assert_called_once_with()
+
+
 class TestBackboneVersionChecker:
     """Test `javascript.BackboneVersionChecker` class"""
     instance = javascript.BackboneVersionChecker()
