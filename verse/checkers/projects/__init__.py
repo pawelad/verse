@@ -18,6 +18,9 @@ from checkers.projects.git import (  # noqa
 from checkers.projects.go import (  # noqa
     GoVersionChecker, DockerVersionChecker, KubernetesVersionChecker,
 )
+from checkers.projects.nosql import (  # noqa
+    RedisVersionChecker,
+)
 from checkers.projects.python import (  # noqa
     PythonVersionChecker, AnsibleVersionChecker, CeleryVersionChecker,
     DjangoVersionChecker, DjangoRESTFrameworkVersionChecker,

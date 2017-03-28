@@ -104,7 +104,8 @@ class BaseVersionChecker(metaclass=ABCMeta):
                     # If it's already added then the versions aren't sorted
                     if str(major) in major_versions:
                         raise ValueError(
-                            "Result of 'get_versions()' isn't sorted"
+                            "Result of 'get_versions()' isn't "
+                            "sorted:  {}".format(version)
                         )
 
                     major_versions[str(major)] = str(version)
@@ -141,7 +142,8 @@ class BaseVersionChecker(metaclass=ABCMeta):
                     # If it's already added then the versions aren't sorted
                     if minor_version in minor_versions:
                         raise ValueError(
-                            "Result of 'get_versions()' isn't sorted"
+                            "Result of 'get_versions()' isn't "
+                            "sorted:  {}".format(version)
                         )
 
                     minor_versions[minor_version] = str(version)

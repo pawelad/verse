@@ -116,7 +116,7 @@ class TestSQLiteVersionChecker:
 
     def test_class_normalize_tag_name_method(self):
         """Test class `_normalize_tag_name()` method"""
-        assert self.instance._normalize_tag_name('version-3.17.0 ') == '3.17.0'
+        assert self.instance._normalize_tag_name('version-3.17.0') == '3.17.0'
         assert self.instance._normalize_tag_name('3.17.0') == '3.17.0'
 
     def test_class_get_latest_version_method(self, mocker):
