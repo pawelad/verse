@@ -7,6 +7,7 @@ from checkers.base import BaseVersionChecker
 
 from checkers.projects.databases import (  # noqa
     MySQLVersionChecker, MySQLClusterVersionChecker, PostgreSQLVersionChecker,
+    SQLiteVersionChecker,
 )
 from checkers.projects.frontend_frameworks import (  # noqa
     BootstrapVersionChecker, FontAwesomeVersionChecker, MDLVersionChecker,
