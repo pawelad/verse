@@ -4,6 +4,26 @@ Test `checkers.projects.javascript` file
 from checkers.projects import javascript
 
 
+class TestD3JSVersionChecker:
+    """Test `javascript.D3JSVersionChecker` class"""
+    instance = javascript.D3JSVersionChecker()
+
+    def test_class_properties(self):
+        """Test class properties"""
+        assert self.instance.name == 'd3js'
+        assert self.instance.homepage == 'https://d3js.org/'
+        assert self.instance.repository == 'https://github.com/d3/d3'
+
+    def test_class_get_latest_version_method(self, mocker):
+        """Test class `get_latest_version()` method"""
+        mocked_get_github_tags = mocker.patch.object(
+            self.instance, '_get_github_tags',
+        )
+        self.instance.get_latest_version()
+
+        mocked_get_github_tags.assert_called_once_with()
+
+
 class TestjQueryVersionChecker:
     """Test `javascript.jQueryVersionChecker` class"""
     instance = javascript.jQueryVersionChecker()

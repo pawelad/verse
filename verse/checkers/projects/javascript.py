@@ -5,6 +5,21 @@ from checkers.base import BaseVersionChecker
 from checkers.utils import remove_prefix
 
 
+class D3JSVersionChecker(BaseVersionChecker):
+    """
+    D3.js project checker
+    """
+    name = 'd3js'
+    homepage = 'https://d3js.org/'
+    repository = 'https://github.com/d3/d3'
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        return self._get_github_tags()
+
+
 class jQueryVersionChecker(BaseVersionChecker):
     """
     jQuery project checker
