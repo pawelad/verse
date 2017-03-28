@@ -19,7 +19,7 @@ from checkers.projects.go import (  # noqa
     GoVersionChecker, DockerVersionChecker, KubernetesVersionChecker,
 )
 from checkers.projects.misc import (  # noqa
-    LinuxKernelVersionChecker,
+    LinuxKernelVersionChecker, RabbitMQVersionChecker
 )
 from checkers.projects.nosql import (  # noqa
     CassandraVersionChecker, ElasticsearchVersionChecker,
