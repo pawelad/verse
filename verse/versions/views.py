@@ -56,7 +56,7 @@ class ProjectsVersionsViewSet(viewsets.ReadOnlyModelViewSet):
         project_name = self.kwargs.get('name', None)
 
         try:
-            return AVAILABLE_CHECKERS[project_name]()
+            return AVAILABLE_CHECKERS[project_name]
         except KeyError:
             raise Http404
 
@@ -81,6 +81,7 @@ class ProjectsVersionsViewSet(viewsets.ReadOnlyModelViewSet):
         """
         project = self.get_object()
         latest_version = get_latest_version(project)
+
         return Response({
             'latest': latest_version,
         })
@@ -92,6 +93,7 @@ class ProjectsVersionsViewSet(viewsets.ReadOnlyModelViewSet):
         """
         project = self.get_object()
         latest_versions = get_latest_major_versions(project)
+
         return Response(latest_versions)
 
     @detail_route(methods=['get'], suffix='Minor')
@@ -101,4 +103,5 @@ class ProjectsVersionsViewSet(viewsets.ReadOnlyModelViewSet):
         """
         project = self.get_object()
         latest_versions = get_latest_minor_versions(project)
+
         return Response(latest_versions)

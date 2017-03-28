@@ -1,77 +1,94 @@
 """
 Test `checkers.projects.frontend_frameworks` file
 """
+import pytest
+
 from checkers.projects import frontend_frameworks
 
 
 class TestBootstrapVersionChecker:
-    """Test `frontend_frameworks.BootstrapVersionChecker` class"""
-    instance = frontend_frameworks.BootstrapVersionChecker()
+    """
+    Test `frontend_frameworks.BootstrapVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return frontend_frameworks.BootstrapVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'bootstrap'
-        assert self.instance.homepage == 'http://getbootstrap.com/'
-        assert self.instance.repository == 'https://github.com/twbs/bootstrap'
+        assert instance.name == 'bootstrap'
+        assert instance.homepage == 'http://getbootstrap.com/'
+        assert instance.repository == 'https://github.com/twbs/bootstrap'
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with()
 
 
 class TestMDLVersionChecker:
-    """Test `frontend_frameworks.MDLVersionChecker` class"""
-    instance = frontend_frameworks.MDLVersionChecker()
+    """
+    Test `frontend_frameworks.MDLVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return frontend_frameworks.MDLVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'mdl'
-        assert self.instance.homepage == 'https://getmdl.io/'
+        assert instance.name == 'mdl'
+        assert instance.homepage == 'https://getmdl.io/'
         assert (
-            self.instance.repository ==
+            instance.repository ==
             'https://github.com/google/material-design-lite'
         )
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with()
 
 
 class TestFontAwesomeVersionChecker:
-    """Test `frontend_frameworks.FontAwesomeVersionChecker` class"""
-    instance = frontend_frameworks.FontAwesomeVersionChecker()
+    """
+    Test `frontend_frameworks.FontAwesomeVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return frontend_frameworks.FontAwesomeVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'font-awesome'
-        assert self.instance.homepage == 'http://fontawesome.io/'
+        assert instance.name == 'font-awesome'
+        assert instance.homepage == 'http://fontawesome.io/'
         assert (
-            self.instance.repository ==
+            instance.repository ==
             'https://github.com/FortAwesome/Font-Awesome'
         )
 
-    def test_class_normalize_tag_name_method(self):
+    def test_class_normalize_tag_name_method(self, instance):
         """Test class `_normalize_tag_name()` method"""
-        assert self.instance._normalize_tag_name('v1.2.3') == 'v1.2.3'
-        assert self.instance._normalize_tag_name('4.1.0') == ''
+        assert instance._normalize_tag_name('v1.2.3') == 'v1.2.3'
+        assert instance._normalize_tag_name('4.1.0') == ''
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with(
-            normalize_func=self.instance._normalize_tag_name
+            normalize_func=instance._normalize_tag_name
         )

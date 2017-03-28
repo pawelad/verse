@@ -1,7 +1,7 @@
 """
 verse - Latest project versions, simplified and centralized
 """
-from verse.celery import app as celery_app
+from verse.celery import app as celery_app  # noqa
 
 
 __title__ = 'verse'

@@ -18,8 +18,7 @@ def get_projects(request):
     :rtype: dict
     """
     projects = dict()
-    for project_class in AVAILABLE_CHECKERS.values():
-        project = project_class()
+    for project in AVAILABLE_CHECKERS.values():
         latest_url = reverse(
             'versions-detail', args=[project.name], request=request,
         )

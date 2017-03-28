@@ -1,131 +1,138 @@
 """
 Test `checkers.projects.databases` file
 """
+import pytest
+
 from checkers.projects import databases
 
 
 class TestMySQLVersionChecker:
-    """Test `databases.MySQLVersionChecker` class"""
-    instance = databases.MySQLVersionChecker()
+    """
+    Test `databases.MySQLVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return databases.MySQLVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'mysql'
-        assert self.instance.homepage == 'https://www.mysql.com/'
-        assert (
-            self.instance.repository ==
-            'https://github.com/mysql/mysql-server'
-        )
+        assert instance.name == 'mysql'
+        assert instance.homepage == 'https://www.mysql.com/'
+        assert instance.repository == 'https://github.com/mysql/mysql-server'
 
-    def test_class_normalize_tag_name_method(self):
+    def test_class_normalize_tag_name_method(self, instance):
         """Test class `_normalize_tag_name()` method"""
-        assert self.instance._normalize_tag_name('mysql-cluster-7.4.14') == ''
-        assert (
-            self.instance._normalize_tag_name('mysql-8.0.0') ==
-            'mysql-8.0.0rc1'
-        )
-        assert self.instance._normalize_tag_name('mysql-5.6.35') == '5.6.35'
-        assert self.instance._normalize_tag_name('5.6.35') == '5.6.35'
+        assert instance._normalize_tag_name('mysql-cluster-7.4.14') == ''
+        assert instance._normalize_tag_name('mysql-8.0.0') == 'mysql-8.0.0rc1'
+        assert instance._normalize_tag_name('mysql-5.6.35') == '5.6.35'
+        assert instance._normalize_tag_name('5.6.35') == '5.6.35'
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with(
-            normalize_func=self.instance._normalize_tag_name,
+            normalize_func=instance._normalize_tag_name,
         )
 
 
 class TestMySQLClusterVersionChecker:
-    """Test `databases.MySQLClusterVersionChecker` class"""
-    instance = databases.MySQLClusterVersionChecker()
+    """
+    Test `databases.MySQLClusterVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return databases.MySQLClusterVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'mysql-cluster'
-        assert self.instance.homepage == 'https://www.mysql.com/'
-        assert (
-            self.instance.repository ==
-            'https://github.com/mysql/mysql-server'
-        )
+        assert instance.name == 'mysql-cluster'
+        assert instance.homepage == 'https://www.mysql.com/'
+        assert instance.repository == 'https://github.com/mysql/mysql-server'
 
-    def test_class_normalize_tag_name_method(self):
+    def test_class_normalize_tag_name_method(self, instance):
         """Test class `_normalize_tag_name()` method"""
-        assert self.instance._normalize_tag_name('mysql-5.6.35') == ''
-        assert (
-            self.instance._normalize_tag_name('mysql-cluster-7.4.14') ==
-            '7.4.14'
-        )
-        assert self.instance._normalize_tag_name('7.4.14') == '7.4.14'
+        assert instance._normalize_tag_name('mysql-5.6.35') == ''
+        assert instance._normalize_tag_name('mysql-cluster-7.4.14') == '7.4.14'
+        assert instance._normalize_tag_name('7.4.14') == '7.4.14'
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with(
-            normalize_func=self.instance._normalize_tag_name,
+            normalize_func=instance._normalize_tag_name,
         )
 
 
 class TestPostgreSQLVersionChecker:
-    """Test `databases.PostgreSQLVersionChecker` class"""
-    instance = databases.PostgreSQLVersionChecker()
+    """
+    Test `databases.PostgreSQLVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return databases.PostgreSQLVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'postgresql'
-        assert self.instance.homepage == 'https://www.postgresql.org/'
-        assert (
-            self.instance.repository ==
-            'https://github.com/postgres/postgres'
-        )
+        assert instance.name == 'postgresql'
+        assert instance.homepage == 'https://www.postgresql.org/'
+        assert instance.repository == 'https://github.com/postgres/postgres'
 
-    def test_class_normalize_tag_name_method(self):
+    def test_class_normalize_tag_name_method(self, instance):
         """Test class `_normalize_tag_name()` method"""
-        assert self.instance._normalize_tag_name('REL9_2_20') == '9.2.20'
-        assert self.instance._normalize_tag_name('9_2_20') == '9.2.20'
-        assert self.instance._normalize_tag_name('9.2.20') == '9.2.20'
+        assert instance._normalize_tag_name('REL9_2_20') == '9.2.20'
+        assert instance._normalize_tag_name('9_2_20') == '9.2.20'
+        assert instance._normalize_tag_name('9.2.20') == '9.2.20'
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with(
-            normalize_func=self.instance._normalize_tag_name,
+            normalize_func=instance._normalize_tag_name,
         )
 
 
 class TestSQLiteVersionChecker:
-    """Test `databases.SQLiteVersionChecker` class"""
-    instance = databases.SQLiteVersionChecker()
+    """
+    Test `databases.SQLiteVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return databases.SQLiteVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'sqlite'
-        assert self.instance.homepage == 'https://www.sqlite.org/'
-        assert self.instance.repository == 'https://github.com/mackyle/sqlite'
+        assert instance.name == 'sqlite'
+        assert instance.homepage == 'https://www.sqlite.org/'
+        assert instance.repository == 'https://github.com/mackyle/sqlite'
 
-    def test_class_normalize_tag_name_method(self):
+    def test_class_normalize_tag_name_method(self, instance):
         """Test class `_normalize_tag_name()` method"""
-        assert self.instance._normalize_tag_name('version-3.17.0') == '3.17.0'
-        assert self.instance._normalize_tag_name('3.17.0') == '3.17.0'
+        assert instance._normalize_tag_name('version-3.17.0') == '3.17.0'
+        assert instance._normalize_tag_name('3.17.0') == '3.17.0'
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with(
-            normalize_func=self.instance._normalize_tag_name,
+            normalize_func=instance._normalize_tag_name,
         )

@@ -1,67 +1,81 @@
 """
 Test `checkers.projects.git` file
 """
+import pytest
+
 from checkers.projects import git
 
 
 class TestGitVersionChecker:
-    """Test `git.GitVersionChecker` class"""
-    instance = git.GitVersionChecker()
+    """
+    Test `git.GitVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return git.GitVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'git'
-        assert self.instance.homepage == 'https://git-scm.com/'
-        assert self.instance.repository == 'https://github.com/git/git'
+        assert instance.name == 'git'
+        assert instance.homepage == 'https://git-scm.com/'
+        assert instance.repository == 'https://github.com/git/git'
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with()
 
 
 class TestGitLabVersionChecker:
-    """Test `git.GitLabVersionChecker` class"""
-    instance = git.GitLabVersionChecker()
+    """
+    Test `git.GitLabVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return git.GitLabVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'gitlab'
-        assert self.instance.homepage == 'https://gitlab.com'
-        assert (
-            self.instance.repository ==
-            'https://github.com/gitlabhq/gitlabhq'
+        assert instance.name == 'gitlab'
+        assert instance.homepage == 'https://gitlab.com'
+        assert instance.repository == 'https://github.com/gitlabhq/gitlabhq'
+
+    def test_class_get_latest_version_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
+        mocked_get_github_tags = mocker.patch.object(
+            instance, '_get_github_tags',
         )
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
-        mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
-        )
-        self.instance.get_latest_version()
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with()
 
 
 class TestGogsVersionChecker:
-    """Test `git.GogsVersionChecker` class"""
-    instance = git.GogsVersionChecker()
+    """
+    Test `git.GogsVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return git.GogsVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'gogs'
-        assert self.instance.homepage == 'https://gogs.io/'
-        assert self.instance.repository == 'https://github.com/gogits/gogs'
+        assert instance.name == 'gogs'
+        assert instance.homepage == 'https://gogs.io/'
+        assert instance.repository == 'https://github.com/gogits/gogs'
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with()

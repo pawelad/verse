@@ -1,81 +1,98 @@
 """
 Test `checkers.projects.go` file
 """
+import pytest
+
 from checkers.projects import go
 
 
 class TestGoVersionChecker:
-    """Test `go.GoVersionChecker` class"""
-    instance = go.GoVersionChecker()
+    """
+    Test `go.GoVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return go.GoVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'go'
-        assert self.instance.homepage == 'https://golang.org/'
-        assert self.instance.repository == 'https://github.com/golang/go'
+        assert instance.name == 'go'
+        assert instance.homepage == 'https://golang.org/'
+        assert instance.repository == 'https://github.com/golang/go'
 
-    def test_class_normalize_tag_name_method(self):
+    def test_class_normalize_tag_name_method(self, instance):
         """Test class `_normalize_tag_name()` method"""
-        assert self.instance._normalize_tag_name('go1.8') == '1.8'
-        assert self.instance._normalize_tag_name('1.8') == '1.8'
+        assert instance._normalize_tag_name('go1.8') == '1.8'
+        assert instance._normalize_tag_name('1.8') == '1.8'
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with(
-            normalize_func=self.instance._normalize_tag_name
+            normalize_func=instance._normalize_tag_name,
         )
 
 
 class TestDockerVersionChecker:
-    """Test `go.DockerVersionChecker` class"""
-    instance = go.DockerVersionChecker()
+    """
+    Test `go.DockerVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return go.DockerVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'docker'
-        assert self.instance.homepage == 'https://www.docker.com/'
-        assert self.instance.repository == 'https://github.com/docker/docker'
+        assert instance.name == 'docker'
+        assert instance.homepage == 'https://www.docker.com/'
+        assert instance.repository == 'https://github.com/docker/docker'
 
-    def test_class_normalize_tag_name_method(self):
+    def test_class_normalize_tag_name_method(self, instance):
         """Test class `_normalize_tag_name()` method"""
-        assert self.instance._normalize_tag_name('v17.03.0-ce') == 'v17.03.0'
-        assert self.instance._normalize_tag_name('v17.03.0') == 'v17.03.0'
+        assert instance._normalize_tag_name('v17.03.0-ce') == 'v17.03.0'
+        assert instance._normalize_tag_name('v17.03.0') == 'v17.03.0'
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with(
-            normalize_func=self.instance._normalize_tag_name
+            normalize_func=instance._normalize_tag_name,
         )
 
 
 class TestKubernetesVersionChecker:
-    """Test `go.KubernetesVersionChecker` class"""
-    instance = go.KubernetesVersionChecker()
+    """
+    Test `go.KubernetesVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return go.KubernetesVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'kubernetes'
-        assert self.instance.homepage == 'https://kubernetes.io/'
+        assert instance.name == 'kubernetes'
+        assert instance.homepage == 'https://kubernetes.io/'
         assert (
-            self.instance.repository ==
+            instance.repository ==
             'https://github.com/kubernetes/kubernetes'
         )
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with()

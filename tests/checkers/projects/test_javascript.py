@@ -3,175 +3,209 @@ Test `checkers.projects.javascript` file
 """
 import operator
 
+import pytest
 from packaging.version import Version
 
 from checkers.projects import javascript
 
 
 class TestAngularVersionChecker:
-    """Test `javascript.AngularVersionChecker` class"""
-    instance = javascript.AngularVersionChecker()
+    """
+    Test `javascript.AngularVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return javascript.AngularVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'angular'
-        assert self.instance.homepage == 'https://angular.io/'
-        assert self.instance.repository == 'https://github.com/angular/angular'
+        assert instance.name == 'angular'
+        assert instance.homepage == 'https://angular.io/'
+        assert instance.repository == 'https://github.com/angular/angular'
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with()
 
 
 class TestBackboneVersionChecker:
-    """Test `javascript.BackboneVersionChecker` class"""
-    instance = javascript.BackboneVersionChecker()
+    """
+    Test `javascript.BackboneVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return javascript.BackboneVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'backbone'
-        assert self.instance.homepage == 'http://backbonejs.org/'
-        assert (
-            self.instance.repository ==
-            'https://github.com/jashkenas/backbone'
+        assert instance.name == 'backbone'
+        assert instance.homepage == 'http://backbonejs.org/'
+        assert instance.repository == 'https://github.com/jashkenas/backbone'
+
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
+        mocked_get_github_tags = mocker.patch.object(
+            instance, '_get_github_tags',
         )
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
-        mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
-        )
-        self.instance.get_latest_version()
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with()
 
 
 class TestD3JSVersionChecker:
-    """Test `javascript.D3JSVersionChecker` class"""
-    instance = javascript.D3JSVersionChecker()
+    """
+    Test `javascript.D3JSVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return javascript.D3JSVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'd3js'
-        assert self.instance.homepage == 'https://d3js.org/'
-        assert self.instance.repository == 'https://github.com/d3/d3'
+        assert instance.name == 'd3js'
+        assert instance.homepage == 'https://d3js.org/'
+        assert instance.repository == 'https://github.com/d3/d3'
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with()
 
 
 class TestEmberJSVersionChecker:
-    """Test `javascript.EmberJSVersionChecker` class"""
-    instance = javascript.EmberJSVersionChecker()
+    """
+    Test `javascript.EmberJSVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return javascript.EmberJSVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'emberjs'
-        assert self.instance.homepage == 'https://www.emberjs.com/'
-        assert (
-            self.instance.repository ==
-            'https://github.com/emberjs/ember.js'
+        assert instance.name == 'emberjs'
+        assert instance.homepage == 'https://www.emberjs.com/'
+        assert instance.repository == 'https://github.com/emberjs/ember.js'
+
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
+        mocked_get_github_tags = mocker.patch.object(
+            instance, '_get_github_tags',
         )
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
-        mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
-        )
-        self.instance.get_latest_version()
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with()
 
 
 class TestjQueryVersionChecker:
-    """Test `javascript.jQueryVersionChecker` class"""
-    instance = javascript.jQueryVersionChecker()
+    """
+    Test `javascript.jQueryVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return javascript.jQueryVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'jquery'
-        assert self.instance.homepage == 'https://jquery.com/'
-        assert self.instance.repository == 'https://github.com/jquery/jquery'
+        assert instance.name == 'jquery'
+        assert instance.homepage == 'https://jquery.com/'
+        assert instance.repository == 'https://github.com/jquery/jquery'
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with()
 
 
 class TestNodeJSVersionChecker:
-    """Test `javascript.NodeJSVersionChecker` class"""
-    instance = javascript.NodeJSVersionChecker()
+    """
+    Test `javascript.NodeJSVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return javascript.NodeJSVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'nodejs'
-        assert self.instance.homepage == 'https://nodejs.org/'
-        assert self.instance.repository == 'https://github.com/nodejs/node'
+        assert instance.name == 'nodejs'
+        assert instance.homepage == 'https://nodejs.org/'
+        assert instance.repository == 'https://github.com/nodejs/node'
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with()
 
 
 class TestReactVersionChecker:
-    """Test `javascript.ReactVersionChecker` class"""
-    instance = javascript.ReactVersionChecker()
+    """
+    Test `javascript.ReactVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return javascript.ReactVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'react'
-        assert self.instance.homepage == 'https://facebook.github.io/react/'
-        assert self.instance.repository == 'https://github.com/facebook/react'
+        assert instance.name == 'react'
+        assert instance.homepage == 'https://facebook.github.io/react/'
+        assert instance.repository == 'https://github.com/facebook/react'
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with()
 
 
 class TestVueJSVersionChecker:
-    """Test `javascript.VueJSVersionChecker` class"""
-    instance = javascript.VueJSVersionChecker()
+    """
+    Test `javascript.VueJSVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return javascript.VueJSVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'vuejs'
-        assert self.instance.homepage == 'http://vuejs.org/'
-        assert self.instance.repository == 'https://github.com/vuejs/vue'
+        assert instance.name == 'vuejs'
+        assert instance.homepage == 'http://vuejs.org/'
+        assert instance.repository == 'https://github.com/vuejs/vue'
 
-    def test_class_get_versions_method(self, mocker):
+    def test_class_get_versions_method(self, mocker, instance):
         """Test class `get_versions()` method"""
         versions = [
             Version(v) for v in
             ['v1.3.2', 'v1.3.1', 'v1.3.0', '3.2.8']
         ]
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags', return_value=versions,
+            instance, '_get_github_tags', return_value=versions,
         )
 
         sorted_versions = sorted(
@@ -180,6 +214,6 @@ class TestVueJSVersionChecker:
             reverse=True,
         )
 
-        assert self.instance.get_versions() == sorted_versions
+        assert instance.get_versions() == sorted_versions
 
         mocked_get_github_tags.assert_called_once_with()

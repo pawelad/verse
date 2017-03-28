@@ -1,196 +1,237 @@
 """
 Test `checkers.projects.python` file
 """
+import pytest
+
 from checkers.projects import python
 
 
 class TestPythonVersionChecker:
-    """Test `python.PythonVersionChecker` class"""
-    instance = python.PythonVersionChecker()
+    """
+    Test `python.PythonVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return python.PythonVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'python'
-        assert self.instance.homepage == 'https://www.python.org/'
-        assert self.instance.repository == 'https://github.com/python/cpython'
+        assert instance.name == 'python'
+        assert instance.homepage == 'https://www.python.org/'
+        assert instance.repository == 'https://github.com/python/cpython'
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with()
 
 
 class TestAnsibleVersionChecker:
-    """Test `python.AnsibleVersionChecker` class"""
-    instance = python.AnsibleVersionChecker()
+    """
+    Test `python.AnsibleVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return python.AnsibleVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'ansible'
-        assert self.instance.homepage == 'https://www.ansible.com/'
-        assert self.instance.repository == 'https://github.com/ansible/ansible'
+        assert instance.name == 'ansible'
+        assert instance.homepage == 'https://www.ansible.com/'
+        assert instance.repository == 'https://github.com/ansible/ansible'
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with()
 
 
 class TestCeleryVersionChecker:
-    """Test `python.CeleryVersionChecker` class"""
-    instance = python.CeleryVersionChecker()
+    """
+    Test `python.CeleryVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return python.CeleryVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'celery'
-        assert self.instance.homepage == 'http://www.celeryproject.org/'
-        assert self.instance.repository == 'https://github.com/celery/celery'
+        assert instance.name == 'celery'
+        assert instance.homepage == 'http://www.celeryproject.org/'
+        assert instance.repository == 'https://github.com/celery/celery'
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with()
 
 
 class TestDjangoVersionChecker:
-    """Test `python.DjangoVersionChecker` class"""
-    instance = python.DjangoVersionChecker()
+    """
+    Test `python.DjangoVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return python.DjangoVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'django'
-        assert self.instance.homepage == 'https://www.djangoproject.com/'
-        assert self.instance.repository == 'https://github.com/django/django'
+        assert instance.name == 'django'
+        assert instance.homepage == 'https://www.djangoproject.com/'
+        assert instance.repository == 'https://github.com/django/django'
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with()
 
 
 class TestDjangoRESTFrameworkVersionChecker:
-    """Test `python.DjangoRESTFrameworkVersionChecker` class"""
-    instance = python.DjangoRESTFrameworkVersionChecker()
+    """
+    Test `python.DjangoRESTFrameworkVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return python.DjangoRESTFrameworkVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'django-rest-framework'
+        assert instance.name == 'django-rest-framework'
+        assert instance.homepage == 'http://www.django-rest-framework.org/'
         assert (
-            self.instance.homepage ==
-            'http://www.django-rest-framework.org/'
-        )
-        assert (
-            self.instance.repository ==
+            instance.repository ==
             'https://github.com/tomchristie/django-rest-framework'
         )
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with()
 
 
 class TestFlaskVersionChecker:
-    """Test `python.FlaskVersionChecker` class"""
-    instance = python.FlaskVersionChecker()
+    """
+    Test `python.FlaskVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return python.FlaskVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'flask'
-        assert self.instance.homepage == 'http://flask.pocoo.org/'
-        assert self.instance.repository == 'https://github.com/pallets/flask'
+        assert instance.name == 'flask'
+        assert instance.homepage == 'http://flask.pocoo.org/'
+        assert instance.repository == 'https://github.com/pallets/flask'
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with()
 
 
 class TestGunicornVersionChecker:
-    """Test `python.GunicornVersionChecker` class"""
-    instance = python.GunicornVersionChecker()
+    """
+    Test `python.GunicornVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return python.GunicornVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'gunicorn'
-        assert self.instance.homepage == 'http://gunicorn.org/'
-        assert (
-            self.instance.repository ==
-            'https://github.com/benoitc/gunicorn'
+        assert instance.name == 'gunicorn'
+        assert instance.homepage == 'http://gunicorn.org/'
+        assert instance.repository == 'https://github.com/benoitc/gunicorn'
+
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
+        mocked_get_github_tags = mocker.patch.object(
+            instance, '_get_github_tags',
         )
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
-        mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
-        )
-        self.instance.get_latest_version()
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with()
 
 
 class TestRequestsVersionChecker:
-    """Test `python.RequestsVersionChecker` class"""
-    instance = python.RequestsVersionChecker()
+    """
+    Test `python.RequestsVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return python.RequestsVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'requests'
-        assert self.instance.homepage == 'http://docs.python-requests.org/'
+        assert instance.name == 'requests'
+        assert instance.homepage == 'http://docs.python-requests.org/'
         assert (
-            self.instance.repository ==
+            instance.repository ==
             'https://github.com/kennethreitz/requests'
         )
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with()
 
 
 class TestScrapyVersionChecker:
-    """Test `python.ScrapyVersionChecker` class"""
-    instance = python.ScrapyVersionChecker()
+    """
+    Test `python.ScrapyVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return python.ScrapyVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'scrapy'
-        assert self.instance.homepage == 'https://scrapy.org/'
-        assert self.instance.repository == 'https://github.com/scrapy/scrapy'
+        assert instance.name == 'scrapy'
+        assert instance.homepage == 'https://scrapy.org/'
+        assert instance.repository == 'https://github.com/scrapy/scrapy'
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with()

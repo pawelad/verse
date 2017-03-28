@@ -1,128 +1,161 @@
 """
 Test `checkers.projects.nosql` file
 """
+import operator
+
+import pytest
 from packaging.version import Version
 
 from checkers.projects import nosql
 
 
 class TestCassandraVersionChecker:
-    """Test `nosql.CassandraVersionChecker` class"""
-    instance = nosql.CassandraVersionChecker()
+    """
+    Test `nosql.CassandraVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return nosql.CassandraVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'cassandra'
-        assert self.instance.homepage == 'http://cassandra.apache.org/'
-        assert self.instance.repository == 'https://github.com/apache/cassandra'
+        assert instance.name == 'cassandra'
+        assert instance.homepage == 'http://cassandra.apache.org/'
+        assert instance.repository == 'https://github.com/apache/cassandra'
 
-    def test_class_normalize_tag_name_method(self):
+    def test_class_normalize_tag_name_method(self, instance):
         """Test class `_normalize_tag_name()` method"""
         assert (
-            self.instance._normalize_tag_name('cassandra-3.0.12') ==
+            instance._normalize_tag_name('cassandra-3.0.12') ==
             '3.0.12'
         )
-        assert self.instance._normalize_tag_name('3.0.12') == '3.0.12'
+        assert instance._normalize_tag_name('3.0.12') == '3.0.12'
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with(
-            normalize_func=self.instance._normalize_tag_name,
+            normalize_func=instance._normalize_tag_name,
         )
 
 
 class TestElasticsearchVersionChecker:
-    """Test `nosql.ElasticsearchVersionChecker` class"""
-    instance = nosql.ElasticsearchVersionChecker()
+    """
+    Test `nosql.ElasticsearchVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return nosql.ElasticsearchVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'elasticsearch'
+        assert instance.name == 'elasticsearch'
         assert (
-            self.instance.homepage ==
+            instance.homepage ==
             'https://www.elastic.co/products/elasticsearch'
         )
         assert (
-            self.instance.repository ==
+            instance.repository ==
             'https://github.com/elastic/elasticsearch'
         )
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with()
 
 
 class TestMongoDBVersionChecker:
-    """Test `nosql.MongoDBVersionChecker` class"""
-    instance = nosql.MongoDBVersionChecker()
+    """
+    Test `nosql.MongoDBVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return nosql.MongoDBVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'mongodb'
-        assert self.instance.homepage == 'https://www.mongodb.com/'
-        assert self.instance.repository == 'https://github.com/mongodb/mongo'
+        assert instance.name == 'mongodb'
+        assert instance.homepage == 'https://www.mongodb.com/'
+        assert instance.repository == 'https://github.com/mongodb/mongo'
 
-    def test_class_normalize_tag_name_method(self):
+    def test_class_normalize_tag_name_method(self, instance):
         """Test class `_normalize_tag_name()` method"""
-        assert self.instance._normalize_tag_name('r3.4.3') == '3.4.3'
-        assert self.instance._normalize_tag_name('3.4.3') == '3.4.3'
+        assert instance._normalize_tag_name('r3.4.3') == '3.4.3'
+        assert instance._normalize_tag_name('3.4.3') == '3.4.3'
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
+        versions = [
+            Version(v) for v in
+            ['v1.3.2', 'v1.3.1', 'v1.3.0', '3.2.8']
+        ]
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags', return_value=versions,
         )
-        self.instance.get_latest_version()
+
+        sorted_versions = sorted(
+            versions,
+            key=operator.attrgetter('base_version'),
+            reverse=True,
+        )
+
+        assert instance.get_versions() == sorted_versions
 
         mocked_get_github_tags.assert_called_once_with(
-            normalize_func=self.instance._normalize_tag_name,
+            normalize_func=instance._normalize_tag_name,
         )
 
 
 class TestRedisVersionChecker:
-    """Test `nosql.RedisVersionChecker` class"""
-    instance = nosql.RedisVersionChecker()
+    """
+    Test `nosql.RedisVersionChecker` class
+    """
+    @pytest.fixture
+    def instance(self):
+        return nosql.RedisVersionChecker()
 
-    def test_class_properties(self):
+    def test_class_properties(self, instance):
         """Test class properties"""
-        assert self.instance.name == 'redis'
-        assert self.instance.homepage == 'https://redis.io/'
-        assert self.instance.repository == 'https://github.com/antirez/redis'
+        assert instance.name == 'redis'
+        assert instance.homepage == 'https://redis.io/'
+        assert instance.repository == 'https://github.com/antirez/redis'
 
-    def test_class_normalize_tag_name_method(self):
+    def test_class_normalize_tag_name_method(self, instance):
         """Test class `_normalize_tag_name()` method"""
-        assert self.instance._normalize_tag_name('1.3.6') == ''
-        assert self.instance._normalize_tag_name('3.2.8') == '3.2.8'
+        assert instance._normalize_tag_name('1.3.6') == ''
+        assert instance._normalize_tag_name('3.2.8') == '3.2.8'
 
-    def test_class_get_latest_version_method(self, mocker):
-        """Test class `get_latest_version()` method"""
+    def test_class_get_versions_method(self, mocker, instance):
+        """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
-            self.instance, '_get_github_tags',
+            instance, '_get_github_tags',
         )
-        self.instance.get_latest_version()
+
+        assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with(
-            normalize_func=self.instance._normalize_tag_name,
+            normalize_func=instance._normalize_tag_name,
         )
 
-    def test_class_get_latest_version(self, mocker):
+    def test_class_get_latest_version(self, mocker, instance):
         """Test class `get_latest_version()` method"""
         versions = [
             'v1.3.2', 'v1.3.1', 'v1.3.0', '3.2.8',
         ]
         mocker.patch.object(
-            self.instance, 'get_versions',
+            instance, 'get_versions',
             return_value=[Version(v) for v in versions],
         )
 
-        assert self.instance.get_latest_version() == '3.2.8'
+        assert instance.get_latest_version() == '3.2.8'

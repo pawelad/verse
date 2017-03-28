@@ -16,10 +16,7 @@ class MySQLVersionChecker(BaseVersionChecker):
     @staticmethod
     def _normalize_tag_name(name):
         """
-        Normalizes GitHub tag name to be a PEP 404 compliant version name,
-        which in this case mean removing 'mysql-' prefix
-        Example:
-            mysql-5.6.35 -> 5.6.35
+        Normalizes GitHub tag name to be a PEP 404 compliant version name
 
         :param name: tag name
         :type name: str
@@ -58,10 +55,7 @@ class MySQLClusterVersionChecker(BaseVersionChecker):
     @staticmethod
     def _normalize_tag_name(name):
         """
-        Normalizes GitHub tag name to be a PEP 404 compliant version name,
-        which in this case mean removing 'mysql-cluster-' prefix
-        Example:
-            mysql-cluster-7.4.14 -> 7.4.14
+        Normalizes GitHub tag name to be a PEP 404 compliant version name
 
         :param name: tag name
         :type name: str
@@ -96,7 +90,7 @@ class PostgreSQLVersionChecker(BaseVersionChecker):
     def _normalize_tag_name(name):
         """
         Normalizes GitHub tag name to be a PEP 404 compliant version name,
-        which in this case means removing 'REL' prefix and replacing 
+        which in this case means removing 'REL' prefix and replacing
         underscores with dots
         Example:
             REL9_2_20 -> 9.2.20

@@ -32,7 +32,7 @@ class RabbitMQVersionChecker(BaseVersionChecker):
     def _normalize_tag_name(name):
         """
         Normalizes GitHub tag name to be a PEP 404 compliant version name,
-        which in this case means removing 'rabbitmq_' prefix and replacing 
+        which in this case means removing 'rabbitmq_' prefix and replacing
         underscores with dots
         Example:
             rabbitmq_v3_6_8 -> v3.6.8

@@ -10,8 +10,8 @@ from versions import utils
 
 
 available_projects = {
-    'python': PythonVersionChecker,
-    'django': DjangoVersionChecker,
+    'python': PythonVersionChecker(),
+    'django': DjangoVersionChecker(),
 }
 
 

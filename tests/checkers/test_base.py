@@ -14,7 +14,9 @@ from checkers.base import BaseVersionChecker
 
 
 class TestBaseVersionChecker:
-    """Test `BaseVersionChecker` class"""
+    """
+    Test `BaseVersionChecker` class
+    """
     klass = BaseVersionChecker
     versions = [
         '17.03.2-rc1', '17.03.1', '17.03.0', '1.3.1', '1.3.0', '1.2.2',
