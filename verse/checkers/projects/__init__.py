@@ -19,7 +19,7 @@ from checkers.projects.go import (  # noqa
     GoVersionChecker, DockerVersionChecker, KubernetesVersionChecker,
 )
 from checkers.projects.javascript import (  # noqa
-    jQueryVersionChecker,
+    jQueryVersionChecker, ReactVersionChecker,
 )
 from checkers.projects.misc import (  # noqa
     LinuxKernelVersionChecker, RabbitMQVersionChecker,

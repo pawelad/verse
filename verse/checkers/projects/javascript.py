@@ -18,3 +18,18 @@ class jQueryVersionChecker(BaseVersionChecker):
         Get the versions from GitHub tags
         """
         return self._get_github_tags()
+
+
+class ReactVersionChecker(BaseVersionChecker):
+    """
+    React project checker
+    """
+    name = 'react'
+    homepage = 'https://facebook.github.io/react/'
+    repository = 'https://github.com/facebook/react'
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        return self._get_github_tags()
