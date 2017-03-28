@@ -1,7 +1,49 @@
 """
 Checkers for NoSQL projects
 """
+import operator
+
 from checkers.base import BaseVersionChecker
+from checkers.utils import remove_prefix
+
+
+class MongoDBVersionChecker(BaseVersionChecker):
+    """
+    MongoDB project checker
+    """
+    name = 'mongodb'
+    homepage = 'https://www.mongodb.com/'
+    repository = 'https://github.com/mongodb/mongo'
+
+    @staticmethod
+    def _normalize_tag_name(name):
+        """
+        Normalizes GitHub tag name to be a PEP 404 compliant version name,
+        which in this case means removing 'r' prefix
+        Example:
+           r3.4.3 -> 3.4.3
+
+        :param name: tag name
+        :type name: str
+        :returns: normalized version name
+        :rtype: str
+        """
+        return remove_prefix(name, 'r')
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        # They randomly use and don't use 'r' prefix so we have to sort
+        # versions manually
+        versions = list(self._get_github_tags(
+            normalize_func=self._normalize_tag_name,
+        ))
+        versions.sort(
+            key=operator.attrgetter('base_version'),
+            reverse=True,
+        )
+        return versions
 
 
 class RedisVersionChecker(BaseVersionChecker):
