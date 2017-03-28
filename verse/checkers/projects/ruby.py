@@ -2,7 +2,6 @@
 Checkers for Ruby related projects
 """
 from checkers.base import BaseVersionChecker
-from checkers.utils import remove_prefix
 
 
 class RubyVersionChecker(BaseVersionChecker):
@@ -42,6 +41,21 @@ class RailsVersionChecker(BaseVersionChecker):
     name = 'rails'
     homepage = 'http://rubyonrails.org/'
     repository = 'https://github.com/rails/rails'
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        return self._get_github_tags()
+
+
+class JekyllVersionChecker(BaseVersionChecker):
+    """
+    Jekyll project checker
+    """
+    name = 'jekyll'
+    homepage = 'https://jekyllrb.com/'
+    repository = 'https://github.com/jekyll/jekyll'
 
     def get_versions(self):
         """

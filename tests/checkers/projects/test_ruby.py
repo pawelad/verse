@@ -49,3 +49,23 @@ class TestRailsVersionChecker:
         self.instance.get_latest_version()
 
         mocked_get_github_tags.assert_called_once_with()
+
+
+class TestJekyllVersionChecker:
+    """Test `ruby.JekyllVersionChecker` class"""
+    instance = ruby.JekyllVersionChecker()
+
+    def test_class_properties(self):
+        """Test class properties"""
+        assert self.instance.name == 'jekyll'
+        assert self.instance.homepage == 'https://jekyllrb.com/'
+        assert self.instance.repository == 'https://github.com/jekyll/jekyll'
+
+    def test_class_get_latest_version_method(self, mocker):
+        """Test class `get_latest_version()` method"""
+        mocked_get_github_tags = mocker.patch.object(
+            self.instance, '_get_github_tags',
+        )
+        self.instance.get_latest_version()
+
+        mocked_get_github_tags.assert_called_once_with()

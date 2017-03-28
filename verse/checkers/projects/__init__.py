@@ -33,7 +33,7 @@ from checkers.projects.python import (  # noqa
     ScrapyVersionChecker,
 )
 from checkers.projects.ruby import (  # noqa
-    RubyVersionChecker, RailsVersionChecker,
+    RubyVersionChecker, RailsVersionChecker, JekyllVersionChecker,
 )
 from checkers.projects.webservers import (  # noqa
     ApacheVersionChecker, NginxVersionChecker,
