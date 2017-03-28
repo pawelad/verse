@@ -39,6 +39,40 @@ class TestMySQLVersionChecker:
         )
 
 
+class TestMySQLClusterVersionChecker:
+    """Test `databases.MySQLClusterVersionChecker` class"""
+    instance = databases.MySQLClusterVersionChecker()
+
+    def test_class_properties(self):
+        """Test class properties"""
+        assert self.instance.name == 'mysql-cluster'
+        assert self.instance.homepage == 'https://www.mysql.com/'
+        assert (
+            self.instance.repository ==
+            'https://github.com/mysql/mysql-server'
+        )
+
+    def test_class_normalize_tag_name_method(self):
+        """Test class `_normalize_tag_name()` method"""
+        assert self.instance._normalize_tag_name('mysql-5.6.35') == ''
+        assert (
+            self.instance._normalize_tag_name('mysql-cluster-7.4.14') ==
+            '7.4.14'
+        )
+        assert self.instance._normalize_tag_name('7.4.14') == '7.4.14'
+
+    def test_class_get_latest_version_method(self, mocker):
+        """Test class `get_latest_version()` method"""
+        mocked_get_github_tags = mocker.patch.object(
+            self.instance, '_get_github_tags',
+        )
+        self.instance.get_latest_version()
+
+        mocked_get_github_tags.assert_called_once_with(
+            normalize_func=self.instance._normalize_tag_name
+        )
+
+
 class TestPostgreSQLVersionChecker:
     """Test `databases.PostgreSQLVersionChecker` class"""
     instance = databases.PostgreSQLVersionChecker()

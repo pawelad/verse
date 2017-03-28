@@ -47,6 +47,43 @@ class MySQLVersionChecker(BaseVersionChecker):
         return self._get_github_tags(normalize_func=self._normalize_tag_name)
 
 
+class MySQLClusterVersionChecker(BaseVersionChecker):
+    """
+    MySQL Cluster project checker
+    """
+    name = 'mysql-cluster'
+    homepage = 'https://www.mysql.com/'
+    repository = 'https://github.com/mysql/mysql-server'
+
+    @staticmethod
+    def _normalize_tag_name(name):
+        """
+        Normalizes GitHub tag name to be a PEP 404 compliant version name,
+        which in this case mean removing 'mysql-cluster-' prefix
+        Example:
+            mysql-cluster-7.4.14 -> 7.4.14
+
+        :param name: tag name
+        :type name: str
+        :returns: normalized version name
+        :rtype: str
+        """
+        # Don't ask me why but this repository contains both `mysql`
+        # and `mysql-cluster` versions, so we have to split it in
+        # two checkers and ignore one type
+        if name.startswith('mysql-') and not name.startswith('mysql-cluster'):
+            return ''
+
+        # mysql-cluster-7.4.14 -> 7.4.14
+        return remove_prefix(name, 'mysql-cluster-')
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        return self._get_github_tags(normalize_func=self._normalize_tag_name)
+
+
 class PostgreSQLVersionChecker(BaseVersionChecker):
     """
     PostgreSQL project checker
