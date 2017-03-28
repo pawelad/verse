@@ -36,6 +36,21 @@ class D3JSVersionChecker(BaseVersionChecker):
         return self._get_github_tags()
 
 
+class EmberJSVersionChecker(BaseVersionChecker):
+    """
+    Ember.js project checker
+    """
+    name = 'emberjs'
+    homepage = 'https://www.emberjs.com/'
+    repository = 'https://github.com/emberjs/ember.js'
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        return self._get_github_tags()
+
+
 class jQueryVersionChecker(BaseVersionChecker):
     """
     jQuery project checker

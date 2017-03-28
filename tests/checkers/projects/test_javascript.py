@@ -51,6 +51,29 @@ class TestD3JSVersionChecker:
         mocked_get_github_tags.assert_called_once_with()
 
 
+class TestEmberJSVersionChecker:
+    """Test `javascript.EmberJSVersionChecker` class"""
+    instance = javascript.EmberJSVersionChecker()
+
+    def test_class_properties(self):
+        """Test class properties"""
+        assert self.instance.name == 'emberjs'
+        assert self.instance.homepage == 'https://www.emberjs.com/'
+        assert (
+            self.instance.repository ==
+            'https://github.com/emberjs/ember.js'
+        )
+
+    def test_class_get_latest_version_method(self, mocker):
+        """Test class `get_latest_version()` method"""
+        mocked_get_github_tags = mocker.patch.object(
+            self.instance, '_get_github_tags',
+        )
+        self.instance.get_latest_version()
+
+        mocked_get_github_tags.assert_called_once_with()
+
+
 class TestjQueryVersionChecker:
     """Test `javascript.jQueryVersionChecker` class"""
     instance = javascript.jQueryVersionChecker()

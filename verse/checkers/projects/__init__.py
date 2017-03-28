@@ -19,8 +19,9 @@ from checkers.projects.go import (  # noqa
     GoVersionChecker, DockerVersionChecker, KubernetesVersionChecker,
 )
 from checkers.projects.javascript import (  # noqa
-    BackboneVersionChecker, D3JSVersionChecker, jQueryVersionChecker,
-    NodeJSVersionChecker, ReactVersionChecker, VueJSVersionChecker,
+    BackboneVersionChecker, D3JSVersionChecker, EmberJSVersionChecker,
+    jQueryVersionChecker, NodeJSVersionChecker, ReactVersionChecker,
+    VueJSVersionChecker,
 )
 from checkers.projects.misc import (  # noqa
     LinuxKernelVersionChecker, RabbitMQVersionChecker,
