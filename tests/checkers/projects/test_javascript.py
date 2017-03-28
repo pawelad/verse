@@ -8,6 +8,29 @@ from packaging.version import Version
 from checkers.projects import javascript
 
 
+class TestBackboneVersionChecker:
+    """Test `javascript.BackboneVersionChecker` class"""
+    instance = javascript.BackboneVersionChecker()
+
+    def test_class_properties(self):
+        """Test class properties"""
+        assert self.instance.name == 'backbone'
+        assert self.instance.homepage == 'http://backbonejs.org/'
+        assert (
+            self.instance.repository ==
+            'https://github.com/jashkenas/backbone'
+        )
+
+    def test_class_get_latest_version_method(self, mocker):
+        """Test class `get_latest_version()` method"""
+        mocked_get_github_tags = mocker.patch.object(
+            self.instance, '_get_github_tags',
+        )
+        self.instance.get_latest_version()
+
+        mocked_get_github_tags.assert_called_once_with()
+
+
 class TestD3JSVersionChecker:
     """Test `javascript.D3JSVersionChecker` class"""
     instance = javascript.D3JSVersionChecker()

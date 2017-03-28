@@ -6,6 +6,21 @@ import operator
 from checkers.base import BaseVersionChecker
 
 
+class BackboneVersionChecker(BaseVersionChecker):
+    """
+    Backbone project checker
+    """
+    name = 'backbone'
+    homepage = 'http://backbonejs.org/'
+    repository = 'https://github.com/jashkenas/backbone'
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        return self._get_github_tags()
+
+
 class D3JSVersionChecker(BaseVersionChecker):
     """
     D3.js project checker
