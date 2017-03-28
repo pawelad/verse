@@ -33,3 +33,18 @@ class RubyVersionChecker(BaseVersionChecker):
         Get the versions from GitHub tags
         """
         return self._get_github_tags(normalize_func=self._normalize_tag_name)
+
+
+class RailsVersionChecker(BaseVersionChecker):
+    """
+    Ruby on Rails project checker
+    """
+    name = 'rails'
+    homepage = 'http://rubyonrails.org/'
+    repository = 'https://github.com/rails/rails'
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        return self._get_github_tags()
