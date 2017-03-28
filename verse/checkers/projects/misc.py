@@ -68,3 +68,18 @@ class SupervisorVersionChecker(BaseVersionChecker):
         Get the versions from GitHub tags
         """
         return self._get_github_tags()
+
+
+class VagrantVersionChecker(BaseVersionChecker):
+    """
+    Vagrant project checker
+    """
+    name = 'vagrant'
+    homepage = 'https://www.vagrantup.com/'
+    repository = 'https://github.com/mitchellh/vagrant'
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        return self._get_github_tags()

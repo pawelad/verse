@@ -75,3 +75,26 @@ class TestSupervisorVersionChecker:
         self.instance.get_latest_version()
 
         mocked_get_github_tags.assert_called_once_with()
+
+
+class TestVagrantVersionChecker:
+    """Test `misc.VagrantVersionChecker` class"""
+    instance = misc.VagrantVersionChecker()
+
+    def test_class_properties(self):
+        """Test class properties"""
+        assert self.instance.name == 'vagrant'
+        assert self.instance.homepage == 'https://www.vagrantup.com/'
+        assert (
+            self.instance.repository ==
+            'https://github.com/mitchellh/vagrant'
+        )
+
+    def test_class_get_latest_version_method(self, mocker):
+        """Test class `get_latest_version()` method"""
+        mocked_get_github_tags = mocker.patch.object(
+            self.instance, '_get_github_tags',
+        )
+        self.instance.get_latest_version()
+
+        mocked_get_github_tags.assert_called_once_with()
