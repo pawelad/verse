@@ -1,8 +1,9 @@
 """
 Checkers for Go related projects
 """
+import operator
+
 from checkers.base import BaseVersionChecker
-from checkers.utils import remove_prefix
 
 
 class D3JSVersionChecker(BaseVersionChecker):
@@ -63,3 +64,25 @@ class ReactVersionChecker(BaseVersionChecker):
         Get the versions from GitHub tags
         """
         return self._get_github_tags()
+
+
+class VueJSVersionChecker(BaseVersionChecker):
+    """
+    Vue.js project checker
+    """
+    name = 'vuejs'
+    homepage = 'http://vuejs.org/'
+    repository = 'https://github.com/vuejs/vue'
+
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        # They randomly use and don't use 'r' prefix so we have to sort
+        # versions manually
+        versions = list(self._get_github_tags())
+        versions.sort(
+            key=operator.attrgetter('base_version'),
+            reverse=True,
+        )
+        return versions

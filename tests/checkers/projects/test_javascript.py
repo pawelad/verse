@@ -1,6 +1,10 @@
 """
 Test `checkers.projects.javascript` file
 """
+import operator
+
+from packaging.version import Version
+
 from checkers.projects import javascript
 
 
@@ -80,5 +84,36 @@ class TestReactVersionChecker:
             self.instance, '_get_github_tags',
         )
         self.instance.get_latest_version()
+
+        mocked_get_github_tags.assert_called_once_with()
+
+
+class TestVueJSVersionChecker:
+    """Test `javascript.VueJSVersionChecker` class"""
+    instance = javascript.VueJSVersionChecker()
+
+    def test_class_properties(self):
+        """Test class properties"""
+        assert self.instance.name == 'vuejs'
+        assert self.instance.homepage == 'http://vuejs.org/'
+        assert self.instance.repository == 'https://github.com/vuejs/vue'
+
+    def test_class_get_versions_method(self, mocker):
+        """Test class `get_versions()` method"""
+        versions = [
+            Version(v) for v in
+            ['v1.3.2', 'v1.3.1', 'v1.3.0', '3.2.8']
+        ]
+        mocked_get_github_tags = mocker.patch.object(
+            self.instance, '_get_github_tags', return_value=versions,
+        )
+
+        sorted_versions = sorted(
+            versions,
+            key=operator.attrgetter('base_version'),
+            reverse=True,
+        )
+
+        assert self.instance.get_versions() == sorted_versions
 
         mocked_get_github_tags.assert_called_once_with()
