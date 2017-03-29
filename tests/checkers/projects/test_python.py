@@ -201,6 +201,11 @@ class TestRequestsVersionChecker:
             'https://github.com/kennethreitz/requests'
         )
 
+    def test_class_normalize_tag_name_method(self, instance):
+        """Test class `_normalize_tag_name()` method"""
+        assert instance._normalize_tag_name('2.0') == ''
+        assert instance._normalize_tag_name('v2.0.0') == 'v2.0.0'
+
     def test_class_get_versions_method(self, mocker, instance):
         """Test class `get_versions()` method"""
         mocked_get_github_tags = mocker.patch.object(
@@ -209,7 +214,9 @@ class TestRequestsVersionChecker:
 
         assert instance.get_versions() == mocked_get_github_tags.return_value
 
-        mocked_get_github_tags.assert_called_once_with()
+        mocked_get_github_tags.assert_called_once_with(
+            normalize_func=instance._normalize_tag_name,
+        )
 
 
 class TestScrapyVersionChecker:
