@@ -79,10 +79,8 @@ class TestProjectsVersionsViewSet:
         mocker.patch('versions.views.AVAILABLE_CHECKERS', available_projects)
 
         latest_version = '0.1.1'
-        mocked_get_latest_version = mocker.patch(
-            'versions.views.get_latest_version',
-        )
-        mocked_get_latest_version.return_value = latest_version
+        mocked_get_or_set = mocker.patch('versions.views.cache.get_or_set')
+        mocked_get_or_set.return_value = latest_version
 
         url = reverse('{0.base_name}-detail'.format(self), args=['python'])
         response = self.client.get(url)
@@ -97,7 +95,7 @@ class TestProjectsVersionsViewSet:
         response = self.client.get(url)
         assert response.status_code == status.HTTP_404_NOT_FOUND
 
-        assert mocked_get_latest_version.call_count == 1
+        assert mocked_get_or_set.call_count == 1
 
     def test_view_major_method(self, mocker):
         """Test view `major()` method"""
@@ -107,10 +105,8 @@ class TestProjectsVersionsViewSet:
             '1': '1.2.3',
             '0': '0.12.0',
         }
-        mocked_get_latest_major_versions = mocker.patch(
-            'versions.views.get_latest_major_versions',
-        )
-        mocked_get_latest_major_versions.return_value = latest_versions
+        mocked_get_or_set = mocker.patch('versions.views.cache.get_or_set')
+        mocked_get_or_set.return_value = latest_versions
 
         url = reverse('{0.base_name}-major'.format(self), args=['python'])
         response = self.client.get(url)
@@ -123,7 +119,7 @@ class TestProjectsVersionsViewSet:
         response = self.client.get(url)
         assert response.status_code == status.HTTP_404_NOT_FOUND
 
-        assert mocked_get_latest_major_versions.call_count == 1
+        assert mocked_get_or_set.call_count == 1
 
     def test_view_minor_method(self, mocker):
         """Test view `minor()` method"""
@@ -134,10 +130,8 @@ class TestProjectsVersionsViewSet:
             '1.1': '1.1.4',
             '1.0': '1.0.2',
         }
-        mocked_get_latest_minor_versions = mocker.patch(
-            'versions.views.get_latest_minor_versions',
-        )
-        mocked_get_latest_minor_versions.return_value = latest_versions
+        mocked_get_or_set = mocker.patch('versions.views.cache.get_or_set')
+        mocked_get_or_set.return_value = latest_versions
 
         url = reverse('{0.base_name}-minor'.format(self), args=['python'])
         response = self.client.get(url)
@@ -150,4 +144,4 @@ class TestProjectsVersionsViewSet:
         response = self.client.get(url)
         assert response.status_code == status.HTTP_404_NOT_FOUND
 
-        assert mocked_get_latest_minor_versions.call_count == 1
+        assert mocked_get_or_set.call_count == 1

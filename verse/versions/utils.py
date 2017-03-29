@@ -50,9 +50,12 @@ def get_latest_version_key(project_name):
     :type project_name: str
     :returns: storage key for project latest version
     :rtype: str
+    :raises ValueError: `when project_name` is empty
     """
     if not project_name:
-        raise ValueError
+        raise ValueError(
+            "'project_name' can't be empty: {}".format(project_name)
+        )
 
     return '{project}_latest_version'.format(project=project_name)
 
@@ -65,9 +68,12 @@ def get_latest_major_versions_key(project_name):
     :type project_name: str
     :returns: storage key for project latest major versions
     :rtype: str
+    :raises ValueError: `when project_name` is empty
     """
     if not project_name:
-        raise ValueError
+        raise ValueError(
+            "'project_name' can't be empty: {}".format(project_name)
+        )
 
     return '{project}_latest_major_versions'.format(project=project_name)
 
@@ -80,8 +86,11 @@ def get_latest_minor_versions_key(project_name):
     :type project_name: str
     :returns: storage key for project latest minor versions
     :rtype: str
+    :raises ValueError: `when project_name` is empty
     """
     if not project_name:
-        raise ValueError
+        raise ValueError(
+            "'project_name' can't be empty: {}".format(project_name)
+        )
 
     return '{project}_latest_minor_versions'.format(project=project_name)

@@ -9,9 +9,6 @@ from rest_framework.decorators import detail_route
 from rest_framework.response import Response
 
 from checkers.projects import AVAILABLE_CHECKERS
-from versions.latest import (
-    get_latest_version, get_latest_major_versions, get_latest_minor_versions,
-)
 from versions import utils
 
 
@@ -80,7 +77,12 @@ class ProjectsVersionsViewSet(viewsets.ReadOnlyModelViewSet):
         Returns project latest stable version
         """
         project = self.get_object()
-        latest_version = get_latest_version(project)
+
+        latest_version = cache.get_or_set(
+            key=utils.get_latest_version_key(project.name),
+            default=project.get_latest_version,
+            timeout=60 * 60,  # 1 hour
+        )
 
         return Response({
             'latest': latest_version,
@@ -92,7 +94,12 @@ class ProjectsVersionsViewSet(viewsets.ReadOnlyModelViewSet):
         Returns project latest stable version for each major release
         """
         project = self.get_object()
-        latest_versions = get_latest_major_versions(project)
+
+        latest_versions = cache.get_or_set(
+            key=utils.get_latest_major_versions_key(project.name),
+            default=project.get_latest_major_versions,
+            timeout=60 * 60 * 6,  # 6 hours
+        )
 
         return Response(latest_versions)
 
@@ -102,6 +109,11 @@ class ProjectsVersionsViewSet(viewsets.ReadOnlyModelViewSet):
         Returns project latest stable version for each minor release
         """
         project = self.get_object()
-        latest_versions = get_latest_minor_versions(project)
+
+        latest_versions = cache.get_or_set(
+            key=utils.get_latest_minor_versions_key(project.name),
+            default=project.get_latest_minor_versions,
+            timeout=60 * 60 * 6,  # 6 hours
+        )
 
         return Response(latest_versions)
