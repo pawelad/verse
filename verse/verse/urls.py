@@ -5,11 +5,13 @@ from django.conf import settings
 from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.views.generic import RedirectView
 
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import SimpleRouter
 from rest_framework.schemas import get_schema_view
 
+from verse.views import IndexView
 from versions import views
 
 
@@ -20,6 +22,9 @@ schema_view = get_schema_view(title='Verse API')
 
 
 urlpatterns = [
+    url(r'^$', IndexView.as_view(), name='index'),
+    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/favicon.ico')),
+
     # API
     url(r'^api/v1/', include([
         url(r'^', include(router.urls)),

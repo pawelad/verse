@@ -1,5 +1,7 @@
 """
-verse - Latest project versions, simplified and centralized
+verse
+---
+Check what's the latest version of your favorite open-source project
 """
 from verse.celery import app as celery_app  # noqa
 

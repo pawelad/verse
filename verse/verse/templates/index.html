@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block container %}
+    {# Intro row #}
+        <div class="jumbotron intro">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="asciinema-player">
+                            <asciinema-player src="{% static 'usage_asciicast.json' %}" title="Verse API usage"></asciinema-player>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <h2>Centralized versions API</h2>
+
+                        <p class="lead">
+                            Verse is a RESTful API that checks the latest version of your favourite open source project
+                            and simplifies the whole process to one HTTP request. Just like that.
+                        </p>
+                        <p class="lead">
+                            Feel free to visit <a href="https://github.com/pawelad/verse">GitHub</a> for more information,
+                            browse through <a href="{% url 'api-docs:docs-index' %}">API docs</a> or play with the <a href="{% url 'versions-list' %}">browsable API</a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {# Projects row #}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-header text-center">
+                    <h2>Some of the available projects</h2>
+                </div>
+
+                <div class="projects">
+                    {% for project in available_projects %}
+                        <a href="{{ project.url }}" class="btn btn-default btn-project">{{ project.name }}</a>
+                    {% endfor %}
+                    <button class="btn btn-default" disabled>...</button>
+                    <a href="https://github.com/pawelad/verse/issues/new" class="btn btn-project accent">Add a project</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

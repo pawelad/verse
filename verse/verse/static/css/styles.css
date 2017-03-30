@@ -1,0 +1,114 @@
+/* Base */
+html {
+    position: relative;
+    min-height: 100%;
+    text-align: justify;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Scope One', serif;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background-color: #ECEFF1;
+}
+
+footer p {
+    margin: 0;
+}
+
+a {
+    color: #546E7A;
+    font-weight: bold;
+}
+
+a:hover,
+a:active {
+    color: #37474F;
+    text-decoration: none;
+}
+
+
+/* Title */
+#verse-title h1 {
+    font-family: 'Scope One', serif;
+    font-size: 100px;
+    font-weight: normal;
+    text-align: center;
+}
+
+#verse-title h1 a {
+    font-weight: normal;
+}
+
+#verse-title h1 small {
+    display: block;
+    font-size: 36px;
+    color: #90A4AE;
+}
+
+
+/* Intro */
+.intro {
+    background-color: #CFD8DC;
+    margin-bottom: 0;
+}
+
+.intro .asciinema-player {
+    float: right;
+}
+
+.intro p {
+    font-size: 22px;
+}
+
+
+/* Projects */
+.projects {
+    padding: 0 20px 40px;
+    text-align: center;
+}
+
+.btn-project {
+    margin: 10px;
+    color: #ffffff;
+    background-color: #26A69A;
+    border-color: transparent;
+}
+
+.btn-project.accent {
+    background-color: #00695C;
+}
+
+.btn-project:hover,
+.btn-project:focus,
+.btn-project:active,
+.btn-project.active {
+    color: #ffffff;
+    background-color: #00897B;
+    border-color: rgba(0, 0, 0, 0);
+}
+
+
+/* Misc */
+.fa {
+    vertical-align: middle;
+}
+
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 1200px) {
+    .intro .asciinema-player {
+        float: none;
+    }
+}
