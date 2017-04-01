@@ -8,7 +8,9 @@ from rest_framework import viewsets
 from rest_framework.decorators import detail_route
 from rest_framework.response import Response
 
+from checkers.base import GitHubVersionChecker
 from checkers.projects import AVAILABLE_CHECKERS
+from checkers.utils import github_client, construct_github_url
 from versions import utils
 
 
@@ -117,3 +119,80 @@ class ProjectsVersionsViewSet(viewsets.ReadOnlyModelViewSet):
         )
 
         return Response(latest_versions)
+
+
+class GitHubProjectsVersionsViewSet(ProjectsVersionsViewSet):
+    """
+    This endpoint returns latest version information for the passed GitHub
+    repository. It's readonly and has three simple methods:
+
+    - `/:owner/:repo`: Returns GitHub repository latest stable version
+    - `/:project/:repo/major`: Returns GitHub repository latest stable version
+      for each major release
+    - `/:project/:repo/minor`: Returns GitHub repository latest stable version
+      for each minor release
+    """
+    def get_view_name(self):
+        """
+        Extends DRF's `get_view_name()` method and try to return more user
+        friendly view names for the browsable API
+        """
+        suffix = getattr(self, 'suffix', None)
+        if suffix == 'Latest':
+            return 'Latest GitHub repository version'
+        elif suffix == 'Major':
+            return 'Latest major versions'
+        elif suffix == 'Minor':
+            return 'Latest minor versions'
+
+        return super().get_view_name()
+
+    def get_object(self):
+        """
+        Checks if passed GitHub repository exists and returns it as a version
+        checker if it does or returns HTTP 404 if it doesn't
+
+        :returns: project checker instance
+        :rtype: checkers.base.GitHubVersionChecker
+        """
+        owner = self.kwargs.get('owner', None)
+        repo = self.kwargs.get('repo', None)
+
+        repository = github_client.repository(owner, repo)
+        if not repository:
+            raise Http404
+
+        name = 'gh-{}-{}'.format(owner, repo)
+        github_url = construct_github_url(owner, repo)
+        checker = GitHubVersionChecker(
+            name=name, homepage=github_url, repository=github_url,
+        )
+
+        return checker
+
+    def list(self, request, *args, **kwargs):
+        """
+        This endpoint returns HTTP 404, as there's no point in listing all
+        GitHub repositories
+        """
+        raise Http404
+
+    def retrieve(self, request, *args, **kwargs):
+        """
+        Returns GitHub repository latest stable version
+        """
+        return super().retrieve(request, *args, **kwargs)
+
+    @detail_route(methods=['get'])
+    def major(self, request, *args, **kwargs):
+        """
+        Returns GitHub repository latest stable version for each major release
+        """
+        return super().major(request, *args, **kwargs)
+
+    @detail_route(methods=['get'])
+    def minor(self, request, *args, **kwargs):
+        """
+        Returns GitHub repository latest stable version for each minor release
+        """
+        return super().minor(request, *args, **kwargs)

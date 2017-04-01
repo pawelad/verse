@@ -5,7 +5,7 @@ from abc import ABCMeta, abstractmethod
 
 from packaging.version import Version, InvalidVersion
 
-from checkers.utils import remove_prefix, github_client
+from checkers.utils import github_client, deconstruct_github_url
 
 
 class BaseVersionChecker(metaclass=ABCMeta):
@@ -15,6 +15,24 @@ class BaseVersionChecker(metaclass=ABCMeta):
     name = None  # has to be unique
     homepage = None
     repository = None
+
+    def __init__(self, name=None, homepage=None, repository=None):
+        """
+        Save passed arguments on initialization
+        
+        :param name: project name
+        :type name: str
+        :param homepage: project homepage URL
+        :type homepage: str
+        :param repository: project repository URL
+        :type repository: str
+        """
+        if name:
+            self.name = name
+        if homepage:
+            self.homepage = homepage
+        if repository:
+            self.repository = repository
 
     def _get_github_tags(self, github_url=None, normalize_func=None):
         """
@@ -31,14 +49,8 @@ class BaseVersionChecker(metaclass=ABCMeta):
         if not github_url:
             github_url = self.repository
 
-        github_prefix = 'https://github.com/'
-        if not github_url.startswith(github_prefix):
-            raise ValueError(
-                "Passed URL is not a GitHub repository: {}".format(github_url)
-            )
-
-        owner, repo = remove_prefix(github_url, github_prefix).split('/')[:2]
-        tags = github_client.repository(owner, repo).iter_tags()
+        owner, name = deconstruct_github_url(github_url)
+        tags = github_client.repository(owner, name).iter_tags()
         for tag in tags:
             if normalize_func:
                 name = normalize_func(tag.name)
@@ -151,3 +163,14 @@ class BaseVersionChecker(metaclass=ABCMeta):
                     last = (major, minor)
 
         return minor_versions
+
+
+class GitHubVersionChecker(BaseVersionChecker):
+    """
+    Checker class that takes available versions from GitHub tags
+    """
+    def get_versions(self):
+        """
+        Get the versions from GitHub tags
+        """
+        return self._get_github_tags()

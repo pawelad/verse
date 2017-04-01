@@ -46,5 +46,7 @@ from checkers.projects.webservers import (  # noqa
 
 
 AVAILABLE_CHECKERS = {
-    checker.name: checker() for checker in BaseVersionChecker.__subclasses__()
+    checker.name: checker()
+    for checker in BaseVersionChecker.__subclasses__()
+    if checker.name
 }

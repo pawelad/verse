@@ -43,6 +43,32 @@ urlpatterns = [
             name='minor',
         ),
     ], namespace='versions')),
+    url(r'^gh/', include([
+        url(
+            r'^(?P<owner>[-_\w]+)/(?P<repo>[-_\w]+)/$',
+            views.GitHubProjectsVersionsViewSet.as_view(
+                actions={'get': 'retrieve'},
+                suffix='Latest',
+            ),
+            name='latest',
+        ),
+        url(
+            r'^(?P<owner>[-_\w]+)/(?P<repo>[-_\w]+)/major/$',
+            views.GitHubProjectsVersionsViewSet.as_view(
+                actions={'get': 'major'},
+                suffix='Major',
+            ),
+            name='major',
+        ),
+        url(
+            r'^(?P<owner>[-_\w]+)/(?P<repo>[-_\w]+)/minor/$',
+            views.GitHubProjectsVersionsViewSet.as_view(
+                actions={'get': 'minor'},
+                suffix='Minor',
+            ),
+            name='minor',
+        ),
+    ], namespace='gh-versions')),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
