@@ -14,17 +14,17 @@ from versions import utils
 
 class ProjectsVersionsViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    This API endpoint returns latest stable versions of available projects.
+    This endpoint returns latest version information for the passed project.
     It's readonly and has four simple methods:
 
-    - `/` returns a list of all available projects by name, with links to
-      project specific endpoints
-    - `/:project/` returns project latest stable version
-    - `/:project/major/` returns latest stable version for each major release
-    - `/:project/minor/` returns latest stable version for each minor release
+    - `/`: Returns a list of all currently supported projects with links to
+      relevant API endpoints
+    - `/:project`: Returns project latest stable version
+    - `/:project/major`: Returns project latest stable version for each
+      major release
+    - `/:project/minor`: Returns project latest stable version for each
+      minor release
     """
-    lookup_field = 'name'
-
     def get_view_name(self):
         """
         Extends DRF's `get_view_name()` method and try to return more user
@@ -33,7 +33,7 @@ class ProjectsVersionsViewSet(viewsets.ReadOnlyModelViewSet):
         suffix = getattr(self, 'suffix', None)
         if suffix == 'List':
             return 'Projects list'
-        elif suffix == 'Instance':
+        elif suffix == 'Latest':
             return 'Latest project version'
         elif suffix == 'Major':
             return 'Latest major versions'
@@ -88,7 +88,7 @@ class ProjectsVersionsViewSet(viewsets.ReadOnlyModelViewSet):
             'latest': latest_version,
         })
 
-    @detail_route(methods=['get'], suffix='Major')
+    @detail_route(methods=['get'])
     def major(self, request, *args, **kwargs):
         """
         Returns project latest stable version for each major release
@@ -103,7 +103,7 @@ class ProjectsVersionsViewSet(viewsets.ReadOnlyModelViewSet):
 
         return Response(latest_versions)
 
-    @detail_route(methods=['get'], suffix='Minor')
+    @detail_route(methods=['get'])
     def minor(self, request,  *args, **kwargs):
         """
         Returns project latest stable version for each minor release

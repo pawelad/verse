@@ -8,15 +8,10 @@ from django.contrib import admin
 from django.views.generic import RedirectView
 
 from rest_framework.documentation import include_docs_urls
-from rest_framework.routers import SimpleRouter
 from rest_framework.schemas import get_schema_view
 
 from verse.views import IndexView
-from versions import views
 
-
-router = SimpleRouter()
-router.register(r'', views.ProjectsVersionsViewSet, base_name='versions')
 
 schema_view = get_schema_view(title='Verse API')
 
@@ -26,15 +21,14 @@ urlpatterns = [
     url(r'^favicon\.ico$', RedirectView.as_view(url='/static/favicon.ico')),
 
     # API
-    url(r'^api/v1/', include([
-        url(r'^', include(router.urls)),
-    ])),
+    url(r'^', include('versions.urls')),
 
     url(
         r'^docs/',
         include_docs_urls(
             title="Verse API",
-            description="Latest project versions, simplified and centralized",
+            description="Check what's the latest version of your favorite "
+                        "open-source project",
         )
     ),
     url(r'^schema/$', schema_view),

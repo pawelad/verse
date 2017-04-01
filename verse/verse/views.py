@@ -24,7 +24,7 @@ class IndexView(TemplateView):
         available_projects = list()
         for project_name in AVAILABLE_CHECKERS.keys():
             url = reverse(
-                'versions-detail', args=[project_name], request=self.request,
+                'versions:latest', args=[project_name], request=self.request,
             )
 
             project = {

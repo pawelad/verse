@@ -119,7 +119,14 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Third-party apps settings #
 #############################
 
-# celery
+# Django REST Framework
+REST_FRAMEWORK = {
+    'DEFAULT_VERSIONING_CLASS': (
+        'rest_framework.versioning.AcceptHeaderVersioning'
+    ),
+}
+
+# Celery
 CELERY_BROKER_URL = config(
     'CELERY_BROKER_URL',
     default='redis://127.0.0.1:6379/1',
