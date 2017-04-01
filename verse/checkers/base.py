@@ -19,7 +19,7 @@ class BaseVersionChecker(metaclass=ABCMeta):
     def __init__(self, name=None, homepage=None, repository=None):
         """
         Save passed arguments on initialization
-        
+
         :param name: project name
         :type name: str
         :param homepage: project homepage URL
@@ -33,40 +33,6 @@ class BaseVersionChecker(metaclass=ABCMeta):
             self.homepage = homepage
         if repository:
             self.repository = repository
-
-    def _get_github_tags(self, github_url=None, normalize_func=None):
-        """
-        Yields GitHub tag names, serialized to `Version` object
-
-        :param github_url: project GitHub repository URL
-        :type github_url: str
-        :param normalize_func: function that normalizes tag name
-        :type normalize_func: callable
-        :returns: generator of project versions
-        :rtype: generator of packaging.version.Version
-        :raises ValueError: when passed URL is not a GitHub repository
-        """
-        if not github_url:
-            github_url = self.repository
-
-        owner, name = deconstruct_github_url(github_url)
-        tags = github_client.repository(owner, name).iter_tags()
-        for tag in tags:
-            if normalize_func:
-                name = normalize_func(tag.name)
-            else:
-                name = tag.name
-
-            # Add a minor version if it's not there, i.e. v1 -> v1.0
-            if name and len(name.split('.')) == 1:
-                name += '.0'
-
-            try:
-                version = Version(name)
-            except InvalidVersion:
-                continue
-
-            yield version
 
     @abstractmethod
     def get_versions(self):
@@ -169,6 +135,40 @@ class GitHubVersionChecker(BaseVersionChecker):
     """
     Checker class that takes available versions from GitHub tags
     """
+    def _get_github_tags(self, github_url=None, normalize_func=None):
+        """
+        Yields GitHub tag names, serialized to `Version` object
+
+        :param github_url: project GitHub repository URL
+        :type github_url: str
+        :param normalize_func: function that normalizes tag name
+        :type normalize_func: callable
+        :returns: generator of project versions
+        :rtype: generator of packaging.version.Version
+        :raises ValueError: when passed URL is not a GitHub repository
+        """
+        if not github_url:
+            github_url = self.repository
+
+        owner, name = deconstruct_github_url(github_url)
+        tags = github_client.repository(owner, name).iter_tags()
+        for tag in tags:
+            if normalize_func:
+                name = normalize_func(tag.name)
+            else:
+                name = tag.name
+
+            # Add a minor version if it's not there, i.e. v1 -> v1.0
+            if name and len(name.split('.')) == 1:
+                name += '.0'
+
+            try:
+                version = Version(name)
+            except InvalidVersion:
+                continue
+
+            yield version
+
     def get_versions(self):
         """
         Get the versions from GitHub tags

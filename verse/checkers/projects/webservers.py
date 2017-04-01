@@ -1,11 +1,11 @@
 """
 Checkers for webserver projects
 """
-from checkers.base import BaseVersionChecker
+from checkers import base
 from checkers.utils import remove_prefix
 
 
-class ApacheVersionChecker(BaseVersionChecker):
+class ApacheVersionChecker(base.GitHubVersionChecker):
     """
     Apache httpd project checker
     """
@@ -13,14 +13,8 @@ class ApacheVersionChecker(BaseVersionChecker):
     homepage = 'http://httpd.apache.org/'
     repository = 'https://github.com/apache/httpd'
 
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()
 
-
-class NginxVersionChecker(BaseVersionChecker):
+class NginxVersionChecker(base.GitHubVersionChecker):
     """
     Nginx project checker
     """

@@ -3,6 +3,7 @@ Test `checkers.projects.misc` file
 """
 import pytest
 
+from checkers import base
 from checkers.projects import misc
 
 
@@ -14,21 +15,16 @@ class TestLinuxKernelVersionChecker:
     def instance(self):
         return misc.LinuxKernelVersionChecker()
 
+    def test_class_inheritance(self, instance):
+        """Test class inheritance"""
+        assert isinstance(instance, base.BaseVersionChecker)
+        assert isinstance(instance, base.GitHubVersionChecker)
+
     def test_class_properties(self, instance):
         """Test class properties"""
         assert instance.name == 'linux-kernel'
         assert instance.homepage == 'https://www.kernel.org/'
         assert instance.repository == 'https://github.com/torvalds/linux'
-
-    def test_class_get_versions_method(self, mocker, instance):
-        """Test class `get_versions()` method"""
-        mocked_get_github_tags = mocker.patch.object(
-            instance, '_get_github_tags',
-        )
-
-        assert instance.get_versions() == mocked_get_github_tags.return_value
-
-        mocked_get_github_tags.assert_called_once_with()
 
 
 class TestRabbitMQVersionChecker:
@@ -38,6 +34,11 @@ class TestRabbitMQVersionChecker:
     @pytest.fixture
     def instance(self):
         return misc.RabbitMQVersionChecker()
+
+    def test_class_inheritance(self, instance):
+        """Test class inheritance"""
+        assert isinstance(instance, base.BaseVersionChecker)
+        assert isinstance(instance, base.GitHubVersionChecker)
 
     def test_class_properties(self, instance):
         """Test class properties"""
@@ -74,6 +75,11 @@ class TestSupervisorVersionChecker:
     def instance(self):
         return misc.SupervisorVersionChecker()
 
+    def test_class_inheritance(self, instance):
+        """Test class inheritance"""
+        assert isinstance(instance, base.BaseVersionChecker)
+        assert isinstance(instance, base.GitHubVersionChecker)
+
     def test_class_properties(self, instance):
         """Test class properties"""
         assert instance.name == 'supervisor'
@@ -82,16 +88,6 @@ class TestSupervisorVersionChecker:
             instance.repository ==
             'https://github.com/Supervisor/supervisor'
         )
-
-    def test_class_get_versions_method(self, mocker, instance):
-        """Test class `get_versions()` method"""
-        mocked_get_github_tags = mocker.patch.object(
-            instance, '_get_github_tags',
-        )
-
-        assert instance.get_versions() == mocked_get_github_tags.return_value
-
-        mocked_get_github_tags.assert_called_once_with()
 
 
 class TestVagrantVersionChecker:
@@ -102,18 +98,13 @@ class TestVagrantVersionChecker:
     def instance(self):
         return misc.VagrantVersionChecker()
 
+    def test_class_inheritance(self, instance):
+        """Test class inheritance"""
+        assert isinstance(instance, base.BaseVersionChecker)
+        assert isinstance(instance, base.GitHubVersionChecker)
+
     def test_class_properties(self, instance):
         """Test class properties"""
         assert instance.name == 'vagrant'
         assert instance.homepage == 'https://www.vagrantup.com/'
         assert instance.repository == 'https://github.com/mitchellh/vagrant'
-
-    def test_class_get_versions_method(self, mocker, instance):
-        """Test class `get_versions()` method"""
-        mocked_get_github_tags = mocker.patch.object(
-            instance, '_get_github_tags',
-        )
-
-        assert instance.get_versions() == mocked_get_github_tags.return_value
-
-        mocked_get_github_tags.assert_called_once_with()

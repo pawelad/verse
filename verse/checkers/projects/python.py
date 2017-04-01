@@ -1,10 +1,10 @@
 """
 Checkers for Python related projects
 """
-from checkers.base import BaseVersionChecker
+from checkers import base
 
 
-class PythonVersionChecker(BaseVersionChecker):
+class PythonVersionChecker(base.GitHubVersionChecker):
     """
     Python project checker
     """
@@ -12,14 +12,8 @@ class PythonVersionChecker(BaseVersionChecker):
     homepage = 'https://www.python.org/'
     repository = 'https://github.com/python/cpython'
 
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()
 
-
-class AnsibleVersionChecker(BaseVersionChecker):
+class AnsibleVersionChecker(base.GitHubVersionChecker):
     """
     Ansible project checker
     """
@@ -27,14 +21,8 @@ class AnsibleVersionChecker(BaseVersionChecker):
     homepage = 'https://www.ansible.com/'
     repository = 'https://github.com/ansible/ansible'
 
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()
 
-
-class CeleryVersionChecker(BaseVersionChecker):
+class CeleryVersionChecker(base.GitHubVersionChecker):
     """
     Celery project checker
     """
@@ -42,14 +30,8 @@ class CeleryVersionChecker(BaseVersionChecker):
     homepage = 'http://www.celeryproject.org/'
     repository = 'https://github.com/celery/celery'
 
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()
 
-
-class DjangoVersionChecker(BaseVersionChecker):
+class DjangoVersionChecker(base.GitHubVersionChecker):
     """
     Django project checker
     """
@@ -57,14 +39,8 @@ class DjangoVersionChecker(BaseVersionChecker):
     homepage = 'https://www.djangoproject.com/'
     repository = 'https://github.com/django/django'
 
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()
 
-
-class DjangoRESTFrameworkVersionChecker(BaseVersionChecker):
+class DjangoRESTFrameworkVersionChecker(base.GitHubVersionChecker):
     """
     Django REST Framework project checker
     """
@@ -72,14 +48,8 @@ class DjangoRESTFrameworkVersionChecker(BaseVersionChecker):
     homepage = 'http://www.django-rest-framework.org/'
     repository = 'https://github.com/tomchristie/django-rest-framework'
 
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()
 
-
-class FlaskVersionChecker(BaseVersionChecker):
+class FlaskVersionChecker(base.GitHubVersionChecker):
     """
     Flask project checker
     """
@@ -87,14 +57,8 @@ class FlaskVersionChecker(BaseVersionChecker):
     homepage = 'http://flask.pocoo.org/'
     repository = 'https://github.com/pallets/flask'
 
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()
 
-
-class GunicornVersionChecker(BaseVersionChecker):
+class GunicornVersionChecker(base.GitHubVersionChecker):
     """
     Gunicorn project checker
     """
@@ -102,14 +66,8 @@ class GunicornVersionChecker(BaseVersionChecker):
     homepage = 'http://gunicorn.org/'
     repository = 'https://github.com/benoitc/gunicorn'
 
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()
 
-
-class RequestsVersionChecker(BaseVersionChecker):
+class RequestsVersionChecker(base.GitHubVersionChecker):
     """
     Requests project checker
     """
@@ -141,16 +99,10 @@ class RequestsVersionChecker(BaseVersionChecker):
         return self._get_github_tags(normalize_func=self._normalize_tag_name)
 
 
-class ScrapyVersionChecker(BaseVersionChecker):
+class ScrapyVersionChecker(base.GitHubVersionChecker):
     """
     Scrapy project checker
     """
     name = 'scrapy'
     homepage = 'https://scrapy.org/'
     repository = 'https://github.com/scrapy/scrapy'
-
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()

@@ -54,7 +54,7 @@ def deconstruct_github_url(url):
     """
     Helper method for deconstructing GitHub repository URL and returning its
     owner and name
-    
+
     :param url: GitHub repository URL
     :type url: str
     :returns: repository owner and name

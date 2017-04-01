@@ -61,7 +61,7 @@ def cache_latest_minor_versions(project_name):
     """
     Celery task responsible for getting and caching latest minor versions
     for passed project
-    
+
     :param project_name: name of the project to check
     :type project_name: str
     """

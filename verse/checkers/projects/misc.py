@@ -1,11 +1,11 @@
 """
 Checkers for misc projects
 """
-from checkers.base import BaseVersionChecker
+from checkers import base
 from checkers.utils import remove_prefix
 
 
-class LinuxKernelVersionChecker(BaseVersionChecker):
+class LinuxKernelVersionChecker(base.GitHubVersionChecker):
     """
     Linux kernel project checker
     """
@@ -13,14 +13,8 @@ class LinuxKernelVersionChecker(BaseVersionChecker):
     homepage = 'https://www.kernel.org/'
     repository = 'https://github.com/torvalds/linux'
 
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()
 
-
-class RabbitMQVersionChecker(BaseVersionChecker):
+class RabbitMQVersionChecker(base.GitHubVersionChecker):
     """
     RabbitMQ project checker
     """
@@ -55,7 +49,7 @@ class RabbitMQVersionChecker(BaseVersionChecker):
         return self._get_github_tags(normalize_func=self._normalize_tag_name)
 
 
-class SupervisorVersionChecker(BaseVersionChecker):
+class SupervisorVersionChecker(base.GitHubVersionChecker):
     """
     Supervisor project checker
     """
@@ -63,23 +57,11 @@ class SupervisorVersionChecker(BaseVersionChecker):
     homepage = 'http://supervisord.org/'
     repository = 'https://github.com/Supervisor/supervisor'
 
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()
 
-
-class VagrantVersionChecker(BaseVersionChecker):
+class VagrantVersionChecker(base.GitHubVersionChecker):
     """
     Vagrant project checker
     """
     name = 'vagrant'
     homepage = 'https://www.vagrantup.com/'
     repository = 'https://github.com/mitchellh/vagrant'
-
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()

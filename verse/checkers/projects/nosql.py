@@ -3,11 +3,11 @@ Checkers for NoSQL projects
 """
 import operator
 
-from checkers.base import BaseVersionChecker
+from checkers import base
 from checkers.utils import remove_prefix
 
 
-class CassandraVersionChecker(BaseVersionChecker):
+class CassandraVersionChecker(base.GitHubVersionChecker):
     """
     Cassandra project checker
     """
@@ -37,7 +37,7 @@ class CassandraVersionChecker(BaseVersionChecker):
         return self._get_github_tags(normalize_func=self._normalize_tag_name)
 
 
-class ElasticsearchVersionChecker(BaseVersionChecker):
+class ElasticsearchVersionChecker(base.GitHubVersionChecker):
     """
     Elasticsearch project checker
     """
@@ -45,14 +45,8 @@ class ElasticsearchVersionChecker(BaseVersionChecker):
     homepage = 'https://www.elastic.co/products/elasticsearch'
     repository = 'https://github.com/elastic/elasticsearch'
 
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()
 
-
-class MongoDBVersionChecker(BaseVersionChecker):
+class MongoDBVersionChecker(base.GitHubVersionChecker):
     """
     MongoDB project checker
     """
@@ -91,7 +85,7 @@ class MongoDBVersionChecker(BaseVersionChecker):
         return versions
 
 
-class RedisVersionChecker(BaseVersionChecker):
+class RedisVersionChecker(base.GitHubVersionChecker):
     """
     Redis project checker
     """

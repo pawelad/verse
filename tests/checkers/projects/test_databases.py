@@ -3,6 +3,7 @@ Test `checkers.projects.databases` file
 """
 import pytest
 
+from checkers import base
 from checkers.projects import databases
 
 
@@ -13,6 +14,11 @@ class TestMySQLVersionChecker:
     @pytest.fixture
     def instance(self):
         return databases.MySQLVersionChecker()
+
+    def test_class_inheritance(self, instance):
+        """Test class inheritance"""
+        assert isinstance(instance, base.BaseVersionChecker)
+        assert isinstance(instance, base.GitHubVersionChecker)
 
     def test_class_properties(self, instance):
         """Test class properties"""
@@ -48,6 +54,11 @@ class TestMySQLClusterVersionChecker:
     def instance(self):
         return databases.MySQLClusterVersionChecker()
 
+    def test_class_inheritance(self, instance):
+        """Test class inheritance"""
+        assert isinstance(instance, base.BaseVersionChecker)
+        assert isinstance(instance, base.GitHubVersionChecker)
+
     def test_class_properties(self, instance):
         """Test class properties"""
         assert instance.name == 'mysql-cluster'
@@ -81,6 +92,11 @@ class TestPostgreSQLVersionChecker:
     def instance(self):
         return databases.PostgreSQLVersionChecker()
 
+    def test_class_inheritance(self, instance):
+        """Test class inheritance"""
+        assert isinstance(instance, base.BaseVersionChecker)
+        assert isinstance(instance, base.GitHubVersionChecker)
+
     def test_class_properties(self, instance):
         """Test class properties"""
         assert instance.name == 'postgresql'
@@ -113,6 +129,11 @@ class TestSQLiteVersionChecker:
     @pytest.fixture
     def instance(self):
         return databases.SQLiteVersionChecker()
+
+    def test_class_inheritance(self, instance):
+        """Test class inheritance"""
+        assert isinstance(instance, base.BaseVersionChecker)
+        assert isinstance(instance, base.GitHubVersionChecker)
 
     def test_class_properties(self, instance):
         """Test class properties"""

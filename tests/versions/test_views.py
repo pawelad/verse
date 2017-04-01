@@ -89,7 +89,9 @@ class TestProjectsVersionsViewSet:
         mocked_get_or_set = mocker.patch(
             'versions.views.cache.get_or_set', return_value=latest_version,
         )
-        mocked_key = mocker.patch('versions.tasks.utils.get_latest_version_key')
+        mocked_key = mocker.patch(
+            'versions.tasks.utils.get_latest_version_key'
+        )
 
         url = reverse('{0.base_name}:latest'.format(self), args=['python'])
         response = self.client.get(url)

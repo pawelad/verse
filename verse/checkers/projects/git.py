@@ -1,10 +1,10 @@
 """
 Checkers for git related projects
 """
-from checkers.base import BaseVersionChecker
+from checkers import base
 
 
-class GitVersionChecker(BaseVersionChecker):
+class GitVersionChecker(base.GitHubVersionChecker):
     """
     Git project checker
     """
@@ -12,14 +12,8 @@ class GitVersionChecker(BaseVersionChecker):
     homepage = 'https://git-scm.com/'
     repository = 'https://github.com/git/git'
 
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()
 
-
-class GitLabVersionChecker(BaseVersionChecker):
+class GitLabVersionChecker(base.GitHubVersionChecker):
     """
     GitLab project checker
     """
@@ -27,23 +21,11 @@ class GitLabVersionChecker(BaseVersionChecker):
     homepage = 'https://gitlab.com'
     repository = 'https://github.com/gitlabhq/gitlabhq'
 
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()
 
-
-class GogsVersionChecker(BaseVersionChecker):
+class GogsVersionChecker(base.GitHubVersionChecker):
     """
     Gogs project checker
     """
     name = 'gogs'
     homepage = 'https://gogs.io/'
     repository = 'https://github.com/gogits/gogs'
-
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()

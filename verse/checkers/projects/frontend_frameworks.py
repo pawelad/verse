@@ -1,10 +1,10 @@
 """
 Checkers for frontend framework projects
 """
-from checkers.base import BaseVersionChecker
+from checkers import base
 
 
-class BootstrapVersionChecker(BaseVersionChecker):
+class BootstrapVersionChecker(base.GitHubVersionChecker):
     """
     Bootstrap project checker
     """
@@ -12,14 +12,8 @@ class BootstrapVersionChecker(BaseVersionChecker):
     homepage = 'http://getbootstrap.com/'
     repository = 'https://github.com/twbs/bootstrap'
 
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()
 
-
-class FontAwesomeVersionChecker(BaseVersionChecker):
+class FontAwesomeVersionChecker(base.GitHubVersionChecker):
     """
     Font Awesome project checker
     """
@@ -56,16 +50,10 @@ class FontAwesomeVersionChecker(BaseVersionChecker):
         return self._get_github_tags(normalize_func=self._normalize_tag_name)
 
 
-class MDLVersionChecker(BaseVersionChecker):
+class MDLVersionChecker(base.GitHubVersionChecker):
     """
     Material Design Lite project checker
     """
     name = 'mdl'
     homepage = 'https://getmdl.io/'
     repository = 'https://github.com/google/material-design-lite'
-
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()

@@ -1,12 +1,12 @@
 """
-Checkers for Go related projects
+Checkers for JavaSript related projects
 """
 import operator
 
-from checkers.base import BaseVersionChecker
+from checkers import base
 
 
-class AngularVersionChecker(BaseVersionChecker):
+class AngularVersionChecker(base.GitHubVersionChecker):
     """
     Angular project checker
     """
@@ -14,14 +14,8 @@ class AngularVersionChecker(BaseVersionChecker):
     homepage = 'https://angular.io/'
     repository = 'https://github.com/angular/angular'
 
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()
 
-
-class BackboneVersionChecker(BaseVersionChecker):
+class BackboneVersionChecker(base.GitHubVersionChecker):
     """
     Backbone project checker
     """
@@ -29,14 +23,8 @@ class BackboneVersionChecker(BaseVersionChecker):
     homepage = 'http://backbonejs.org/'
     repository = 'https://github.com/jashkenas/backbone'
 
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()
 
-
-class D3JSVersionChecker(BaseVersionChecker):
+class D3JSVersionChecker(base.GitHubVersionChecker):
     """
     D3.js project checker
     """
@@ -44,14 +32,8 @@ class D3JSVersionChecker(BaseVersionChecker):
     homepage = 'https://d3js.org/'
     repository = 'https://github.com/d3/d3'
 
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()
 
-
-class EmberJSVersionChecker(BaseVersionChecker):
+class EmberJSVersionChecker(base.GitHubVersionChecker):
     """
     Ember.js project checker
     """
@@ -59,14 +41,8 @@ class EmberJSVersionChecker(BaseVersionChecker):
     homepage = 'https://www.emberjs.com/'
     repository = 'https://github.com/emberjs/ember.js'
 
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()
 
-
-class jQueryVersionChecker(BaseVersionChecker):
+class jQueryVersionChecker(base.GitHubVersionChecker):
     """
     jQuery project checker
     """
@@ -74,14 +50,8 @@ class jQueryVersionChecker(BaseVersionChecker):
     homepage = 'https://jquery.com/'
     repository = 'https://github.com/jquery/jquery'
 
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()
 
-
-class NodeJSVersionChecker(BaseVersionChecker):
+class NodeJSVersionChecker(base.GitHubVersionChecker):
     """
     Node.js project checker
     """
@@ -89,14 +59,8 @@ class NodeJSVersionChecker(BaseVersionChecker):
     homepage = 'https://nodejs.org/'
     repository = 'https://github.com/nodejs/node'
 
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()
 
-
-class ReactVersionChecker(BaseVersionChecker):
+class ReactVersionChecker(base.GitHubVersionChecker):
     """
     React project checker
     """
@@ -104,14 +68,8 @@ class ReactVersionChecker(BaseVersionChecker):
     homepage = 'https://facebook.github.io/react/'
     repository = 'https://github.com/facebook/react'
 
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()
 
-
-class VueJSVersionChecker(BaseVersionChecker):
+class VueJSVersionChecker(base.GitHubVersionChecker):
     """
     Vue.js project checker
     """

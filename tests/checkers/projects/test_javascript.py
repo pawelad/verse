@@ -6,6 +6,7 @@ import operator
 import pytest
 from packaging.version import Version
 
+from checkers import base
 from checkers.projects import javascript
 
 
@@ -17,21 +18,16 @@ class TestAngularVersionChecker:
     def instance(self):
         return javascript.AngularVersionChecker()
 
+    def test_class_inheritance(self, instance):
+        """Test class inheritance"""
+        assert isinstance(instance, base.BaseVersionChecker)
+        assert isinstance(instance, base.GitHubVersionChecker)
+
     def test_class_properties(self, instance):
         """Test class properties"""
         assert instance.name == 'angular'
         assert instance.homepage == 'https://angular.io/'
         assert instance.repository == 'https://github.com/angular/angular'
-
-    def test_class_get_versions_method(self, mocker, instance):
-        """Test class `get_versions()` method"""
-        mocked_get_github_tags = mocker.patch.object(
-            instance, '_get_github_tags',
-        )
-
-        assert instance.get_versions() == mocked_get_github_tags.return_value
-
-        mocked_get_github_tags.assert_called_once_with()
 
 
 class TestBackboneVersionChecker:
@@ -42,21 +38,16 @@ class TestBackboneVersionChecker:
     def instance(self):
         return javascript.BackboneVersionChecker()
 
+    def test_class_inheritance(self, instance):
+        """Test class inheritance"""
+        assert isinstance(instance, base.BaseVersionChecker)
+        assert isinstance(instance, base.GitHubVersionChecker)
+
     def test_class_properties(self, instance):
         """Test class properties"""
         assert instance.name == 'backbone'
         assert instance.homepage == 'http://backbonejs.org/'
         assert instance.repository == 'https://github.com/jashkenas/backbone'
-
-    def test_class_get_versions_method(self, mocker, instance):
-        """Test class `get_versions()` method"""
-        mocked_get_github_tags = mocker.patch.object(
-            instance, '_get_github_tags',
-        )
-
-        assert instance.get_versions() == mocked_get_github_tags.return_value
-
-        mocked_get_github_tags.assert_called_once_with()
 
 
 class TestD3JSVersionChecker:
@@ -67,21 +58,16 @@ class TestD3JSVersionChecker:
     def instance(self):
         return javascript.D3JSVersionChecker()
 
+    def test_class_inheritance(self, instance):
+        """Test class inheritance"""
+        assert isinstance(instance, base.BaseVersionChecker)
+        assert isinstance(instance, base.GitHubVersionChecker)
+
     def test_class_properties(self, instance):
         """Test class properties"""
         assert instance.name == 'd3js'
         assert instance.homepage == 'https://d3js.org/'
         assert instance.repository == 'https://github.com/d3/d3'
-
-    def test_class_get_versions_method(self, mocker, instance):
-        """Test class `get_versions()` method"""
-        mocked_get_github_tags = mocker.patch.object(
-            instance, '_get_github_tags',
-        )
-
-        assert instance.get_versions() == mocked_get_github_tags.return_value
-
-        mocked_get_github_tags.assert_called_once_with()
 
 
 class TestEmberJSVersionChecker:
@@ -92,21 +78,16 @@ class TestEmberJSVersionChecker:
     def instance(self):
         return javascript.EmberJSVersionChecker()
 
+    def test_class_inheritance(self, instance):
+        """Test class inheritance"""
+        assert isinstance(instance, base.BaseVersionChecker)
+        assert isinstance(instance, base.GitHubVersionChecker)
+
     def test_class_properties(self, instance):
         """Test class properties"""
         assert instance.name == 'emberjs'
         assert instance.homepage == 'https://www.emberjs.com/'
         assert instance.repository == 'https://github.com/emberjs/ember.js'
-
-    def test_class_get_versions_method(self, mocker, instance):
-        """Test class `get_versions()` method"""
-        mocked_get_github_tags = mocker.patch.object(
-            instance, '_get_github_tags',
-        )
-
-        assert instance.get_versions() == mocked_get_github_tags.return_value
-
-        mocked_get_github_tags.assert_called_once_with()
 
 
 class TestjQueryVersionChecker:
@@ -117,21 +98,16 @@ class TestjQueryVersionChecker:
     def instance(self):
         return javascript.jQueryVersionChecker()
 
+    def test_class_inheritance(self, instance):
+        """Test class inheritance"""
+        assert isinstance(instance, base.BaseVersionChecker)
+        assert isinstance(instance, base.GitHubVersionChecker)
+
     def test_class_properties(self, instance):
         """Test class properties"""
         assert instance.name == 'jquery'
         assert instance.homepage == 'https://jquery.com/'
         assert instance.repository == 'https://github.com/jquery/jquery'
-
-    def test_class_get_versions_method(self, mocker, instance):
-        """Test class `get_versions()` method"""
-        mocked_get_github_tags = mocker.patch.object(
-            instance, '_get_github_tags',
-        )
-
-        assert instance.get_versions() == mocked_get_github_tags.return_value
-
-        mocked_get_github_tags.assert_called_once_with()
 
 
 class TestNodeJSVersionChecker:
@@ -142,21 +118,16 @@ class TestNodeJSVersionChecker:
     def instance(self):
         return javascript.NodeJSVersionChecker()
 
+    def test_class_inheritance(self, instance):
+        """Test class inheritance"""
+        assert isinstance(instance, base.BaseVersionChecker)
+        assert isinstance(instance, base.GitHubVersionChecker)
+
     def test_class_properties(self, instance):
         """Test class properties"""
         assert instance.name == 'nodejs'
         assert instance.homepage == 'https://nodejs.org/'
         assert instance.repository == 'https://github.com/nodejs/node'
-
-    def test_class_get_versions_method(self, mocker, instance):
-        """Test class `get_versions()` method"""
-        mocked_get_github_tags = mocker.patch.object(
-            instance, '_get_github_tags',
-        )
-
-        assert instance.get_versions() == mocked_get_github_tags.return_value
-
-        mocked_get_github_tags.assert_called_once_with()
 
 
 class TestReactVersionChecker:
@@ -167,21 +138,16 @@ class TestReactVersionChecker:
     def instance(self):
         return javascript.ReactVersionChecker()
 
+    def test_class_inheritance(self, instance):
+        """Test class inheritance"""
+        assert isinstance(instance, base.BaseVersionChecker)
+        assert isinstance(instance, base.GitHubVersionChecker)
+
     def test_class_properties(self, instance):
         """Test class properties"""
         assert instance.name == 'react'
         assert instance.homepage == 'https://facebook.github.io/react/'
         assert instance.repository == 'https://github.com/facebook/react'
-
-    def test_class_get_versions_method(self, mocker, instance):
-        """Test class `get_versions()` method"""
-        mocked_get_github_tags = mocker.patch.object(
-            instance, '_get_github_tags',
-        )
-
-        assert instance.get_versions() == mocked_get_github_tags.return_value
-
-        mocked_get_github_tags.assert_called_once_with()
 
 
 class TestVueJSVersionChecker:
@@ -191,6 +157,11 @@ class TestVueJSVersionChecker:
     @pytest.fixture
     def instance(self):
         return javascript.VueJSVersionChecker()
+
+    def test_class_inheritance(self, instance):
+        """Test class inheritance"""
+        assert isinstance(instance, base.BaseVersionChecker)
+        assert isinstance(instance, base.GitHubVersionChecker)
 
     def test_class_properties(self, instance):
         """Test class properties"""

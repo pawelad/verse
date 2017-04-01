@@ -3,6 +3,7 @@ Test `checkers.projects.go` file
 """
 import pytest
 
+from checkers import base
 from checkers.projects import go
 
 
@@ -13,6 +14,11 @@ class TestGoVersionChecker:
     @pytest.fixture
     def instance(self):
         return go.GoVersionChecker()
+
+    def test_class_inheritance(self, instance):
+        """Test class inheritance"""
+        assert isinstance(instance, base.BaseVersionChecker)
+        assert isinstance(instance, base.GitHubVersionChecker)
 
     def test_class_properties(self, instance):
         """Test class properties"""
@@ -46,6 +52,11 @@ class TestDockerVersionChecker:
     def instance(self):
         return go.DockerVersionChecker()
 
+    def test_class_inheritance(self, instance):
+        """Test class inheritance"""
+        assert isinstance(instance, base.BaseVersionChecker)
+        assert isinstance(instance, base.GitHubVersionChecker)
+
     def test_class_properties(self, instance):
         """Test class properties"""
         assert instance.name == 'docker'
@@ -78,6 +89,11 @@ class TestKubernetesVersionChecker:
     def instance(self):
         return go.KubernetesVersionChecker()
 
+    def test_class_inheritance(self, instance):
+        """Test class inheritance"""
+        assert isinstance(instance, base.BaseVersionChecker)
+        assert isinstance(instance, base.GitHubVersionChecker)
+
     def test_class_properties(self, instance):
         """Test class properties"""
         assert instance.name == 'kubernetes'
@@ -86,13 +102,3 @@ class TestKubernetesVersionChecker:
             instance.repository ==
             'https://github.com/kubernetes/kubernetes'
         )
-
-    def test_class_get_versions_method(self, mocker, instance):
-        """Test class `get_versions()` method"""
-        mocked_get_github_tags = mocker.patch.object(
-            instance, '_get_github_tags',
-        )
-
-        assert instance.get_versions() == mocked_get_github_tags.return_value
-
-        mocked_get_github_tags.assert_called_once_with()

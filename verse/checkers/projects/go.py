@@ -1,11 +1,11 @@
 """
 Checkers for Go related projects
 """
-from checkers.base import BaseVersionChecker
+from checkers import base
 from checkers.utils import remove_prefix
 
 
-class GoVersionChecker(BaseVersionChecker):
+class GoVersionChecker(base.GitHubVersionChecker):
     """
     Go project checker
     """
@@ -35,7 +35,7 @@ class GoVersionChecker(BaseVersionChecker):
         return self._get_github_tags(normalize_func=self._normalize_tag_name)
 
 
-class DockerVersionChecker(BaseVersionChecker):
+class DockerVersionChecker(base.GitHubVersionChecker):
     """
     Docker project checker
     """
@@ -68,16 +68,10 @@ class DockerVersionChecker(BaseVersionChecker):
         return self._get_github_tags(normalize_func=self._normalize_tag_name)
 
 
-class KubernetesVersionChecker(BaseVersionChecker):
+class KubernetesVersionChecker(base.GitHubVersionChecker):
     """
     Kubernetes project checker
     """
     name = 'kubernetes'
     homepage = 'https://kubernetes.io/'
     repository = 'https://github.com/kubernetes/kubernetes'
-
-    def get_versions(self):
-        """
-        Get the versions from GitHub tags
-        """
-        return self._get_github_tags()

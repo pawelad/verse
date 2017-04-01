@@ -6,6 +6,7 @@ import operator
 import pytest
 from packaging.version import Version
 
+from checkers import base
 from checkers.projects import nosql
 
 
@@ -16,6 +17,11 @@ class TestCassandraVersionChecker:
     @pytest.fixture
     def instance(self):
         return nosql.CassandraVersionChecker()
+
+    def test_class_inheritance(self, instance):
+        """Test class inheritance"""
+        assert isinstance(instance, base.BaseVersionChecker)
+        assert isinstance(instance, base.GitHubVersionChecker)
 
     def test_class_properties(self, instance):
         """Test class properties"""
@@ -52,6 +58,11 @@ class TestElasticsearchVersionChecker:
     def instance(self):
         return nosql.ElasticsearchVersionChecker()
 
+    def test_class_inheritance(self, instance):
+        """Test class inheritance"""
+        assert isinstance(instance, base.BaseVersionChecker)
+        assert isinstance(instance, base.GitHubVersionChecker)
+
     def test_class_properties(self, instance):
         """Test class properties"""
         assert instance.name == 'elasticsearch'
@@ -64,16 +75,6 @@ class TestElasticsearchVersionChecker:
             'https://github.com/elastic/elasticsearch'
         )
 
-    def test_class_get_versions_method(self, mocker, instance):
-        """Test class `get_versions()` method"""
-        mocked_get_github_tags = mocker.patch.object(
-            instance, '_get_github_tags',
-        )
-
-        assert instance.get_versions() == mocked_get_github_tags.return_value
-
-        mocked_get_github_tags.assert_called_once_with()
-
 
 class TestMongoDBVersionChecker:
     """
@@ -82,6 +83,11 @@ class TestMongoDBVersionChecker:
     @pytest.fixture
     def instance(self):
         return nosql.MongoDBVersionChecker()
+
+    def test_class_inheritance(self, instance):
+        """Test class inheritance"""
+        assert isinstance(instance, base.BaseVersionChecker)
+        assert isinstance(instance, base.GitHubVersionChecker)
 
     def test_class_properties(self, instance):
         """Test class properties"""
@@ -124,6 +130,11 @@ class TestRedisVersionChecker:
     @pytest.fixture
     def instance(self):
         return nosql.RedisVersionChecker()
+
+    def test_class_inheritance(self, instance):
+        """Test class inheritance"""
+        assert isinstance(instance, base.BaseVersionChecker)
+        assert isinstance(instance, base.GitHubVersionChecker)
 
     def test_class_properties(self, instance):
         """Test class properties"""

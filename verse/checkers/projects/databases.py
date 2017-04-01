@@ -1,11 +1,11 @@
 """
 Checkers for databases projects
 """
-from checkers.base import BaseVersionChecker
+from checkers import base
 from checkers.utils import remove_prefix
 
 
-class MySQLVersionChecker(BaseVersionChecker):
+class MySQLVersionChecker(base.GitHubVersionChecker):
     """
     MySQL project checker
     """
@@ -44,7 +44,7 @@ class MySQLVersionChecker(BaseVersionChecker):
         return self._get_github_tags(normalize_func=self._normalize_tag_name)
 
 
-class MySQLClusterVersionChecker(BaseVersionChecker):
+class MySQLClusterVersionChecker(base.GitHubVersionChecker):
     """
     MySQL Cluster project checker
     """
@@ -78,7 +78,7 @@ class MySQLClusterVersionChecker(BaseVersionChecker):
         return self._get_github_tags(normalize_func=self._normalize_tag_name)
 
 
-class PostgreSQLVersionChecker(BaseVersionChecker):
+class PostgreSQLVersionChecker(base.GitHubVersionChecker):
     """
     PostgreSQL project checker
     """
@@ -113,7 +113,7 @@ class PostgreSQLVersionChecker(BaseVersionChecker):
         return self._get_github_tags(normalize_func=self._normalize_tag_name)
 
 
-class SQLiteVersionChecker(BaseVersionChecker):
+class SQLiteVersionChecker(base.GitHubVersionChecker):
     """
     SQLite project checker
     """
