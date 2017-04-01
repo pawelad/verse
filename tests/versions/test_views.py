@@ -32,13 +32,9 @@ class TestProjectsVersionsViewSet:
         """Test view inheritance name"""
         assert isinstance(self.view(), viewsets.ReadOnlyModelViewSet)
 
-    def test_view_lookup_field(self):
-        """Test view lookup field"""
-        assert self.view.lookup_field == 'name'
-
     @pytest.mark.parametrize('suffix, expected', [
         ('List', 'Projects list'),
-        ('Instance', 'Latest project version'),
+        ('Latest', 'Latest project version'),
         ('Major', 'Latest major versions'),
         ('Minor', 'Latest minor versions'),
     ])
@@ -72,7 +68,7 @@ class TestProjectsVersionsViewSet:
             return_value=projects
         )
 
-        url = reverse('{0.base_name}-list'.format(self))
+        url = reverse('{0.base_name}:list'.format(self))
         response = self.client.get(url)
 
         assert response.status_code == status.HTTP_200_OK
@@ -95,7 +91,7 @@ class TestProjectsVersionsViewSet:
         )
         mocked_key = mocker.patch('versions.tasks.utils.get_latest_version_key')
 
-        url = reverse('{0.base_name}-detail'.format(self), args=['python'])
+        url = reverse('{0.base_name}:latest'.format(self), args=['python'])
         response = self.client.get(url)
         assert response.status_code == status.HTTP_200_OK
         assert response.data == {
@@ -104,7 +100,7 @@ class TestProjectsVersionsViewSet:
 
         # Wrong project name
         url = reverse(
-            '{0.base_name}-detail'.format(self), args=[get_random_string()],
+            '{0.base_name}:latest'.format(self), args=[get_random_string()],
         )
         response = self.client.get(url)
         assert response.status_code == status.HTTP_404_NOT_FOUND
@@ -134,14 +130,14 @@ class TestProjectsVersionsViewSet:
             'versions.tasks.utils.get_latest_major_versions_key',
         )
 
-        url = reverse('{0.base_name}-major'.format(self), args=['python'])
+        url = reverse('{0.base_name}:major'.format(self), args=['python'])
         response = self.client.get(url)
         assert response.status_code == status.HTTP_200_OK
         assert response.data == latest_versions
 
         # Wrong project name
         url = reverse(
-            '{0.base_name}-major'.format(self), args=[get_random_string()],
+            '{0.base_name}:major'.format(self), args=[get_random_string()],
         )
         response = self.client.get(url)
         assert response.status_code == status.HTTP_404_NOT_FOUND
@@ -172,14 +168,14 @@ class TestProjectsVersionsViewSet:
             'versions.tasks.utils.get_latest_minor_versions_key',
         )
 
-        url = reverse('{0.base_name}-minor'.format(self), args=['python'])
+        url = reverse('{0.base_name}:minor'.format(self), args=['python'])
         response = self.client.get(url)
         assert response.status_code == status.HTTP_200_OK
         assert response.data == latest_versions
 
         # Wrong project name
         url = reverse(
-            '{0.base_name}-minor'.format(self), args=[get_random_string()],
+            '{0.base_name}:minor'.format(self), args=[get_random_string()],
         )
         response = self.client.get(url)
         assert response.status_code == status.HTTP_404_NOT_FOUND

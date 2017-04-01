@@ -24,15 +24,15 @@ def test_get_projects_function(mocker):
     assert projects == {
         'python': {
             'homepage': 'https://www.python.org/',
-            'latest': '/api/v1/python/',
-            'latest_major': '/api/v1/python/major/',
-            'latest_minor': '/api/v1/python/minor/'
+            'latest': '/latest/python/',
+            'latest_major': '/latest/python/major/',
+            'latest_minor': '/latest/python/minor/'
         },
         'django': {
             'homepage': 'https://www.djangoproject.com/',
-            'latest': '/api/v1/django/',
-            'latest_major': '/api/v1/django/major/',
-            'latest_minor': '/api/v1/django/minor/'
+            'latest': '/latest/django/',
+            'latest_major': '/latest/django/major/',
+            'latest_minor': '/latest/django/minor/'
         },
     }
 
