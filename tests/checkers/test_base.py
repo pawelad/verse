@@ -27,12 +27,27 @@ class TestBaseVersionChecker:
     def instance(self, mocker):
         """Helper fixture for creating instance of an abstract class"""
         mocker.patch.multiple(self.klass, __abstractmethods__=set())
-        instance = self.klass()
-        return instance
+        return self.klass()
 
     def test_class_abstraction(self):
         """Test if the class is an abstract class"""
         assert inspect.isabstract(self.klass)
+
+    def test_class_initialization(self, mocker):
+        """Test class `__init__` method"""
+        mocker.patch.multiple(self.klass, __abstractmethods__=set())
+
+        name = 'python'
+        homepage = 'https://www.python.org/'
+        repository = 'https://github.com/python/cpython'
+
+        instance = self.klass(
+            name=name, homepage=homepage, repository=repository,
+        )
+
+        assert instance.name == name
+        assert instance.homepage == homepage
+        assert instance.repository == repository
 
     def test_class_get_versions_method(self, instance):
         """Test class `get_versions()` method"""
@@ -136,11 +151,10 @@ class TestGitHubVersionChecker:
         mocked_repo.iter_tags.return_value = mocked_tags
         mocked_github_client.repository.return_value = mocked_repo
 
-        result = instance._get_github_tags(
-            'https://github.com/pawelad/verse')
-        assert inspect.isgenerator(result)
+        result_gen = instance._get_github_tags('https://github.com/pawelad/verse')
+        assert inspect.isgenerator(result_gen)
 
-        result = list(result)
+        result = list(result_gen)
         expected_versions = [
             '17.3.2rc1', '17.3.1', '2.0.1', '2.0', 'v1.2',
             'v1.1', 'v1.0', 'v0.2.1', 'v0.2', '0.1.0',
@@ -151,6 +165,16 @@ class TestGitHubVersionChecker:
             'pawelad', 'verse',
         )
         mocked_repo.iter_tags.assert_called_once_with()
+
+        # Without explicit URL
+        instance.repository = 'https://github.com/pawelad/verse'
+        assert result == list(instance._get_github_tags())
+
+        # With normalize func
+        normalize_func = MagicMock(side_effect=versions)
+        list(instance._get_github_tags(normalize_func=normalize_func))
+
+        assert normalize_func.call_count == len(versions)
 
     def test_class_get_versions_method(self, mocker, instance):
         """Test class `get_versions()` method"""

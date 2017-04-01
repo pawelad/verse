@@ -30,3 +30,31 @@ def test_get_github_api_client_function(mocker):
 
     mocked_config.assert_called_once_with('GITHUB_TOKEN')
     mocked_github.assert_called_once_with(token='TOKEN')
+
+
+def test_deconstruct_github_url():
+    """Test `utils.deconstruct_github_url()` function"""
+    with pytest.raises(ValueError):
+        utils.deconstruct_github_url('not-a-gighub-url')
+
+    assert (
+        utils.deconstruct_github_url('https://github.com/test/foo-bar') ==
+        'test', 'foo-bar'
+    )
+    assert (
+        utils.deconstruct_github_url('https://github.com/pawelad/verse') ==
+        'pawelad', 'verse'
+    )
+
+
+def test_construct_github_url():
+    """Test `utils.construct_github_url()` function"""
+    assert (
+        utils.construct_github_url('test', 'foo-bar') ==
+        'https://github.com/test/foo-bar'
+    )
+    assert (
+        utils.construct_github_url('pawelad', 'verse') ==
+        'https://github.com/pawelad/verse'
+    )
+
