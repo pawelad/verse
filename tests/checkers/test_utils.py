@@ -34,17 +34,18 @@ def test_get_github_api_client_function(mocker):
 
 def test_deconstruct_github_url():
     """Test `utils.deconstruct_github_url()` function"""
-    with pytest.raises(ValueError):
-        utils.deconstruct_github_url('not-a-gighub-url')
-
     assert (
         utils.deconstruct_github_url('https://github.com/test/foo-bar') ==
-        'test', 'foo-bar'
+        ('test', 'foo-bar')
     )
     assert (
         utils.deconstruct_github_url('https://github.com/pawelad/verse') ==
-        'pawelad', 'verse'
+        ('pawelad', 'verse')
     )
+
+    # Wrong URL
+    with pytest.raises(ValueError):
+        utils.deconstruct_github_url('not-a-github-url')
 
 
 def test_construct_github_url():

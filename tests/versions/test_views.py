@@ -11,10 +11,11 @@ from rest_framework.reverse import reverse
 from rest_framework.test import APIClient
 
 import pytest
+from github3.repos import Repository
 
-from checkers.base import BaseVersionChecker
+from checkers.base import BaseVersionChecker, GitHubVersionChecker
 from versions import utils
-from versions.views import ProjectsVersionsViewSet
+from versions import views
 
 
 available_projects = {'python': MagicMock(spec=BaseVersionChecker)}
@@ -25,12 +26,15 @@ class TestProjectsVersionsViewSet:
     Tests for 'versions.views.ProjectsVersionsViewSet'
     """
     client = APIClient()
-    view = ProjectsVersionsViewSet
     base_name = 'versions'
 
-    def test_view_inheritance(self):
+    @pytest.fixture
+    def instance(self):
+        return views.ProjectsVersionsViewSet()
+
+    def test_view_inheritance(self, instance):
         """Test view inheritance name"""
-        assert isinstance(self.view(), viewsets.ReadOnlyModelViewSet)
+        assert isinstance(instance, viewsets.ReadOnlyModelViewSet)
 
     @pytest.mark.parametrize('suffix, expected', [
         ('List', 'Projects list'),
@@ -38,21 +42,20 @@ class TestProjectsVersionsViewSet:
         ('Major', 'Latest major versions'),
         ('Minor', 'Latest minor versions'),
     ])
-    def test_view_get_view_name_method(self, suffix, expected):
+    def test_view_get_view_name_method(self, instance, suffix, expected):
         """Test view `get_view_name()` method"""
-        instance = self.view()
         instance.suffix = suffix
 
         assert instance.get_view_name() == expected
 
-    def test_view_get_object_method(self, mocker):
+    def test_view_get_object_method(self, mocker, instance):
         """Test view `get_object()` method"""
         mocker.patch('versions.views.AVAILABLE_CHECKERS', available_projects)
-        instance = self.view()
 
         instance.kwargs = {'name': 'python'}
         assert isinstance(instance.get_object(), MagicMock)
 
+        # Nonexistent project
         instance.kwargs = {'name': get_random_string()}
         with pytest.raises(Http404):
             instance.get_object()
@@ -189,3 +192,59 @@ class TestProjectsVersionsViewSet:
             default=project.get_latest_minor_versions,
             timeout=60 * 60 * 6,
         )
+
+
+class TestGitHubProjectsVersionsViewSet:
+    """
+    Tests for 'versions.views.GitHubProjectsVersionsViewSet'
+    """
+    client = APIClient()
+    base_name = 'gh-versions'
+
+    @pytest.fixture
+    def instance(self):
+        return views.GitHubProjectsVersionsViewSet()
+
+    def test_view_inheritance(self, instance):
+        """Test view inheritance name"""
+        assert isinstance(instance, viewsets.ReadOnlyModelViewSet)
+
+    @pytest.mark.parametrize('suffix, expected', [
+        ('Latest', 'Latest GitHub repository version'),
+        ('Major', 'Latest major versions'),
+        ('Minor', 'Latest minor versions'),
+    ])
+    def test_view_get_view_name_method(self, instance, suffix, expected):
+        """Test view `get_view_name()` method"""
+        instance.suffix = suffix
+
+        assert instance.get_view_name() == expected
+
+    def test_view_get_object_method(self, mocker, instance):
+        """Test view `get_object()` method"""
+        instance.kwargs = {
+            'owner': 'pawelad',
+            'repo': 'verse',
+        }
+
+        mocked_repo = MagicMock(autospec=Repository)
+        mocked_github_client = mocker.patch('versions.views.github_client')
+        mocked_github_client.repository.return_value = mocked_repo
+
+        checker = instance.get_object()
+
+        assert isinstance(checker, GitHubVersionChecker)
+        assert checker.name == 'gh-pawelad-verse'
+        assert checker.homepage == 'https://github.com/pawelad/verse'
+        assert checker.repository == 'https://github.com/pawelad/verse'
+
+        # Nonexistent GitHub repository
+        mocked_github_client.repository.return_value = None
+
+        with pytest.raises(Http404):
+            instance.get_object()
+
+    def test_view_list_method(self, instance):
+        """Test view `list()` method"""
+        with pytest.raises(Http404):
+            instance.list(request=MagicMock())
