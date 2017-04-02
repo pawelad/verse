@@ -4,7 +4,7 @@
   "height": 24,
   "duration": 48.720747,
   "command": null,
-  "title": null,
+  "title": "Verse usage",
   "env": {
     "TERM": "xterm-256color",
     "SHELL": "/bin/zsh"
