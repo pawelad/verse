@@ -4,6 +4,7 @@ verse.checkers.projects
 Home of implemented projects checkers, loosely grouped into files
 """
 from checkers.base import BaseVersionChecker
+from checkers.utils import get_all_subclasses
 
 from checkers.projects.databases import (  # noqa
     MySQLVersionChecker, MySQLClusterVersionChecker, PostgreSQLVersionChecker,
@@ -47,6 +48,6 @@ from checkers.projects.webservers import (  # noqa
 
 AVAILABLE_CHECKERS = {
     checker.name: checker()
-    for checker in BaseVersionChecker.__subclasses__()
+    for checker in get_all_subclasses(BaseVersionChecker)
     if checker.name
 }

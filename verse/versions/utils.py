@@ -20,13 +20,13 @@ def get_projects(request):
     projects = dict()
     for project in AVAILABLE_CHECKERS.values():
         latest_url = reverse(
-            'versions:latest', args=[project.name], request=request,
+            'projects:latest', args=[project.name], request=request,
         )
         major_versions_url = reverse(
-            'versions:major', args=[project.name], request=request,
+            'projects:major', args=[project.name], request=request,
         )
         minor_versions_url = reverse(
-            'versions:minor', args=[project.name], request=request,
+            'projects:minor', args=[project.name], request=request,
         )
 
         projects[project.name] = {

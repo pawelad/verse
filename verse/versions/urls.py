@@ -9,7 +9,7 @@ from versions import views
 
 
 urlpatterns = [
-    url(r'^latest/', include([
+    url(r'^projects/', include([
         url(
             r'^$',
             views.ProjectsVersionsViewSet.as_view(
@@ -19,7 +19,7 @@ urlpatterns = [
             name='list',
         ),
         url(
-            r'^(?P<name>[-_\w]+)/$',
+            r'^(?P<project>[-_\w]+)/$',
             views.ProjectsVersionsViewSet.as_view(
                 actions={'get': 'retrieve'},
                 suffix='Latest',
@@ -27,7 +27,7 @@ urlpatterns = [
             name='latest',
         ),
         url(
-            r'^(?P<name>[-_\w]+)/major/$',
+            r'^(?P<project>[-_\w]+)/major/$',
             views.ProjectsVersionsViewSet.as_view(
                 actions={'get': 'major'},
                 suffix='Major',
@@ -35,14 +35,14 @@ urlpatterns = [
             name='major',
         ),
         url(
-            r'^(?P<name>[-_\w]+)/minor/$',
+            r'^(?P<project>[-_\w]+)/minor/$',
             views.ProjectsVersionsViewSet.as_view(
                 actions={'get': 'minor'},
                 suffix='Minor',
             ),
             name='minor',
         ),
-    ], namespace='versions')),
+    ], namespace='projects')),
     url(r'^gh/', include([
         url(
             r'^(?P<owner>[-_\w]+)/(?P<repo>[-_\w]+)/$',
@@ -68,7 +68,7 @@ urlpatterns = [
             ),
             name='minor',
         ),
-    ], namespace='gh-versions')),
+    ], namespace='github-projects')),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

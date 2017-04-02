@@ -26,7 +26,7 @@ class TestProjectsVersionsViewSet:
     Tests for 'versions.views.ProjectsVersionsViewSet'
     """
     client = APIClient()
-    base_name = 'versions'
+    base_name = 'projects'
 
     @pytest.fixture
     def instance(self):
@@ -52,11 +52,11 @@ class TestProjectsVersionsViewSet:
         """Test view `get_object()` method"""
         mocker.patch('versions.views.AVAILABLE_CHECKERS', available_projects)
 
-        instance.kwargs = {'name': 'python'}
+        instance.kwargs = {'project': 'python'}
         assert isinstance(instance.get_object(), MagicMock)
 
         # Nonexistent project
-        instance.kwargs = {'name': get_random_string()}
+        instance.kwargs = {'project': get_random_string()}
         with pytest.raises(Http404):
             instance.get_object()
 
@@ -199,7 +199,7 @@ class TestGitHubProjectsVersionsViewSet:
     Tests for 'versions.views.GitHubProjectsVersionsViewSet'
     """
     client = APIClient()
-    base_name = 'gh-versions'
+    base_name = 'github-projects'
 
     @pytest.fixture
     def instance(self):

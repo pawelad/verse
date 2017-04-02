@@ -19,13 +19,13 @@ class ProjectsVersionsViewSet(viewsets.ReadOnlyModelViewSet):
     This endpoint returns latest version information for the passed project.
     It's readonly and has four simple methods:
 
-    - `/`: Returns a list of all currently supported projects with links to
-      relevant API endpoints
-    - `/:project`: Returns project latest stable version
-    - `/:project/major`: Returns project latest stable version for each
-      major release
-    - `/:project/minor`: Returns project latest stable version for each
-      minor release
+    - `/projects/`: Returns a list of all currently supported projects with
+      links to relevant API endpoints
+    - `/projects/:project/`: Returns project latest stable version
+    - `/projects/:project/major/`: Returns project latest stable version for
+      each major release
+    - `/projects/:project/minor/`: Returns project latest stable version for
+      each minor release
     """
     def get_view_name(self):
         """
@@ -52,7 +52,7 @@ class ProjectsVersionsViewSet(viewsets.ReadOnlyModelViewSet):
         :returns: project checker instance
         :rtype: checkers.base.BaseChecker
         """
-        project_name = self.kwargs.get('name', None)
+        project_name = self.kwargs.get('project', None)
 
         try:
             return AVAILABLE_CHECKERS[project_name]
@@ -126,11 +126,11 @@ class GitHubProjectsVersionsViewSet(ProjectsVersionsViewSet):
     This endpoint returns latest version information for the passed GitHub
     repository. It's readonly and has three simple methods:
 
-    - `/:owner/:repo`: Returns GitHub repository latest stable version
-    - `/:project/:repo/major`: Returns GitHub repository latest stable version
-      for each major release
-    - `/:project/:repo/minor`: Returns GitHub repository latest stable version
-      for each minor release
+    - `/gh/:owner/:repo/`: Returns GitHub repository latest stable version
+    - `/gh/:project/:repo/major/`: Returns GitHub repository latest stable
+      version for each major release
+    - `/gh/:project/:repo/minor/`: Returns GitHub repository latest stable
+      version for each minor release
     """
     def get_view_name(self):
         """
@@ -156,14 +156,14 @@ class GitHubProjectsVersionsViewSet(ProjectsVersionsViewSet):
         :rtype: checkers.base.GitHubVersionChecker
         """
         owner = self.kwargs.get('owner', None)
-        repo = self.kwargs.get('repo', None)
+        repo_name = self.kwargs.get('repo', None)
 
-        repository = github_client.repository(owner, repo)
+        repository = github_client.repository(owner, repo_name)
         if not repository:
             raise Http404
 
-        name = 'gh-{}-{}'.format(owner, repo)
-        github_url = construct_github_url(owner, repo)
+        name = 'gh-{}-{}'.format(owner, repo_name)
+        github_url = construct_github_url(owner, repo_name)
         checker = GitHubVersionChecker(
             name=name, homepage=github_url, repository=github_url,
         )

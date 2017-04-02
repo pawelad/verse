@@ -12,7 +12,7 @@ GITHUB_PREFIX = 'https://github.com/'
 
 def remove_prefix(text, prefix, silent=True):
     """
-    Helper method for removing a prefix from a string.
+    Helper function for removing a prefix from a string.
 
     :param text: text
     :type text: str
@@ -37,9 +37,27 @@ def remove_prefix(text, prefix, silent=True):
     )
 
 
+def get_all_subclasses(cls):
+    """
+    Helper function for getting all subclasses of passed class, including
+    sub-sub-classes, etc.
+    
+    :param cls: class
+    :type cls: class
+    :returns: list of all subclasses
+    :rtype: list
+    """
+    all_subclasses = list()
+    for subclass in cls.__subclasses__():
+        all_subclasses.append(subclass)
+        all_subclasses.extend(get_all_subclasses(subclass))
+
+    return all_subclasses
+
+
 def get_github_api_client():
     """
-    Helper method for initializing GitHub API client
+    Helper function for initializing GitHub API client
 
     :return: github3.Github
     """
@@ -52,7 +70,7 @@ github_client = get_github_api_client()
 
 def deconstruct_github_url(url):
     """
-    Helper method for deconstructing GitHub repository URL and returning its
+    Helper function for deconstructing GitHub repository URL and returning its
     owner and name
 
     :param url: GitHub repository URL
@@ -65,23 +83,23 @@ def deconstruct_github_url(url):
             "Passed URL is not a GitHub repository: {}".format(url)
         )
 
-    owner, name = remove_prefix(url, GITHUB_PREFIX).split('/')[:2]
+    owner, repo = remove_prefix(url, GITHUB_PREFIX).split('/')[:2]
 
-    return owner, name
+    return owner, repo
 
 
-def construct_github_url(owner, name):
+def construct_github_url(owner, repo):
     """
-    Helper method for constructing GitHub repository URL from its owner
+    Helper function for constructing GitHub repository URL from its owner
     and name
 
     :param owner: GitHub repository owner
     :type owner: str
-    :param name: GitHub repository name
-    :type name: str
+    :param repo: GitHub repository name
+    :type repo: str
     :returns: repository URL
     :rtype: str
     """
     return urljoin(
-        GITHUB_PREFIX, '{}/{}'.format(owner, name),
+        GITHUB_PREFIX, '{}/{}'.format(owner, repo),
     )
