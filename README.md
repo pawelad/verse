@@ -57,7 +57,7 @@ configurable, but for reference here are the ones that I use locally:
 $ cat .env
 SECRET_KEY='...'
 DEBUG=True
-DATABASE_URL='postgres://localhost/verse
+DATABASE_URL='postgres://localhost/verse'
 REDIS_CACHE_URL='redis://127.0.0.1:6379/0'
 CELERY_BROKER_URL='redis://127.0.0.1:6379/1'
 GITHUB_TOKEN='...'

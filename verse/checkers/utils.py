@@ -61,7 +61,7 @@ def get_github_api_client():
 
     :return: github3.Github
     """
-    token = config('GITHUB_TOKEN')
+    token = config('GITHUB_TOKEN', default=None)
     return GitHub(token=token)
 
 
