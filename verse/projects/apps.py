@@ -1,5 +1,5 @@
 """
-Versions module AppConfig integration
+Projects module AppConfig integration
 """
 from contextlib import suppress
 
@@ -8,15 +8,15 @@ from django.core.cache import cache
 
 import redis
 
-from versions import utils
+from projects import utils
 
 
-class VersionsAppConfig(AppConfig):
+class ProjectsAppConfig(AppConfig):
     """
-    Django AppConfig integration for `versions` module
+    Django AppConfig integration for `projects` module
     """
-    name = 'versions'
-    verbose_name = 'Project versions'
+    name = 'projects'
+    verbose_name = 'Projects'
 
     def ready(self):
         # Delete cached projects list

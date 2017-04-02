@@ -1,11 +1,10 @@
 """
-Versions module URLs config
+Projects module URLs config
 """
 from django.conf.urls import url, include
-
 from rest_framework.urlpatterns import format_suffix_patterns
 
-from versions import views
+from projects import views
 
 
 urlpatterns = [

@@ -1,5 +1,5 @@
 """
-Versions module misc utilities
+Projects module misc utilities
 """
 from rest_framework.reverse import reverse
 

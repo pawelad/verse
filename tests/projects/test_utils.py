@@ -1,12 +1,12 @@
 """
-Test `versions.utils` file
+Test `projects.utils` file
 """
 from django.utils.crypto import get_random_string
 
 import pytest
 
 from checkers.projects import PythonVersionChecker, DjangoVersionChecker
-from versions import utils
+from projects import utils
 
 
 available_projects = {
@@ -17,7 +17,7 @@ available_projects = {
 
 def test_get_projects_function(mocker):
     """Test `utils.get_projects()` function"""
-    mocker.patch('versions.utils.AVAILABLE_CHECKERS', available_projects)
+    mocker.patch('projects.utils.AVAILABLE_CHECKERS', available_projects)
 
     projects = utils.get_projects(request=None)
 

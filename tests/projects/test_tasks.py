@@ -1,12 +1,12 @@
 """
-Test `versions.tasks` file
+Test `projects.tasks` file
 """
 from unittest.mock import MagicMock
 
 from celery.schedules import crontab
 
 from checkers.base import BaseVersionChecker
-from versions import tasks
+from projects import tasks
 
 
 available_projects = {
@@ -24,13 +24,13 @@ def test_setup_periodic_tasks(mocker):
     sender.add_periodic_task.return_value = mocked_add_periodic_task
 
     mocked_cache_all_projects_latest_version = mocker.patch(
-        'versions.tasks.cache_all_projects_latest_version'
+        'projects.tasks.cache_all_projects_latest_version'
     )
     mocked_cache_all_projects_latest_major_versions = mocker.patch(
-        'versions.tasks.cache_all_projects_latest_major_versions'
+        'projects.tasks.cache_all_projects_latest_major_versions'
     )
     mocked_cache_all_projects_latest_minor_versions = mocker.patch(
-        'versions.tasks.cache_all_projects_latest_minor_versions'
+        'projects.tasks.cache_all_projects_latest_minor_versions'
     )
 
     tasks.setup_periodic_tasks(sender)
@@ -57,12 +57,12 @@ def test_cache_latest_major_versions(mocker):
     """
     Test `tasks.cache_latest_major_versions`
     """
-    mocker.patch('versions.tasks.AVAILABLE_CHECKERS', available_projects)
+    mocker.patch('projects.tasks.AVAILABLE_CHECKERS', available_projects)
     project = available_projects['python']
 
-    mocked_cache_set = mocker.patch('versions.tasks.cache.set')
+    mocked_cache_set = mocker.patch('projects.tasks.cache.set')
     mocked_key = mocker.patch(
-        'versions.tasks.utils.get_latest_major_versions_key',
+        'projects.tasks.utils.get_latest_major_versions_key',
     )
 
     tasks.cache_latest_major_versions('python')
@@ -77,9 +77,9 @@ def test_cache_all_projects_latest_major_versions(mocker):
     """
     Test `tasks.cache_all_projects_latest_major_versions`
     """
-    mocker.patch('versions.tasks.AVAILABLE_CHECKERS', available_projects)
+    mocker.patch('projects.tasks.AVAILABLE_CHECKERS', available_projects)
     mocked_cache_latest_major_versions = mocker.patch(
-        'versions.tasks.cache_latest_major_versions',
+        'projects.tasks.cache_latest_major_versions',
     )
 
     tasks.cache_all_projects_latest_major_versions()
@@ -94,12 +94,12 @@ def test_cache_latest_minor_versions(mocker):
     """
     Test `tasks.cache_latest_minor_versions`
     """
-    mocker.patch('versions.tasks.AVAILABLE_CHECKERS', available_projects)
+    mocker.patch('projects.tasks.AVAILABLE_CHECKERS', available_projects)
     project = available_projects['python']
 
-    mocked_cache_set = mocker.patch('versions.tasks.cache.set')
+    mocked_cache_set = mocker.patch('projects.tasks.cache.set')
     mocked_key = mocker.patch(
-        'versions.tasks.utils.get_latest_minor_versions_key',
+        'projects.tasks.utils.get_latest_minor_versions_key',
     )
 
     tasks.cache_latest_minor_versions('python')
@@ -114,9 +114,9 @@ def test_cache_all_projects_latest_minor_versions(mocker):
     """
     Test `tasks.cache_all_projects_latest_minor_versions`
     """
-    mocker.patch('versions.tasks.AVAILABLE_CHECKERS', available_projects)
+    mocker.patch('projects.tasks.AVAILABLE_CHECKERS', available_projects)
     mocked_cache_latest_minor_versions = mocker.patch(
-        'versions.tasks.cache_latest_minor_versions',
+        'projects.tasks.cache_latest_minor_versions',
     )
 
     tasks.cache_all_projects_latest_minor_versions()
@@ -131,20 +131,20 @@ def test_cache_latest_project_version(mocker):
     """
     Test `tasks.cache_latest_project_version`
     """
-    mocker.patch('versions.tasks.AVAILABLE_CHECKERS', available_projects)
+    mocker.patch('projects.tasks.AVAILABLE_CHECKERS', available_projects)
     project = available_projects['python']
 
     latest_version = '1.0.0'
-    mocked_key = mocker.patch('versions.tasks.utils.get_latest_version_key')
+    mocked_key = mocker.patch('projects.tasks.utils.get_latest_version_key')
     mocked_cache_get = mocker.patch(
-        'versions.tasks.cache.get', return_value=latest_version,
+        'projects.tasks.cache.get', return_value=latest_version,
     )
 
     mocked_cache_latest_major_versions = mocker.patch(
-        'versions.tasks.cache_latest_major_versions',
+        'projects.tasks.cache_latest_major_versions',
     )
     mocked_cache_latest_minor_versions = mocker.patch(
-        'versions.tasks.cache_latest_minor_versions',
+        'projects.tasks.cache_latest_minor_versions',
     )
 
     # Same version
@@ -173,9 +173,9 @@ def test_cache_all_projects_latest_version(mocker):
     """
     Test `tasks.cache_all_projects_latest_version`
     """
-    mocker.patch('versions.tasks.AVAILABLE_CHECKERS', available_projects)
+    mocker.patch('projects.tasks.AVAILABLE_CHECKERS', available_projects)
     mocked_cache_latest_project_version = mocker.patch(
-        'versions.tasks.cache_latest_project_version',
+        'projects.tasks.cache_latest_project_version',
     )
 
     tasks.cache_all_projects_latest_version()

@@ -1,13 +1,13 @@
 """
-Versions module Celery tasks
+Projects module Celery tasks
 """
 from django.core.cache import cache
 
 from celery.schedules import crontab
 
 from checkers.projects import AVAILABLE_CHECKERS
+from projects import utils
 from verse.celery import app as celery_app
-from versions import utils
 
 
 @celery_app.on_after_finalize.connect

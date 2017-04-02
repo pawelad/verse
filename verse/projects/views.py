@@ -1,9 +1,8 @@
 """
-Versions module API views
+Projects module API views
 """
 from django.core.cache import cache
 from django.http import Http404
-
 from rest_framework import viewsets
 from rest_framework.decorators import detail_route
 from rest_framework.response import Response
@@ -11,7 +10,7 @@ from rest_framework.response import Response
 from checkers.base import GitHubVersionChecker
 from checkers.projects import AVAILABLE_CHECKERS
 from checkers.utils import github_client, construct_github_url
-from versions import utils
+from projects import utils
 
 
 class ProjectsVersionsViewSet(viewsets.ReadOnlyModelViewSet):

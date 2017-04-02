@@ -1,11 +1,10 @@
 """
-Test `versions.views` file
+Test `projects.views` file
 """
 from unittest.mock import MagicMock
 
 from django.http import Http404
 from django.utils.crypto import get_random_string
-
 from rest_framework import viewsets, status
 from rest_framework.reverse import reverse
 from rest_framework.test import APIClient
@@ -14,8 +13,8 @@ import pytest
 from github3.repos import Repository
 
 from checkers.base import BaseVersionChecker, GitHubVersionChecker
-from versions import utils
-from versions import views
+from projects import utils
+from projects import views
 
 
 available_projects = {'python': MagicMock(spec=BaseVersionChecker)}
@@ -23,7 +22,7 @@ available_projects = {'python': MagicMock(spec=BaseVersionChecker)}
 
 class TestProjectsVersionsViewSet:
     """
-    Tests for 'versions.views.ProjectsVersionsViewSet'
+    Tests for 'views.ProjectsVersionsViewSet'
     """
     client = APIClient()
     base_name = 'projects'
@@ -50,7 +49,7 @@ class TestProjectsVersionsViewSet:
 
     def test_view_get_object_method(self, mocker, instance):
         """Test view `get_object()` method"""
-        mocker.patch('versions.views.AVAILABLE_CHECKERS', available_projects)
+        mocker.patch('projects.views.AVAILABLE_CHECKERS', available_projects)
 
         instance.kwargs = {'project': 'python'}
         assert isinstance(instance.get_object(), MagicMock)
@@ -64,10 +63,10 @@ class TestProjectsVersionsViewSet:
         """Test view `list()` method"""
         projects = {get_random_string(): get_random_string()}
         mocked_get_projects = mocker.patch(
-            'versions.views.utils.get_projects',
+            'projects.views.utils.get_projects',
         )
         mocked_get_or_set = mocker.patch(
-            'versions.views.cache.get_or_set',
+            'projects.views.cache.get_or_set',
             return_value=projects
         )
 
@@ -85,15 +84,15 @@ class TestProjectsVersionsViewSet:
 
     def test_view_retrieve_method(self, mocker):
         """Test view `retrieve()` method"""
-        mocker.patch('versions.views.AVAILABLE_CHECKERS', available_projects)
+        mocker.patch('projects.views.AVAILABLE_CHECKERS', available_projects)
         project = available_projects['python']
 
         latest_version = '0.1.1'
         mocked_get_or_set = mocker.patch(
-            'versions.views.cache.get_or_set', return_value=latest_version,
+            'projects.views.cache.get_or_set', return_value=latest_version,
         )
         mocked_key = mocker.patch(
-            'versions.tasks.utils.get_latest_version_key'
+            'projects.tasks.utils.get_latest_version_key'
         )
 
         url = reverse('{0.base_name}:latest'.format(self), args=['python'])
@@ -120,7 +119,7 @@ class TestProjectsVersionsViewSet:
 
     def test_view_major_method(self, mocker):
         """Test view `major()` method"""
-        mocker.patch('versions.views.AVAILABLE_CHECKERS', available_projects)
+        mocker.patch('projects.views.AVAILABLE_CHECKERS', available_projects)
         project = available_projects['python']
 
         latest_versions = {
@@ -128,11 +127,11 @@ class TestProjectsVersionsViewSet:
             '0': '0.12.0',
         }
         mocked_get_or_set = mocker.patch(
-            'versions.views.cache.get_or_set',
-            return_value=latest_versions
+            'projects.views.cache.get_or_set',
+            return_value=latest_versions,
         )
         mocked_key = mocker.patch(
-            'versions.tasks.utils.get_latest_major_versions_key',
+            'projects.tasks.utils.get_latest_major_versions_key',
         )
 
         url = reverse('{0.base_name}:major'.format(self), args=['python'])
@@ -157,7 +156,7 @@ class TestProjectsVersionsViewSet:
 
     def test_view_minor_method(self, mocker):
         """Test view `minor()` method"""
-        mocker.patch('versions.views.AVAILABLE_CHECKERS', available_projects)
+        mocker.patch('projects.views.AVAILABLE_CHECKERS', available_projects)
         project = available_projects['python']
 
         latest_versions = {
@@ -166,11 +165,11 @@ class TestProjectsVersionsViewSet:
             '1.0': '1.0.2',
         }
         mocked_get_or_set = mocker.patch(
-            'versions.views.cache.get_or_set',
+            'projects.views.cache.get_or_set',
             return_value=latest_versions,
         )
         mocked_key = mocker.patch(
-            'versions.tasks.utils.get_latest_minor_versions_key',
+            'projects.tasks.utils.get_latest_minor_versions_key',
         )
 
         url = reverse('{0.base_name}:minor'.format(self), args=['python'])
@@ -196,7 +195,7 @@ class TestProjectsVersionsViewSet:
 
 class TestGitHubProjectsVersionsViewSet:
     """
-    Tests for 'versions.views.GitHubProjectsVersionsViewSet'
+    Tests for 'views.GitHubProjectsVersionsViewSet'
     """
     client = APIClient()
     base_name = 'github-projects'
@@ -228,7 +227,7 @@ class TestGitHubProjectsVersionsViewSet:
         }
 
         mocked_repo = MagicMock(autospec=Repository)
-        mocked_github_client = mocker.patch('versions.views.github_client')
+        mocked_github_client = mocker.patch('projects.views.github_client')
         mocked_github_client.repository.return_value = mocked_repo
 
         checker = instance.get_object()
