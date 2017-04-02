@@ -41,7 +41,7 @@ def get_all_subclasses(cls):
     """
     Helper function for getting all subclasses of passed class, including
     sub-sub-classes, etc.
-    
+
     :param cls: class
     :type cls: class
     :returns: list of all subclasses

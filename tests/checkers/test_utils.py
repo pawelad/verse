@@ -58,4 +58,3 @@ def test_construct_github_url():
         utils.construct_github_url('pawelad', 'verse') ==
         'https://github.com/pawelad/verse'
     )
-

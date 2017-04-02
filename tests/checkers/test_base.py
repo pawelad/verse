@@ -151,7 +151,9 @@ class TestGitHubVersionChecker:
         mocked_repo.iter_tags.return_value = mocked_tags
         mocked_github_client.repository.return_value = mocked_repo
 
-        result_gen = instance._get_github_tags('https://github.com/pawelad/verse')
+        result_gen = instance._get_github_tags(
+            'https://github.com/pawelad/verse'
+        )
         assert inspect.isgenerator(result_gen)
 
         result = list(result_gen)
