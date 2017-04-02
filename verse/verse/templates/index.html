@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="asciinema-player">
-                            <asciinema-player src="{% static 'usage_asciicast.json' %}" title="Verse API usage"></asciinema-player>
+                            <asciinema-player src="{% static 'usage_asciicast.json' %}" title="Verse API usage" poster="npt:0:10"></asciinema-player>
                         </div>
                     </div>
 
@@ -19,6 +19,10 @@
                         <p class="lead">
                             Verse is a RESTful API that checks the latest version of your favourite open source project
                             and simplifies the whole process to one HTTP request. Just like that.
+                        </p>
+                        <p class="lead">
+                            You can either choose one of the available projects or provide a GitHub repository
+                            and use it as the source of released versions.
                         </p>
                         <p class="lead">
                             Feel free to visit <a href="https://github.com/pawelad/verse">GitHub</a> for more information,
