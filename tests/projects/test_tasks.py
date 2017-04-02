@@ -158,9 +158,13 @@ def test_cache_latest_project_version(mocker):
 
     # Different version
     project.get_latest_version.return_value = '0.9.0'
+    mocked_cache_set = mocker.patch('projects.tasks.cache.set')
 
     tasks.cache_latest_project_version('python')
 
+    mocked_cache_set.assert_called_once_with(
+        mocked_key.return_value, '0.9.0',
+    )
     mocked_cache_latest_major_versions.delay.assert_called_once_with(
         project.name,
     )

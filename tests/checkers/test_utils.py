@@ -28,7 +28,7 @@ def test_get_github_api_client_function(mocker):
 
     assert isinstance(utils.get_github_api_client(), Mock)
 
-    mocked_config.assert_called_once_with('GITHUB_TOKEN')
+    mocked_config.assert_called_once_with('GITHUB_TOKEN', default=None)
     mocked_github.assert_called_once_with(token='TOKEN')
 
 
