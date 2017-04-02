@@ -50,7 +50,7 @@ Take a look [here][verse running locally] if you want to run Verse locally.
 ## Authors
 Developed and maintained by [Paweł Adamczak][pawelad].
 
-Released under [MIT License][license].
+Released under [Apache License 2.0][license].
 
 
 [coveralls]: https://coveralls.io/github/pawelad/verse
