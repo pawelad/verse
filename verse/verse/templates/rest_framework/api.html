@@ -1,16 +1,67 @@
 {% extends "rest_framework/base.html" %}
+{% load static %}
+{% load rest_framework %}
 
 
 {% block title %}
     {% if name %}{{ name }} | {% endif %}Verse
-{% endblock %}
+{% endblock title %}
+
 
 {% block bootstrap_theme %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/paper/bootstrap.min.css">
-{% endblock %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Scope+One">
+    <link rel="stylesheet" href="{% static 'css/browsable-api.css' %}" >
+{% endblock bootstrap_theme %}
 
-{% block branding %}
-    <a class="navbar-brand" href="/">
-        Verse API
-    </a>
-{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-default navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                {% block branding %}
+                    <a class="navbar-brand" href="{% url 'index' %}">
+                        verse
+                    </a>
+                {% endblock branding %}
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbar">
+                {# Left side #}
+                <ul class="nav navbar-nav">
+                    {% block userlinks %}
+                        {% if user.is_authenticated %}
+                            {% optional_logout request user %}
+                        {% else %}
+                            {% optional_login request %}
+                        {% endif %}
+                    {% endblock userlinks %}
+                </ul>
+
+                {# Right side #}
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="{% url 'api-docs:docs-index' %}">
+                            <i class="fa fa-fw fa-lg fa-book"></i>
+                            Docs
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/pawelad/verse">
+                            <i class="fa fa-fw fa-lg fa-github"></i>
+                            GitHub
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock navbar %}
