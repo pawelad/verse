@@ -23,12 +23,14 @@ def test_get_projects_function(mocker):
 
     assert projects == {
         'python': {
+            'name': 'Python',
             'homepage': 'https://www.python.org/',
             'latest': '/projects/python/',
             'latest_major': '/projects/python/major/',
             'latest_minor': '/projects/python/minor/'
         },
         'django': {
+            'name': 'Django',
             'homepage': 'https://www.djangoproject.com/',
             'latest': '/projects/django/',
             'latest_major': '/projects/django/major/',

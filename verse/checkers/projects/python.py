@@ -8,7 +8,8 @@ class PythonVersionChecker(base.GitHubVersionChecker):
     """
     Python project checker
     """
-    name = 'python'
+    name = 'Python'
+    slug = 'python'
     homepage = 'https://www.python.org/'
     repository = 'https://github.com/python/cpython'
 
@@ -17,7 +18,8 @@ class AnsibleVersionChecker(base.GitHubVersionChecker):
     """
     Ansible project checker
     """
-    name = 'ansible'
+    name = 'Ansible'
+    slug = 'ansible'
     homepage = 'https://www.ansible.com/'
     repository = 'https://github.com/ansible/ansible'
 
@@ -26,7 +28,8 @@ class CeleryVersionChecker(base.GitHubVersionChecker):
     """
     Celery project checker
     """
-    name = 'celery'
+    name = 'Celery'
+    slug = 'celery'
     homepage = 'http://www.celeryproject.org/'
     repository = 'https://github.com/celery/celery'
 
@@ -35,7 +38,8 @@ class DjangoVersionChecker(base.GitHubVersionChecker):
     """
     Django project checker
     """
-    name = 'django'
+    name = 'Django'
+    slug = 'django'
     homepage = 'https://www.djangoproject.com/'
     repository = 'https://github.com/django/django'
 
@@ -44,7 +48,8 @@ class DjangoRESTFrameworkVersionChecker(base.GitHubVersionChecker):
     """
     Django REST Framework project checker
     """
-    name = 'django-rest-framework'
+    name = 'Django REST Framework'
+    slug = 'django-rest-framework'
     homepage = 'http://www.django-rest-framework.org/'
     repository = 'https://github.com/tomchristie/django-rest-framework'
 
@@ -53,7 +58,8 @@ class FlaskVersionChecker(base.GitHubVersionChecker):
     """
     Flask project checker
     """
-    name = 'flask'
+    name = 'Flask'
+    slug = 'flask'
     homepage = 'http://flask.pocoo.org/'
     repository = 'https://github.com/pallets/flask'
 
@@ -62,7 +68,8 @@ class GunicornVersionChecker(base.GitHubVersionChecker):
     """
     Gunicorn project checker
     """
-    name = 'gunicorn'
+    name = 'Gunicorn'
+    slug = 'gunicorn'
     homepage = 'http://gunicorn.org/'
     repository = 'https://github.com/benoitc/gunicorn'
 
@@ -71,7 +78,8 @@ class RequestsVersionChecker(base.GitHubVersionChecker):
     """
     Requests project checker
     """
-    name = 'requests'
+    name = 'Requests'
+    slug = 'python-requests'
     homepage = 'http://docs.python-requests.org/'
     repository = 'https://github.com/kennethreitz/requests'
 
@@ -103,6 +111,7 @@ class ScrapyVersionChecker(base.GitHubVersionChecker):
     """
     Scrapy project checker
     """
-    name = 'scrapy'
+    name = 'Scrapy'
+    slug = 'scrapy'
     homepage = 'https://scrapy.org/'
     repository = 'https://github.com/scrapy/scrapy'

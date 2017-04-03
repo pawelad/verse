@@ -25,7 +25,8 @@ class TestCassandraVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'cassandra'
+        assert instance.name == 'Cassandra'
+        assert instance.slug == 'cassandra'
         assert instance.homepage == 'http://cassandra.apache.org/'
         assert instance.repository == 'https://github.com/apache/cassandra'
 
@@ -65,7 +66,8 @@ class TestElasticsearchVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'elasticsearch'
+        assert instance.name == 'Elasticsearch'
+        assert instance.slug == 'elasticsearch'
         assert (
             instance.homepage ==
             'https://www.elastic.co/products/elasticsearch'
@@ -91,7 +93,8 @@ class TestMongoDBVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'mongodb'
+        assert instance.name == 'MongoDB'
+        assert instance.slug == 'mongodb'
         assert instance.homepage == 'https://www.mongodb.com/'
         assert instance.repository == 'https://github.com/mongodb/mongo'
 
@@ -138,7 +141,8 @@ class TestRedisVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'redis'
+        assert instance.name == 'Redis'
+        assert instance.slug == 'redis'
         assert instance.homepage == 'https://redis.io/'
         assert instance.repository == 'https://github.com/antirez/redis'
 

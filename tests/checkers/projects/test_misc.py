@@ -22,7 +22,8 @@ class TestLinuxKernelVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'linux-kernel'
+        assert instance.name == 'Linux kernel'
+        assert instance.slug == 'linux-kernel'
         assert instance.homepage == 'https://www.kernel.org/'
         assert instance.repository == 'https://github.com/torvalds/linux'
 
@@ -42,7 +43,8 @@ class TestRabbitMQVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'rabbitmq'
+        assert instance.name == 'RabbitMQ'
+        assert instance.slug == 'rabbitmq'
         assert instance.homepage == 'https://www.rabbitmq.com/'
         assert (
             instance.repository ==
@@ -82,7 +84,8 @@ class TestSupervisorVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'supervisor'
+        assert instance.name == 'Supervisor'
+        assert instance.slug == 'supervisor'
         assert instance.homepage == 'http://supervisord.org/'
         assert (
             instance.repository ==
@@ -105,6 +108,7 @@ class TestVagrantVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'vagrant'
+        assert instance.name == 'Vagrant'
+        assert instance.slug == 'vagrant'
         assert instance.homepage == 'https://www.vagrantup.com/'
         assert instance.repository == 'https://github.com/mitchellh/vagrant'

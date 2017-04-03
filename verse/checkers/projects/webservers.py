@@ -7,9 +7,10 @@ from checkers.utils import remove_prefix
 
 class ApacheVersionChecker(base.GitHubVersionChecker):
     """
-    Apache httpd project checker
+    Apache HTTP Server project checker
     """
-    name = 'apache-httpd'
+    name = 'Apache HTTP Server'
+    slug = 'apache-httpd'
     homepage = 'http://httpd.apache.org/'
     repository = 'https://github.com/apache/httpd'
 
@@ -18,7 +19,8 @@ class NginxVersionChecker(base.GitHubVersionChecker):
     """
     Nginx project checker
     """
-    name = 'nginx'
+    name = 'Nginx'
+    slug = 'nginx'
     homepage = 'http://nginx.org/'
     repository = 'https://github.com/nginx/nginx'
 

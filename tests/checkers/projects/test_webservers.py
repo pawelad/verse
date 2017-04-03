@@ -22,7 +22,8 @@ class TestApacheVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'apache-httpd'
+        assert instance.name == 'Apache HTTP Server'
+        assert instance.slug == 'apache-httpd'
         assert instance.homepage == 'http://httpd.apache.org/'
         assert instance.repository == 'https://github.com/apache/httpd'
 
@@ -42,7 +43,8 @@ class TestNginxVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'nginx'
+        assert instance.name == 'Nginx'
+        assert instance.slug == 'nginx'
         assert instance.homepage == 'http://nginx.org/'
         assert instance.repository == 'https://github.com/nginx/nginx'
 

@@ -10,7 +10,8 @@ class AngularVersionChecker(base.GitHubVersionChecker):
     """
     Angular project checker
     """
-    name = 'angular'
+    name = 'Angular'
+    slug = 'angular'
     homepage = 'https://angular.io/'
     repository = 'https://github.com/angular/angular'
 
@@ -19,7 +20,8 @@ class BackboneVersionChecker(base.GitHubVersionChecker):
     """
     Backbone project checker
     """
-    name = 'backbone'
+    name = 'Backbone'
+    slug = 'backbone'
     homepage = 'http://backbonejs.org/'
     repository = 'https://github.com/jashkenas/backbone'
 
@@ -28,7 +30,8 @@ class D3JSVersionChecker(base.GitHubVersionChecker):
     """
     D3.js project checker
     """
-    name = 'd3js'
+    name = 'D3.js'
+    slug = 'd3js'
     homepage = 'https://d3js.org/'
     repository = 'https://github.com/d3/d3'
 
@@ -37,7 +40,8 @@ class EmberJSVersionChecker(base.GitHubVersionChecker):
     """
     Ember.js project checker
     """
-    name = 'emberjs'
+    name = 'Ember.js'
+    slug = 'emberjs'
     homepage = 'https://www.emberjs.com/'
     repository = 'https://github.com/emberjs/ember.js'
 
@@ -46,7 +50,8 @@ class jQueryVersionChecker(base.GitHubVersionChecker):
     """
     jQuery project checker
     """
-    name = 'jquery'
+    name = 'jQuery'
+    slug = 'jquery'
     homepage = 'https://jquery.com/'
     repository = 'https://github.com/jquery/jquery'
 
@@ -55,7 +60,8 @@ class NodeJSVersionChecker(base.GitHubVersionChecker):
     """
     Node.js project checker
     """
-    name = 'nodejs'
+    name = 'Node.js'
+    slug = 'nodejs'
     homepage = 'https://nodejs.org/'
     repository = 'https://github.com/nodejs/node'
 
@@ -64,7 +70,8 @@ class ReactVersionChecker(base.GitHubVersionChecker):
     """
     React project checker
     """
-    name = 'react'
+    name = 'React'
+    slug = 'react'
     homepage = 'https://facebook.github.io/react/'
     repository = 'https://github.com/facebook/react'
 
@@ -73,7 +80,8 @@ class VueJSVersionChecker(base.GitHubVersionChecker):
     """
     Vue.js project checker
     """
-    name = 'vuejs'
+    name = 'Vue.js'
+    slug = 'vuejs'
     homepage = 'http://vuejs.org/'
     repository = 'https://github.com/vuejs/vue'
 

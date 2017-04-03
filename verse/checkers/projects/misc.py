@@ -9,7 +9,8 @@ class LinuxKernelVersionChecker(base.GitHubVersionChecker):
     """
     Linux kernel project checker
     """
-    name = 'linux-kernel'
+    name = 'Linux kernel'
+    slug = 'linux-kernel'
     homepage = 'https://www.kernel.org/'
     repository = 'https://github.com/torvalds/linux'
 
@@ -18,7 +19,8 @@ class RabbitMQVersionChecker(base.GitHubVersionChecker):
     """
     RabbitMQ project checker
     """
-    name = 'rabbitmq'
+    name = 'RabbitMQ'
+    slug = 'rabbitmq'
     homepage = 'https://www.rabbitmq.com/'
     repository = 'https://github.com/rabbitmq/rabbitmq-server'
 
@@ -53,7 +55,8 @@ class SupervisorVersionChecker(base.GitHubVersionChecker):
     """
     Supervisor project checker
     """
-    name = 'supervisor'
+    name = 'Supervisor'
+    slug = 'supervisor'
     homepage = 'http://supervisord.org/'
     repository = 'https://github.com/Supervisor/supervisor'
 
@@ -62,6 +65,7 @@ class VagrantVersionChecker(base.GitHubVersionChecker):
     """
     Vagrant project checker
     """
-    name = 'vagrant'
+    name = 'Vagrant'
+    slug = 'vagrant'
     homepage = 'https://www.vagrantup.com/'
     repository = 'https://github.com/mitchellh/vagrant'

@@ -22,7 +22,8 @@ class TestPythonVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'python'
+        assert instance.name == 'Python'
+        assert instance.slug == 'python'
         assert instance.homepage == 'https://www.python.org/'
         assert instance.repository == 'https://github.com/python/cpython'
 
@@ -42,7 +43,8 @@ class TestAnsibleVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'ansible'
+        assert instance.name == 'Ansible'
+        assert instance.slug == 'ansible'
         assert instance.homepage == 'https://www.ansible.com/'
         assert instance.repository == 'https://github.com/ansible/ansible'
 
@@ -62,7 +64,8 @@ class TestCeleryVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'celery'
+        assert instance.name == 'Celery'
+        assert instance.slug == 'celery'
         assert instance.homepage == 'http://www.celeryproject.org/'
         assert instance.repository == 'https://github.com/celery/celery'
 
@@ -82,7 +85,8 @@ class TestDjangoVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'django'
+        assert instance.name == 'Django'
+        assert instance.slug == 'django'
         assert instance.homepage == 'https://www.djangoproject.com/'
         assert instance.repository == 'https://github.com/django/django'
 
@@ -102,7 +106,8 @@ class TestDjangoRESTFrameworkVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'django-rest-framework'
+        assert instance.name == 'Django REST Framework'
+        assert instance.slug == 'django-rest-framework'
         assert instance.homepage == 'http://www.django-rest-framework.org/'
         assert (
             instance.repository ==
@@ -125,7 +130,8 @@ class TestFlaskVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'flask'
+        assert instance.name == 'Flask'
+        assert instance.slug == 'flask'
         assert instance.homepage == 'http://flask.pocoo.org/'
         assert instance.repository == 'https://github.com/pallets/flask'
 
@@ -145,7 +151,8 @@ class TestGunicornVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'gunicorn'
+        assert instance.name == 'Gunicorn'
+        assert instance.slug == 'gunicorn'
         assert instance.homepage == 'http://gunicorn.org/'
         assert instance.repository == 'https://github.com/benoitc/gunicorn'
 
@@ -165,7 +172,8 @@ class TestRequestsVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'requests'
+        assert instance.name == 'Requests'
+        assert instance.slug == 'python-requests'
         assert instance.homepage == 'http://docs.python-requests.org/'
         assert (
             instance.repository ==
@@ -205,6 +213,7 @@ class TestScrapyVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'scrapy'
+        assert instance.name == 'Scrapy'
+        assert instance.slug == 'scrapy'
         assert instance.homepage == 'https://scrapy.org/'
         assert instance.repository == 'https://github.com/scrapy/scrapy'

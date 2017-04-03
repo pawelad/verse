@@ -41,7 +41,7 @@ def cache_latest_major_versions(project_name):
     project = AVAILABLE_CHECKERS[project_name]
 
     cache.set(
-        key=utils.get_latest_major_versions_key(project.name),
+        key=utils.get_latest_major_versions_key(project.slug),
         value=project.get_latest_major_versions(),
     )
 
@@ -53,7 +53,7 @@ def cache_all_projects_latest_major_versions():
     for all projects
     """
     for project in AVAILABLE_CHECKERS.values():
-        cache_latest_major_versions.delay(project.name)
+        cache_latest_major_versions.delay(project.slug)
 
 
 @celery_app.task
@@ -68,7 +68,7 @@ def cache_latest_minor_versions(project_name):
     project = AVAILABLE_CHECKERS[project_name]
 
     cache.set(
-        key=utils.get_latest_minor_versions_key(project.name),
+        key=utils.get_latest_minor_versions_key(project.slug),
         value=project.get_latest_minor_versions(),
     )
 
@@ -80,7 +80,7 @@ def cache_all_projects_latest_minor_versions():
     for all projects
     """
     for project in AVAILABLE_CHECKERS.values():
-        cache_latest_minor_versions.delay(project.name)
+        cache_latest_minor_versions.delay(project.slug)
 
 
 @celery_app.task
@@ -94,7 +94,7 @@ def cache_latest_project_version(project_name):
     """
     project = AVAILABLE_CHECKERS[project_name]
 
-    key = utils.get_latest_version_key(project.name)
+    key = utils.get_latest_version_key(project.slug)
     current_version = cache.get(key)
     latest_version = project.get_latest_version()
 
@@ -102,8 +102,8 @@ def cache_latest_project_version(project_name):
         cache.set(key, latest_version)
 
         # Also update other values
-        cache_latest_major_versions.delay(project.name)
-        cache_latest_minor_versions.delay(project.name)
+        cache_latest_major_versions.delay(project.slug)
+        cache_latest_minor_versions.delay(project.slug)
 
 
 @celery_app.task
@@ -113,4 +113,4 @@ def cache_all_projects_latest_version():
     for all projects
     """
     for project in AVAILABLE_CHECKERS.values():
-        cache_latest_project_version.delay(project.name)
+        cache_latest_project_version.delay(project.slug)

@@ -11,6 +11,7 @@ from github3.repos.tag import RepoTag
 from packaging.version import Version
 
 from checkers.base import BaseVersionChecker, GitHubVersionChecker
+from checkers.projects import AVAILABLE_CHECKERS
 
 
 class TestBaseVersionChecker:
@@ -187,3 +188,14 @@ class TestGitHubVersionChecker:
         assert instance.get_versions() == mocked_get_github_tags.return_value
 
         mocked_get_github_tags.assert_called_once_with()
+
+
+def test_checkers_slug_uniqueness():
+    """Test checkers slug uniqueness"""
+    used_slugs = set()
+    for project in AVAILABLE_CHECKERS.values():
+        slug = project.slug
+
+        assert slug not in used_slugs
+
+        used_slugs.add(project.slug)

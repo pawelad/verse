@@ -152,7 +152,7 @@ def test_cache_latest_project_version(mocker):
 
     tasks.cache_latest_project_version('python')
 
-    mocked_key.assert_called_once_with(project.name)
+    mocked_key.assert_called_once_with(project.slug)
     mocked_cache_get.assert_called_once_with(mocked_key.return_value)
     project.get_latest_version.assert_called_once_with()
 
@@ -166,10 +166,10 @@ def test_cache_latest_project_version(mocker):
         mocked_key.return_value, '0.9.0',
     )
     mocked_cache_latest_major_versions.delay.assert_called_once_with(
-        project.name,
+        project.slug,
     )
     mocked_cache_latest_minor_versions.delay.assert_called_once_with(
-        project.name,
+        project.slug,
     )
 
 

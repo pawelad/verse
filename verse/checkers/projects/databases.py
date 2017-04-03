@@ -9,7 +9,8 @@ class MySQLVersionChecker(base.GitHubVersionChecker):
     """
     MySQL project checker
     """
-    name = 'mysql'
+    name = 'MySQL'
+    slug = 'mysql'
     homepage = 'https://www.mysql.com/'
     repository = 'https://github.com/mysql/mysql-server'
 
@@ -48,7 +49,8 @@ class MySQLClusterVersionChecker(base.GitHubVersionChecker):
     """
     MySQL Cluster project checker
     """
-    name = 'mysql-cluster'
+    name = 'MySQL Cluster'
+    slug = 'mysql-cluster'
     homepage = 'https://www.mysql.com/'
     repository = 'https://github.com/mysql/mysql-server'
 
@@ -82,7 +84,8 @@ class PostgreSQLVersionChecker(base.GitHubVersionChecker):
     """
     PostgreSQL project checker
     """
-    name = 'postgresql'
+    name = 'PostgreSQL'
+    slug = 'postgresql'
     homepage = 'https://www.postgresql.org/'
     repository = 'https://github.com/postgres/postgres'
 
@@ -117,7 +120,8 @@ class SQLiteVersionChecker(base.GitHubVersionChecker):
     """
     SQLite project checker
     """
-    name = 'sqlite'
+    name = 'SQLite'
+    slug = 'sqlite'
     homepage = 'https://www.sqlite.org/'
     repository = 'https://github.com/mackyle/sqlite'
 

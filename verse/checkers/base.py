@@ -12,16 +12,19 @@ class BaseVersionChecker(metaclass=ABCMeta):
     """
     Base checker abstract class that all checkers should inherit from
     """
-    name = None  # has to be unique
+    name = None
+    slug = None  # has to be unique
     homepage = None
     repository = None
 
-    def __init__(self, name=None, homepage=None, repository=None):
+    def __init__(self, name=None, slug=None, homepage=None, repository=None):
         """
         Save passed arguments on initialization
 
         :param name: project name
         :type name: str
+        :param slug: project slug
+        :type slug: str
         :param homepage: project homepage URL
         :type homepage: str
         :param repository: project repository URL
@@ -29,6 +32,8 @@ class BaseVersionChecker(metaclass=ABCMeta):
         """
         if name:
             self.name = name
+        if slug:
+            self.slug = slug
         if homepage:
             self.homepage = homepage
         if repository:

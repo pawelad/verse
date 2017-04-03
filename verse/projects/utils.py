@@ -20,16 +20,17 @@ def get_projects(request):
     projects = dict()
     for project in AVAILABLE_CHECKERS.values():
         latest_url = reverse(
-            'projects:latest', args=[project.name], request=request,
+            'projects:latest', args=[project.slug], request=request,
         )
         major_versions_url = reverse(
-            'projects:major', args=[project.name], request=request,
+            'projects:major', args=[project.slug], request=request,
         )
         minor_versions_url = reverse(
-            'projects:minor', args=[project.name], request=request,
+            'projects:minor', args=[project.slug], request=request,
         )
 
-        projects[project.name] = {
+        projects[project.slug] = {
+            'name': project.name,
             'homepage': project.homepage,
             'latest': latest_url,
             'latest_major': major_versions_url,
@@ -42,55 +43,55 @@ def get_projects(request):
 AVAILABLE_PROJECTS_KEY = 'available_projects'
 
 
-def get_latest_version_key(project_name):
+def get_latest_version_key(project_slug):
     """
     Helper method for getting project latest version storage key
 
-    :param project_name: project name
-    :type project_name: str
+    :param project_slug: project slug
+    :type project_slug: str
     :returns: storage key for project latest version
     :rtype: str
     :raises ValueError: `when project_name` is empty
     """
-    if not project_name:
+    if not project_slug:
         raise ValueError(
-            "'project_name' can't be empty: {}".format(project_name)
+            "'project_slug' can't be empty: {}".format(project_slug)
         )
 
-    return '{project}_latest_version'.format(project=project_name)
+    return '{project}_latest_version'.format(project=project_slug)
 
 
-def get_latest_major_versions_key(project_name):
+def get_latest_major_versions_key(project_slug):
     """
     Helper method for getting project latest major versions storage key
 
-    :param project_name: project name
-    :type project_name: str
+    :param project_slug: project slug
+    :type project_slug: str
     :returns: storage key for project latest major versions
     :rtype: str
     :raises ValueError: `when project_name` is empty
     """
-    if not project_name:
+    if not project_slug:
         raise ValueError(
-            "'project_name' can't be empty: {}".format(project_name)
+            "'project_slug' can't be empty: {}".format(project_slug)
         )
 
-    return '{project}_latest_major_versions'.format(project=project_name)
+    return '{project}_latest_major_versions'.format(project=project_slug)
 
 
-def get_latest_minor_versions_key(project_name):
+def get_latest_minor_versions_key(project_slug):
     """
     Helper method for getting project latest minor versions storage key
 
-    :param project_name: project name
-    :type project_name: str
+    :param project_slug: project slug
+    :type project_slug: str
     :returns: storage key for project latest minor versions
     :rtype: str
     :raises ValueError: `when project_name` is empty
     """
-    if not project_name:
+    if not project_slug:
         raise ValueError(
-            "'project_name' can't be empty: {}".format(project_name)
+            "'project_slug' can't be empty: {}".format(project_slug)
         )
 
-    return '{project}_latest_minor_versions'.format(project=project_name)
+    return '{project}_latest_minor_versions'.format(project=project_slug)

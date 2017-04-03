@@ -109,7 +109,7 @@ class TestProjectsVersionsViewSet:
         response = self.client.get(url)
         assert response.status_code == status.HTTP_404_NOT_FOUND
 
-        mocked_key.assert_called_once_with(project.name)
+        mocked_key.assert_called_once_with(project.slug)
 
         mocked_get_or_set.assert_called_once_with(
             key=mocked_key.return_value,
@@ -146,7 +146,7 @@ class TestProjectsVersionsViewSet:
         response = self.client.get(url)
         assert response.status_code == status.HTTP_404_NOT_FOUND
 
-        mocked_key.assert_called_once_with(project.name)
+        mocked_key.assert_called_once_with(project.slug)
 
         mocked_get_or_set.assert_called_once_with(
             key=mocked_key.return_value,
@@ -184,7 +184,7 @@ class TestProjectsVersionsViewSet:
         response = self.client.get(url)
         assert response.status_code == status.HTTP_404_NOT_FOUND
 
-        mocked_key.assert_called_once_with(project.name)
+        mocked_key.assert_called_once_with(project.slug)
 
         mocked_get_or_set.assert_called_once_with(
             key=mocked_key.return_value,
@@ -233,7 +233,7 @@ class TestGitHubProjectsVersionsViewSet:
         checker = instance.get_object()
 
         assert isinstance(checker, GitHubVersionChecker)
-        assert checker.name == 'gh-pawelad-verse'
+        assert checker.slug == 'gh-pawelad-verse'
         assert checker.homepage == 'https://github.com/pawelad/verse'
         assert checker.repository == 'https://github.com/pawelad/verse'
 

@@ -22,7 +22,8 @@ class TestMySQLVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'mysql'
+        assert instance.name == 'MySQL'
+        assert instance.slug == 'mysql'
         assert instance.homepage == 'https://www.mysql.com/'
         assert instance.repository == 'https://github.com/mysql/mysql-server'
 
@@ -61,7 +62,8 @@ class TestMySQLClusterVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'mysql-cluster'
+        assert instance.name == 'MySQL Cluster'
+        assert instance.slug == 'mysql-cluster'
         assert instance.homepage == 'https://www.mysql.com/'
         assert instance.repository == 'https://github.com/mysql/mysql-server'
 
@@ -99,7 +101,8 @@ class TestPostgreSQLVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'postgresql'
+        assert instance.name == 'PostgreSQL'
+        assert instance.slug == 'postgresql'
         assert instance.homepage == 'https://www.postgresql.org/'
         assert instance.repository == 'https://github.com/postgres/postgres'
 
@@ -137,7 +140,8 @@ class TestSQLiteVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'sqlite'
+        assert instance.name == 'SQLite'
+        assert instance.slug == 'sqlite'
         assert instance.homepage == 'https://www.sqlite.org/'
         assert instance.repository == 'https://github.com/mackyle/sqlite'
 

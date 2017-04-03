@@ -9,7 +9,8 @@ class GoVersionChecker(base.GitHubVersionChecker):
     """
     Go project checker
     """
-    name = 'go'
+    name = 'Go'
+    slug = 'go'
     homepage = 'https://golang.org/'
     repository = 'https://github.com/golang/go'
 
@@ -39,7 +40,8 @@ class DockerVersionChecker(base.GitHubVersionChecker):
     """
     Docker project checker
     """
-    name = 'docker'
+    name = 'Docker'
+    slug = 'docker'
     homepage = 'https://www.docker.com/'
     repository = 'https://github.com/docker/docker'
 
@@ -72,6 +74,7 @@ class KubernetesVersionChecker(base.GitHubVersionChecker):
     """
     Kubernetes project checker
     """
-    name = 'kubernetes'
+    name = 'Kubernetes'
+    slug = 'kubernetes'
     homepage = 'https://kubernetes.io/'
     repository = 'https://github.com/kubernetes/kubernetes'

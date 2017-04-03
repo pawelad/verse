@@ -8,7 +8,8 @@ class RubyVersionChecker(base.GitHubVersionChecker):
     """
     Ruby project checker
     """
-    name = 'ruby'
+    name = 'Ruby'
+    slug = 'ruby'
     homepage = 'http://www.ruby-lang.org/'
     repository = 'https://github.com/ruby/ruby'
 
@@ -38,7 +39,8 @@ class RailsVersionChecker(base.GitHubVersionChecker):
     """
     Ruby on Rails project checker
     """
-    name = 'rails'
+    name = 'Ruby on Rails'
+    slug = 'rails'
     homepage = 'http://rubyonrails.org/'
     repository = 'https://github.com/rails/rails'
 
@@ -47,6 +49,7 @@ class JekyllVersionChecker(base.GitHubVersionChecker):
     """
     Jekyll project checker
     """
-    name = 'jekyll'
+    name = 'Jekyll'
+    slug = 'jekyll'
     homepage = 'https://jekyllrb.com/'
     repository = 'https://github.com/jekyll/jekyll'

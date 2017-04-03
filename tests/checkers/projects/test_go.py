@@ -22,7 +22,8 @@ class TestGoVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'go'
+        assert instance.name == 'Go'
+        assert instance.slug == 'go'
         assert instance.homepage == 'https://golang.org/'
         assert instance.repository == 'https://github.com/golang/go'
 
@@ -59,7 +60,8 @@ class TestDockerVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'docker'
+        assert instance.name == 'Docker'
+        assert instance.slug == 'docker'
         assert instance.homepage == 'https://www.docker.com/'
         assert instance.repository == 'https://github.com/docker/docker'
 
@@ -96,7 +98,8 @@ class TestKubernetesVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'kubernetes'
+        assert instance.name == 'Kubernetes'
+        assert instance.slug == 'kubernetes'
         assert instance.homepage == 'https://kubernetes.io/'
         assert (
             instance.repository ==

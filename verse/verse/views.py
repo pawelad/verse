@@ -22,13 +22,13 @@ class IndexView(TemplateView):
         available projects to view context
         """
         available_projects = list()
-        for project_name in AVAILABLE_CHECKERS.keys():
+        for project in AVAILABLE_CHECKERS.values():
             url = reverse(
-                'projects:latest', args=[project_name], request=self.request,
+                'projects:latest', args=[project.slug], request=self.request,
             )
 
             project = {
-                'name': project_name,
+                'name': project.name,
                 'url': url,
             }
             available_projects.append(project)

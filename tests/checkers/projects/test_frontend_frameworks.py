@@ -22,7 +22,8 @@ class TestBootstrapVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'bootstrap'
+        assert instance.name == 'Bootstrap'
+        assert instance.slug == 'bootstrap'
         assert instance.homepage == 'http://getbootstrap.com/'
         assert instance.repository == 'https://github.com/twbs/bootstrap'
 
@@ -42,7 +43,8 @@ class TestFontAwesomeVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'font-awesome'
+        assert instance.name == 'Font Awesome'
+        assert instance.slug == 'font-awesome'
         assert instance.homepage == 'http://fontawesome.io/'
         assert (
             instance.repository ==
@@ -82,7 +84,8 @@ class TestMDLVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'mdl'
+        assert instance.name == 'Material Design Lite'
+        assert instance.slug == 'mdl'
         assert instance.homepage == 'https://getmdl.io/'
         assert (
             instance.repository ==

@@ -11,7 +11,8 @@ class CassandraVersionChecker(base.GitHubVersionChecker):
     """
     Cassandra project checker
     """
-    name = 'cassandra'
+    name = 'Cassandra'
+    slug = 'cassandra'
     homepage = 'http://cassandra.apache.org/'
     repository = 'https://github.com/apache/cassandra'
 
@@ -41,7 +42,8 @@ class ElasticsearchVersionChecker(base.GitHubVersionChecker):
     """
     Elasticsearch project checker
     """
-    name = 'elasticsearch'
+    name = 'Elasticsearch'
+    slug = 'elasticsearch'
     homepage = 'https://www.elastic.co/products/elasticsearch'
     repository = 'https://github.com/elastic/elasticsearch'
 
@@ -50,7 +52,8 @@ class MongoDBVersionChecker(base.GitHubVersionChecker):
     """
     MongoDB project checker
     """
-    name = 'mongodb'
+    name = 'MongoDB'
+    slug = 'mongodb'
     homepage = 'https://www.mongodb.com/'
     repository = 'https://github.com/mongodb/mongo'
 
@@ -89,7 +92,8 @@ class RedisVersionChecker(base.GitHubVersionChecker):
     """
     Redis project checker
     """
-    name = 'redis'
+    name = 'Redis'
+    slug = 'redis'
     homepage = 'https://redis.io/'
     repository = 'https://github.com/antirez/redis'
 

@@ -22,7 +22,8 @@ class TestGitVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'git'
+        assert instance.name == 'Git'
+        assert instance.slug == 'git'
         assert instance.homepage == 'https://git-scm.com/'
         assert instance.repository == 'https://github.com/git/git'
 
@@ -42,7 +43,8 @@ class TestGitLabVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'gitlab'
+        assert instance.name == 'GitLab'
+        assert instance.slug == 'gitlab'
         assert instance.homepage == 'https://gitlab.com'
         assert instance.repository == 'https://github.com/gitlabhq/gitlabhq'
 
@@ -62,6 +64,7 @@ class TestGogsVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'gogs'
+        assert instance.name == 'Gogs'
+        assert instance.slug == 'gogs'
         assert instance.homepage == 'https://gogs.io/'
         assert instance.repository == 'https://github.com/gogits/gogs'

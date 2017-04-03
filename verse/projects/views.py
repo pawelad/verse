@@ -51,10 +51,10 @@ class ProjectsVersionsViewSet(viewsets.ReadOnlyModelViewSet):
         :returns: project checker instance
         :rtype: checkers.base.BaseChecker
         """
-        project_name = self.kwargs.get('project', None)
+        project_slug = self.kwargs.get('project', None)
 
         try:
-            return AVAILABLE_CHECKERS[project_name]
+            return AVAILABLE_CHECKERS[project_slug]
         except KeyError:
             raise Http404
 
@@ -80,7 +80,7 @@ class ProjectsVersionsViewSet(viewsets.ReadOnlyModelViewSet):
         project = self.get_object()
 
         latest_version = cache.get_or_set(
-            key=utils.get_latest_version_key(project.name),
+            key=utils.get_latest_version_key(project.slug),
             default=project.get_latest_version,
             timeout=60 * 60,  # 1 hour
         )
@@ -97,7 +97,7 @@ class ProjectsVersionsViewSet(viewsets.ReadOnlyModelViewSet):
         project = self.get_object()
 
         latest_versions = cache.get_or_set(
-            key=utils.get_latest_major_versions_key(project.name),
+            key=utils.get_latest_major_versions_key(project.slug),
             default=project.get_latest_major_versions,
             timeout=60 * 60 * 6,  # 6 hours
         )
@@ -112,7 +112,7 @@ class ProjectsVersionsViewSet(viewsets.ReadOnlyModelViewSet):
         project = self.get_object()
 
         latest_versions = cache.get_or_set(
-            key=utils.get_latest_minor_versions_key(project.name),
+            key=utils.get_latest_minor_versions_key(project.slug),
             default=project.get_latest_minor_versions,
             timeout=60 * 60 * 6,  # 6 hours
         )
@@ -161,10 +161,10 @@ class GitHubProjectsVersionsViewSet(ProjectsVersionsViewSet):
         if not repository:
             raise Http404
 
-        name = 'gh-{}-{}'.format(owner, repo_name)
+        slug = 'gh-{}-{}'.format(owner, repo_name)
         github_url = construct_github_url(owner, repo_name)
         checker = GitHubVersionChecker(
-            name=name, homepage=github_url, repository=github_url,
+            slug=slug, homepage=github_url, repository=github_url,
         )
 
         return checker

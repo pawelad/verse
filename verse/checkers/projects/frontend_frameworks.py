@@ -8,7 +8,8 @@ class BootstrapVersionChecker(base.GitHubVersionChecker):
     """
     Bootstrap project checker
     """
-    name = 'bootstrap'
+    name = 'Bootstrap'
+    slug = 'bootstrap'
     homepage = 'http://getbootstrap.com/'
     repository = 'https://github.com/twbs/bootstrap'
 
@@ -17,7 +18,8 @@ class FontAwesomeVersionChecker(base.GitHubVersionChecker):
     """
     Font Awesome project checker
     """
-    name = 'font-awesome'
+    name = 'Font Awesome'
+    slug = 'font-awesome'
     homepage = 'http://fontawesome.io/'
     repository = 'https://github.com/FortAwesome/Font-Awesome'
 
@@ -54,6 +56,7 @@ class MDLVersionChecker(base.GitHubVersionChecker):
     """
     Material Design Lite project checker
     """
-    name = 'mdl'
+    name = 'Material Design Lite'
+    slug = 'mdl'
     homepage = 'https://getmdl.io/'
     repository = 'https://github.com/google/material-design-lite'

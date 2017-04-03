@@ -25,7 +25,8 @@ class TestAngularVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'angular'
+        assert instance.name == 'Angular'
+        assert instance.slug == 'angular'
         assert instance.homepage == 'https://angular.io/'
         assert instance.repository == 'https://github.com/angular/angular'
 
@@ -45,7 +46,8 @@ class TestBackboneVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'backbone'
+        assert instance.name == 'Backbone'
+        assert instance.slug == 'backbone'
         assert instance.homepage == 'http://backbonejs.org/'
         assert instance.repository == 'https://github.com/jashkenas/backbone'
 
@@ -65,7 +67,8 @@ class TestD3JSVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'd3js'
+        assert instance.name == 'D3.js'
+        assert instance.slug == 'd3js'
         assert instance.homepage == 'https://d3js.org/'
         assert instance.repository == 'https://github.com/d3/d3'
 
@@ -85,7 +88,8 @@ class TestEmberJSVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'emberjs'
+        assert instance.name == 'Ember.js'
+        assert instance.slug == 'emberjs'
         assert instance.homepage == 'https://www.emberjs.com/'
         assert instance.repository == 'https://github.com/emberjs/ember.js'
 
@@ -105,7 +109,8 @@ class TestjQueryVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'jquery'
+        assert instance.name == 'jQuery'
+        assert instance.slug == 'jquery'
         assert instance.homepage == 'https://jquery.com/'
         assert instance.repository == 'https://github.com/jquery/jquery'
 
@@ -125,7 +130,8 @@ class TestNodeJSVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'nodejs'
+        assert instance.name == 'Node.js'
+        assert instance.slug == 'nodejs'
         assert instance.homepage == 'https://nodejs.org/'
         assert instance.repository == 'https://github.com/nodejs/node'
 
@@ -145,7 +151,8 @@ class TestReactVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'react'
+        assert instance.name == 'React'
+        assert instance.slug == 'react'
         assert instance.homepage == 'https://facebook.github.io/react/'
         assert instance.repository == 'https://github.com/facebook/react'
 
@@ -165,7 +172,8 @@ class TestVueJSVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'vuejs'
+        assert instance.name == 'Vue.js'
+        assert instance.slug == 'vuejs'
         assert instance.homepage == 'http://vuejs.org/'
         assert instance.repository == 'https://github.com/vuejs/vue'
 

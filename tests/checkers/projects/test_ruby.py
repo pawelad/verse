@@ -22,7 +22,8 @@ class TestRubyVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'ruby'
+        assert instance.name == 'Ruby'
+        assert instance.slug == 'ruby'
         assert instance.homepage == 'http://www.ruby-lang.org/'
         assert instance.repository == 'https://github.com/ruby/ruby'
 
@@ -59,7 +60,8 @@ class TestRailsVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'rails'
+        assert instance.name == 'Ruby on Rails'
+        assert instance.slug == 'rails'
         assert instance.homepage == 'http://rubyonrails.org/'
         assert instance.repository == 'https://github.com/rails/rails'
 
@@ -79,6 +81,7 @@ class TestJekyllVersionChecker:
 
     def test_class_properties(self, instance):
         """Test class properties"""
-        assert instance.name == 'jekyll'
+        assert instance.name == 'Jekyll'
+        assert instance.slug == 'jekyll'
         assert instance.homepage == 'https://jekyllrb.com/'
         assert instance.repository == 'https://github.com/jekyll/jekyll'
