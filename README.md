@@ -22,7 +22,7 @@ for new projects and features to add, bug reports, help with design, etc.
 And yeah, don't worry - a _cool_ domain is also on the list of things to do.
 
 ## Usage
-<a href="https://asciinema.org/a/110316" target="_blank"><img src="https://asciinema.org/a/110316.png" alt="Verse usage" width="600px"></a>
+<a href="https://asciinema.org/a/110529" target="_blank"><img src="https://asciinema.org/a/110529.png" alt="Verse usage" width="600px"></a>
 
 ## Contributions
 Package source code is available at [GitHub][github].
