@@ -18,7 +18,7 @@ class ProjectsVersionsViewSet(viewsets.ReadOnlyModelViewSet):
     This endpoint returns latest version information for the passed project.
     It's readonly and has four simple methods:
 
-    - `/projects/`: Returns a list of all currently supported projects with
+    - `/projects/`: Returns a list of all currently available projects with
       links to relevant API endpoints
     - `/projects/:project/`: Returns project latest stable version
     - `/projects/:project/major/`: Returns project latest stable version for
@@ -60,7 +60,7 @@ class ProjectsVersionsViewSet(viewsets.ReadOnlyModelViewSet):
 
     def list(self, request, *args, **kwargs):
         """
-        Returns a list of all currently supported projects with links to
+        Returns a list of all currently available projects with links to
         relevant API endpoints
         """
         # Project list can only change with code addition and app restart,
