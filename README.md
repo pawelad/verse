@@ -13,7 +13,7 @@ that.
 
 It comes with a bunch of [available projects][verse available projects] - with
 much more on the way - and also allows using any GitHub repository as a source
-of released versions, as long as it uses tags and [standardized][pep440]
+of released versions, as long as it uses tags and [standard-ish][pep440]
 version names. And if it doesn't - feel free to [suggest][github add issue]
 adding it and I'll be happy to help.
 
@@ -28,8 +28,6 @@ Oh, and don't worry - a _cool_ domain is also on the list of things to do.
 <a href="https://asciinema.org/a/110529" target="_blank"><img src="https://asciinema.org/a/110529.png" alt="Verse usage" width="600px"></a>
 
 ## Contributions
-Package source code is available at [GitHub][github].
-
 Feel free to use, ask, fork, star, report bugs, fix them, suggest enhancements,
 add functionality and point out any mistakes. Thanks!
 
