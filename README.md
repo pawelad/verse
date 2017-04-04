@@ -36,7 +36,7 @@ locally.
 
 ## Tests
 Package was tested with the help of `py.test` and `tox` on Python 3.4, 3.5
-and 3.6 with Django 1.10 and Django REST Framework 3.6 (see `tox.ini`).
+and 3.6 with Django 1.11 and Django REST Framework 3.6 (see `tox.ini`).
 
 Code coverage is available at [Coveralls][coveralls].
 
